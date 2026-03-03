@@ -23,7 +23,6 @@ public class ThirdPersonController_NewInput : MonoBehaviour
     private InputAction runAction;
 
     private Vector3 velocity;
-
     void Awake()
     {
         controller = GetComponent<CharacterController>();
