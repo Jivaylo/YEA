@@ -17,12 +17,14 @@ public class ThirdPersonController_NewInput : MonoBehaviour
 
     [Header("References")]
     public Transform cameraTransform;
+    public Animator animator;
 
     private CharacterController controller;
     private InputAction moveAction;
     private InputAction runAction;
 
     private Vector3 velocity;
+
     void Awake()
     {
         controller = GetComponent<CharacterController>();
@@ -61,14 +63,17 @@ public class ThirdPersonController_NewInput : MonoBehaviour
 
         Vector3 camForward = cameraTransform.forward;
         Vector3 camRight = cameraTransform.right;
-        camForward.y = 0;
-        camRight.y = 0;
+        camForward.y = 0f;
+        camRight.y = 0f;
         camForward.Normalize();
         camRight.Normalize();
 
         Vector3 moveDir = camForward * move.z + camRight * move.x;
 
-        float speed = runAction.IsPressed() ? runSpeed : walkSpeed;
+        bool isMoving = move.magnitude > 0.1f;
+        bool isSprinting = runAction.IsPressed() && isMoving;
+
+        float speed = isSprinting ? runSpeed : walkSpeed;
 
         controller.Move(moveDir * speed * Time.deltaTime);
 
@@ -77,11 +82,24 @@ public class ThirdPersonController_NewInput : MonoBehaviour
             Quaternion targetRot = Quaternion.LookRotation(moveDir);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
         }
+
+        if (animator != null)
+        {
+            float animSpeed = 0f;
+
+            if (isMoving)
+            {
+                animSpeed = isSprinting ? 1f : 0.6f;
+            }
+
+            animator.SetFloat("Speed", animSpeed);
+            animator.SetBool("Sprint", isSprinting);
+        }
     }
 
     void ApplyGravity()
     {
-        if (controller.isGrounded && velocity.y < 0)
+        if (controller.isGrounded && velocity.y < 0f)
             velocity.y = -2f;
 
         velocity.y += gravity * Time.deltaTime;
