@@ -24,25 +24,8 @@ public class Note : MonoBehaviour
 
     void Start()
     {
-        var renderer = arrowVisual.GetComponent<Renderer>();
-
         SetDirection(direction);
-
-        switch (direction)
-        {
-            case Direction.Left:
-                renderer.material.color = Color.red;
-                break;
-            case Direction.Down:
-                renderer.material.color = Color.blue;
-                break;
-            case Direction.Up:
-                renderer.material.color = Color.green;
-                break;
-            case Direction.Right:
-                renderer.material.color = Color.yellow;
-                break;
-        }
+        SetColor(noteMod);
     }
 
     private Quaternion baseRotation;
@@ -50,6 +33,20 @@ public class Note : MonoBehaviour
     void Awake()
     {
         baseRotation = arrowVisual.localRotation;
+    }
+
+    public void SetColor(NoteMod mod)
+    {
+        var renderer = arrowVisual.GetComponent<Renderer>();
+        switch (mod)
+        {
+            case NoteMod.Normal:
+                renderer.material.color = Color.green;
+                break;
+            case NoteMod.Reversed:
+                renderer.material.color = Color.red;
+                break;
+        }
     }
 
     public void SetDirection(Direction dir)
@@ -75,7 +72,14 @@ public class Note : MonoBehaviour
                 break;
         }
 
+        if (noteMod == NoteMod.Reversed)
+        {
+            offset *= Quaternion.Euler(0, 0, 180);
+        }
+
         arrowVisual.localRotation = baseRotation * offset;
+
+        
     }
 
 
