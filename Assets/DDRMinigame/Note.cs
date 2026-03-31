@@ -7,15 +7,26 @@ public enum Direction
     Right
 }
 
+public enum NoteMod
+{
+    Normal,
+    Reversed
+}
 public class Note : MonoBehaviour
 {
     public float speed = 5f;
 
     public Direction direction;
 
+    public NoteMod noteMod;
+
+    [SerializeField] private Transform arrowVisual;
+
     void Start()
     {
-        var renderer = GetComponent<Renderer>();
+        var renderer = arrowVisual.GetComponent<Renderer>();
+
+        SetDirection(direction);
 
         switch (direction)
         {
@@ -33,6 +44,40 @@ public class Note : MonoBehaviour
                 break;
         }
     }
+
+    private Quaternion baseRotation;
+
+    void Awake()
+    {
+        baseRotation = arrowVisual.localRotation;
+    }
+
+    public void SetDirection(Direction dir)
+    {
+        Quaternion offset = Quaternion.identity;
+
+        switch (dir)
+        {
+            case Direction.Up:
+                offset = Quaternion.Euler(0, 0, 90);
+                break;
+
+            case Direction.Down:
+                offset = Quaternion.Euler(0, 0, -90);
+                break;
+
+            case Direction.Left:
+                offset = Quaternion.Euler(0, 0, 0);
+                break;
+
+            case Direction.Right:
+                offset = Quaternion.Euler(0, 0, 180);
+                break;
+        }
+
+        arrowVisual.localRotation = baseRotation * offset;
+    }
+
 
     void Update()
     {
