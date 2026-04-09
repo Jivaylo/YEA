@@ -71,9 +71,9 @@ public class ThirdPersonController_NewInput : MonoBehaviour
         Vector3 moveDir = camForward * move.z + camRight * move.x;
 
         bool isMoving = move.magnitude > 0.1f;
-        bool isSprinting = runAction.IsPressed() && isMoving;
+        bool isRunning = runAction.IsPressed() && isMoving;
 
-        float speed = isSprinting ? runSpeed : walkSpeed;
+        float speed = isRunning ? runSpeed : walkSpeed;
 
         controller.Move(moveDir * speed * Time.deltaTime);
 
@@ -89,11 +89,10 @@ public class ThirdPersonController_NewInput : MonoBehaviour
 
             if (isMoving)
             {
-                animSpeed = isSprinting ? 1f : 0.6f;
+                animSpeed = isRunning ? 1f : 0.5f;
             }
 
             animator.SetFloat("Speed", animSpeed);
-            animator.SetBool("Sprint", isSprinting);
         }
     }
 
