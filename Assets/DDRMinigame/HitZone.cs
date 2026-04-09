@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 public class HitZone : MonoBehaviour
 {
     private Note currentNote;
+    private TraumaInducer inducer;
 
     void OnTriggerEnter(Collider other)
     {
@@ -21,6 +23,10 @@ public class HitZone : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        inducer = GetComponent<TraumaInducer>();
+    }
     void Update()
     {
         if (currentNote == null) return;
@@ -47,8 +53,9 @@ public class HitZone : MonoBehaviour
         {
             Debug.Log("Correct Hit! Direction: " + dir);
 
-            // remove the note (for now)
+            // remove the note
             Destroy(currentNote.gameObject);
+            // inducer.DoTrauma();
 
             currentNote = null;
 
