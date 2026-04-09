@@ -7,32 +7,81 @@ public enum Direction
     Right
 }
 
+public enum NoteMod
+{
+    Normal,
+    Reversed
+}
 public class Note : MonoBehaviour
 {
     public float speed = 5f;
 
     public Direction direction;
 
+    public NoteMod noteMod;
+
+    [SerializeField] private Transform arrowVisual;
+
     void Start()
     {
-        var renderer = GetComponent<Renderer>();
+        SetDirection(direction);
+        SetColor(noteMod);
+    }
 
-        switch (direction)
+    private Quaternion baseRotation;
+
+    void Awake()
+    {
+        baseRotation = arrowVisual.localRotation;
+    }
+
+    public void SetColor(NoteMod mod)
+    {
+        var renderer = arrowVisual.GetComponent<Renderer>();
+        switch (mod)
         {
-            case Direction.Left:
-                renderer.material.color = Color.red;
-                break;
-            case Direction.Down:
-                renderer.material.color = Color.blue;
-                break;
-            case Direction.Up:
+            case NoteMod.Normal:
                 renderer.material.color = Color.green;
                 break;
-            case Direction.Right:
-                renderer.material.color = Color.yellow;
+            case NoteMod.Reversed:
+                renderer.material.color = Color.red;
                 break;
         }
     }
+
+    public void SetDirection(Direction dir)
+    {
+        Quaternion offset = Quaternion.identity;
+
+        switch (dir)
+        {
+            case Direction.Up:
+                offset = Quaternion.Euler(0, 0, 90);
+                break;
+
+            case Direction.Down:
+                offset = Quaternion.Euler(0, 0, -90);
+                break;
+
+            case Direction.Left:
+                offset = Quaternion.Euler(0, 0, 0);
+                break;
+
+            case Direction.Right:
+                offset = Quaternion.Euler(0, 0, 180);
+                break;
+        }
+
+        if (noteMod == NoteMod.Reversed)
+        {
+            offset *= Quaternion.Euler(0, 0, 180);
+        }
+
+        arrowVisual.localRotation = baseRotation * offset;
+
+        
+    }
+
 
     void Update()
     {

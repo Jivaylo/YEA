@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class NoteSpawner : MonoBehaviour
@@ -15,7 +16,8 @@ public class NoteSpawner : MonoBehaviour
 
         Note note = noteObj.GetComponent<Note>();
 
-        // random direction
-        note.direction = (Direction)Random.Range(0, 4);
+        // random parameters
+        note.direction = (Direction)UnityEngine.Random.Range(0, 4);
+        note.noteMod = (NoteMod)UnityEngine.Random.Range(0, Enum.GetNames(typeof(NoteMod)).Length);
     }
 }
