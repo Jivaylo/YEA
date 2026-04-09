@@ -41,10 +41,10 @@ public class Note : MonoBehaviour
         switch (mod)
         {
             case NoteMod.Normal:
-                renderer.material.color = Color.green;
+                renderer.material.color = Color.skyBlue;
                 break;
             case NoteMod.Reversed:
-                renderer.material.color = Color.red;
+                renderer.material.color = Color.orange;
                 break;
         }
     }

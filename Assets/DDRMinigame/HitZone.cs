@@ -5,6 +5,7 @@ public class HitZone : MonoBehaviour
 {
     private Note currentNote;
     private TraumaInducer inducer;
+    [SerializeField] private NoteSpawner spawner;
 
     void OnTriggerEnter(Collider other)
     {
@@ -25,6 +26,8 @@ public class HitZone : MonoBehaviour
 
     private void Start()
     {
+        var renderer = GetComponent<Renderer>();
+        renderer.material.color = Color.yellow;
         inducer = GetComponent<TraumaInducer>();
     }
     void Update()
@@ -55,6 +58,7 @@ public class HitZone : MonoBehaviour
 
             // remove the note
             Destroy(currentNote.gameObject);
+            spawner.AddScore(100);
             // inducer.DoTrauma();
 
             currentNote = null;
