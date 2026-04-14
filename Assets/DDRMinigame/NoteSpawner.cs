@@ -10,6 +10,9 @@ public class DifficultyStage
 {
     public float spawnRate;
     public float noteSpeed;
+    public int scoreForNextStage;
+    public bool pause = false;
+    public float pauseTime;
 }
 
 public class NoteSpawner : MonoBehaviour
@@ -48,9 +51,21 @@ public class NoteSpawner : MonoBehaviour
         {
             var stage = stages[currentStage];
 
-            SpawnNote();
-
-            yield return new WaitForSeconds(stage.spawnRate);
+            if (!stage.pause)
+            {
+                SpawnNote();
+                yield return new WaitForSeconds(stage.spawnRate);
+                if (score >= stage.scoreForNextStage)
+                {
+                    NextStage();
+                }
+            }
+            else
+            {
+                yield return new WaitForSeconds(stage.pauseTime);
+                NextStage();
+            }
+            
         }
     }
     private void SpawnNote()

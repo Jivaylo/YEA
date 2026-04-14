@@ -20,6 +20,16 @@ public class Note : MonoBehaviour
 
     public NoteMod noteMod;
 
+    //color
+    //default colors
+    [SerializeField] private Color defaultNormalColor = Color.mediumSpringGreen;
+    [SerializeField] private Color defaultReversedColor = Color.softRed;
+
+    //settable colors
+    [SerializeField] private Color normalColor = Color.mediumSpringGreen;
+    [SerializeField] private Color reversedColor = Color.softRed;
+
+    //references
     [SerializeField] private Transform arrowVisual;
 
     void Start()
@@ -41,10 +51,10 @@ public class Note : MonoBehaviour
         switch (mod)
         {
             case NoteMod.Normal:
-                renderer.material.color = Color.skyBlue;
+                renderer.material.color = normalColor;
                 break;
             case NoteMod.Reversed:
-                renderer.material.color = Color.orange;
+                renderer.material.color = reversedColor;
                 break;
         }
     }

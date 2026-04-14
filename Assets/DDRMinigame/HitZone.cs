@@ -6,6 +6,7 @@ public class HitZone : MonoBehaviour
     private Note currentNote;
     private TraumaInducer inducer;
     [SerializeField] private NoteSpawner spawner;
+    [SerializeField] private ParticleSystem particles;
 
     void OnTriggerEnter(Collider other)
     {
@@ -27,7 +28,7 @@ public class HitZone : MonoBehaviour
     private void Start()
     {
         var renderer = GetComponent<Renderer>();
-        renderer.material.color = Color.yellow;
+        renderer.material.color = Color.lightGoldenRodYellow;
         inducer = GetComponent<TraumaInducer>();
     }
     void Update()
@@ -59,6 +60,7 @@ public class HitZone : MonoBehaviour
             // remove the note
             Destroy(currentNote.gameObject);
             spawner.AddScore(100);
+            particles.Play();
             // inducer.DoTrauma();
 
             currentNote = null;
