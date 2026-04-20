@@ -6058,7 +6058,7 @@ MonoBehaviour:
   stages:
   - spawnRate: 2
     noteSpeed: 4.3
-    scoreForNextStage: 600
+    scoreForNextStage: 500
     pause: 0
     pauseTime: 0
   - spawnRate: 0
@@ -6068,36 +6068,46 @@ MonoBehaviour:
     pauseTime: 0.3
   - spawnRate: 1.3
     noteSpeed: 5
-    scoreForNextStage: 2100
+    scoreForNextStage: 1700
     pause: 0
     pauseTime: 0
   - spawnRate: 0
     noteSpeed: 0
     scoreForNextStage: 0
     pause: 1
-    pauseTime: 0.6
+    pauseTime: 0.5
   - spawnRate: 1
     noteSpeed: 7
-    scoreForNextStage: 3700
+    scoreForNextStage: 2700
     pause: 0
     pauseTime: 0
   - spawnRate: 0
     noteSpeed: 0
     scoreForNextStage: 0
     pause: 1
-    pauseTime: 1
+    pauseTime: 0.7
   - spawnRate: 0.8
     noteSpeed: 12
-    scoreForNextStage: 5700
+    scoreForNextStage: 3900
     pause: 0
     pauseTime: 0
+  - spawnRate: 0
+    noteSpeed: 0
+    scoreForNextStage: 0
+    pause: 1
+    pauseTime: 0.7
   - spawnRate: 0.5
     noteSpeed: 14
-    scoreForNextStage: 45645
+    scoreForNextStage: 5500
     pause: 0
     pauseTime: 0
-  - spawnRate: 0.5
-    noteSpeed: 14
+  - spawnRate: 0
+    noteSpeed: 0
+    scoreForNextStage: 0
+    pause: 1
+    pauseTime: 0.7
+  - spawnRate: 0.4
+    noteSpeed: 15
     scoreForNextStage: 45645
     pause: 0
     pauseTime: 0
