@@ -14,7 +14,7 @@ public class PuzzleInteraction : MonoBehaviour
     public float placeSearchRadius = 2.5f;
 
     [Header("Rotate")]
-    public float rotateSpeed = 120f;
+    public float rotateSpeed = 180f;
 
     [Header("Drop")]
     public float dropForwardDistance = 1.0f;
@@ -27,6 +27,12 @@ public class PuzzleInteraction : MonoBehaviour
     private PuzzlePiece heldPiece;
     private bool rotateMode = false;
 
+    private Quaternion baseHoldRotation = Quaternion.identity;
+    private Quaternion inspectRotation = Quaternion.identity;
+
+    public bool IsHoldingPiece => heldPiece != null;
+    public bool IsInspecting => heldPiece != null && rotateMode;
+
     void Update()
     {
         if (Keyboard.current == null || puzzleCamera == null) return;
@@ -35,7 +41,7 @@ public class PuzzleInteraction : MonoBehaviour
         {
             if (heldPiece == null)
                 TryPickUp();
-            else
+            else if (!rotateMode)
                 TryPlaceNearest();
         }
 
@@ -50,7 +56,7 @@ public class PuzzleInteraction : MonoBehaviour
             Debug.Log("Rotate mode: " + rotateMode);
         }
 
-        if (rotateMode && heldPiece != null)
+        if (rotateMode && heldPiece != null && Mouse.current != null)
             RotateHeldPiece();
     }
 
@@ -65,6 +71,13 @@ public class PuzzleInteraction : MonoBehaviour
             {
                 heldPiece = piece;
                 heldPiece.PickUp(holdPoint);
+
+                rotateMode = false;
+
+                baseHoldRotation = Quaternion.Euler(heldPiece.holdLocalRotation);
+                inspectRotation = Quaternion.identity;
+                heldPiece.transform.localRotation = baseHoldRotation;
+
                 Debug.Log("Picked up: " + piece.name);
             }
         }
@@ -99,8 +112,10 @@ public class PuzzleInteraction : MonoBehaviour
         {
             bestSlot.PlacePiece(heldPiece);
             Debug.Log("Placed: " + heldPiece.name + " into " + bestSlot.name);
+
             heldPiece = null;
             rotateMode = false;
+            inspectRotation = Quaternion.identity;
         }
         else
         {
@@ -117,8 +132,10 @@ public class PuzzleInteraction : MonoBehaviour
         Quaternion dropRot = heldPiece.transform.rotation;
 
         heldPiece.DropAt(dropPos, dropRot);
+
         heldPiece = null;
         rotateMode = false;
+        inspectRotation = Quaternion.identity;
 
         Debug.Log("Dropped piece");
     }
@@ -127,16 +144,11 @@ public class PuzzleInteraction : MonoBehaviour
     {
         Vector2 look = Mouse.current.delta.ReadValue();
 
-        heldPiece.transform.Rotate(
-            puzzleCamera.transform.up,
-            -look.x * rotateSpeed * Time.deltaTime,
-            Space.World
-        );
+        float yaw = -look.x * rotateSpeed * Time.deltaTime;
+        float pitch = look.y * rotateSpeed * Time.deltaTime;
 
-        heldPiece.transform.Rotate(
-            puzzleCamera.transform.right,
-            look.y * rotateSpeed * Time.deltaTime,
-            Space.World
-        );
+      
+        heldPiece.transform.Rotate(Vector3.up, yaw, Space.Self);
+        heldPiece.transform.Rotate(Vector3.right, pitch, Space.Self);
     }
 }

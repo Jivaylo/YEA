@@ -7,6 +7,7 @@ public class FirstPersonPuzzleController : MonoBehaviour
     public InputActionAsset actions;
     public Transform puzzleCameraTransform;
     public Animator animator;
+    public PuzzleInteraction puzzleInteraction;
 
     public float walkSpeed = 3.5f;
     public float mouseSensitivity = 0.12f;
@@ -52,6 +53,9 @@ public class FirstPersonPuzzleController : MonoBehaviour
 
     void Look()
     {
+        if (puzzleInteraction != null && puzzleInteraction.IsInspecting)
+            return;
+
         Vector2 look = lookAction.ReadValue<Vector2>();
 
         transform.Rotate(Vector3.up * look.x * mouseSensitivity);
