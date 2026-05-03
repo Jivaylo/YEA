@@ -69,6 +69,14 @@ public class FirstPersonPuzzleController : MonoBehaviour
 
     void Move()
     {
+        if (puzzleInteraction != null && puzzleInteraction.IsInspecting)
+        {
+            if (animator != null)
+                animator.SetFloat("Speed", 0f);
+
+            return;
+        }
+
         Vector2 input = moveAction.ReadValue<Vector2>();
 
         Vector3 move = transform.right * input.x + transform.forward * input.y;

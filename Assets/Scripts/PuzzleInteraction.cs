@@ -13,8 +13,12 @@ public class PuzzleInteraction : MonoBehaviour
     [Header("Place")]
     public float placeSearchRadius = 2.5f;
 
-    [Header("Rotate")]
-    public float rotateSpeed = 180f;
+    [Header("Inspect")]
+    public float rotateSpeed = 0.05f;
+    public float holdDistance = 1.35f;
+    public float zoomSpeed = 0.08f;
+    public float minInspectDistance = 0.75f;
+    public float maxInspectDistance = 2.2f;
 
     [Header("Drop")]
     public float dropForwardDistance = 1.0f;
@@ -25,13 +29,25 @@ public class PuzzleInteraction : MonoBehaviour
     public LayerMask slotLayers;
 
     private PuzzlePiece heldPiece;
-    private bool rotateMode = false;
+    private Transform inspectPivot;
 
-    private Quaternion baseHoldRotation = Quaternion.identity;
-    private Quaternion inspectRotation = Quaternion.identity;
+    private bool inspectMode = false;
+    private float inspectYaw = 0f;
+    private float inspectPitch = 0f;
+    private float currentDistance;
 
     public bool IsHoldingPiece => heldPiece != null;
-    public bool IsInspecting => heldPiece != null && rotateMode;
+    public bool IsInspecting => heldPiece != null && inspectMode;
+
+    void Awake()
+    {
+        GameObject pivotObj = new GameObject("InspectPivot");
+        inspectPivot = pivotObj.transform;
+        inspectPivot.SetParent(holdPoint, false);
+        inspectPivot.localPosition = Vector3.zero;
+        inspectPivot.localRotation = Quaternion.identity;
+        inspectPivot.localScale = Vector3.one;
+    }
 
     void Update()
     {
@@ -41,23 +57,23 @@ public class PuzzleInteraction : MonoBehaviour
         {
             if (heldPiece == null)
                 TryPickUp();
-            else if (!rotateMode)
+            else if (!inspectMode)
                 TryPlaceNearest();
         }
 
         if (Keyboard.current.qKey.wasPressedThisFrame && heldPiece != null)
-        {
             DropHeldPiece();
-        }
+
+        if (Keyboard.current.fKey.wasPressedThisFrame && heldPiece != null)
+            inspectMode = !inspectMode;
 
         if (Keyboard.current.rKey.wasPressedThisFrame && heldPiece != null)
-        {
-            rotateMode = !rotateMode;
-            Debug.Log("Rotate mode: " + rotateMode);
-        }
+            ResetInspect();
 
-        if (rotateMode && heldPiece != null && Mouse.current != null)
-            RotateHeldPiece();
+        if (inspectMode && heldPiece != null)
+            InspectHeldPiece();
+
+        UpdateInspectPivotPosition();
     }
 
     void TryPickUp()
@@ -67,23 +83,23 @@ public class PuzzleInteraction : MonoBehaviour
         if (Physics.SphereCast(ray, pickupRadius, out RaycastHit hit, pickupDistance, pieceLayers))
         {
             PuzzlePiece piece = hit.collider.GetComponent<PuzzlePiece>();
+
             if (piece != null && !piece.isPlaced)
             {
                 heldPiece = piece;
-                heldPiece.PickUp(holdPoint);
 
-                rotateMode = false;
+                inspectMode = false;
+                inspectYaw = 0f;
+                inspectPitch = 0f;
+                currentDistance = holdDistance;
 
-                baseHoldRotation = Quaternion.Euler(heldPiece.holdLocalRotation);
-                inspectRotation = Quaternion.identity;
-                heldPiece.transform.localRotation = baseHoldRotation;
+                UpdateInspectPivotPosition();
+                inspectPivot.localRotation = Quaternion.identity;
+
+                heldPiece.PickUp(inspectPivot);
 
                 Debug.Log("Picked up: " + piece.name);
             }
-        }
-        else
-        {
-            Debug.Log("Pickup ray found nothing.");
         }
     }
 
@@ -101,6 +117,7 @@ public class PuzzleInteraction : MonoBehaviour
             if (!slot.CanAccept(heldPiece)) continue;
 
             float d = Vector3.Distance(transform.position, slot.transform.position);
+
             if (d < bestDistance)
             {
                 bestDistance = d;
@@ -111,16 +128,45 @@ public class PuzzleInteraction : MonoBehaviour
         if (bestSlot != null)
         {
             bestSlot.PlacePiece(heldPiece);
-            Debug.Log("Placed: " + heldPiece.name + " into " + bestSlot.name);
-
             heldPiece = null;
-            rotateMode = false;
-            inspectRotation = Quaternion.identity;
+            inspectMode = false;
+            inspectPivot.localRotation = Quaternion.identity;
         }
         else
         {
             Debug.Log("No valid slot nearby.");
         }
+    }
+
+    void InspectHeldPiece()
+    {
+        if (Mouse.current == null) return;
+
+        Vector2 mouse = Mouse.current.delta.ReadValue();
+
+        inspectYaw += -mouse.x * rotateSpeed;
+        inspectPitch += mouse.y * rotateSpeed;
+        inspectPitch = Mathf.Clamp(inspectPitch, -80f, 80f);
+
+        float scroll = Mouse.current.scroll.ReadValue().y;
+        currentDistance -= scroll * zoomSpeed;
+        currentDistance = Mathf.Clamp(currentDistance, minInspectDistance, maxInspectDistance);
+
+        inspectPivot.localRotation =
+            Quaternion.Euler(inspectPitch, inspectYaw, 0f);
+    }
+
+    void ResetInspect()
+    {
+        inspectYaw = 0f;
+        inspectPitch = 0f;
+        currentDistance = holdDistance;
+        inspectPivot.localRotation = Quaternion.identity;
+    }
+
+    void UpdateInspectPivotPosition()
+    {
+        inspectPivot.localPosition = new Vector3(0f, -0.03f, currentDistance);
     }
 
     void DropHeldPiece()
@@ -134,21 +180,7 @@ public class PuzzleInteraction : MonoBehaviour
         heldPiece.DropAt(dropPos, dropRot);
 
         heldPiece = null;
-        rotateMode = false;
-        inspectRotation = Quaternion.identity;
-
-        Debug.Log("Dropped piece");
-    }
-
-    void RotateHeldPiece()
-    {
-        Vector2 look = Mouse.current.delta.ReadValue();
-
-        float yaw = -look.x * rotateSpeed * Time.deltaTime;
-        float pitch = look.y * rotateSpeed * Time.deltaTime;
-
-      
-        heldPiece.transform.Rotate(Vector3.up, yaw, Space.Self);
-        heldPiece.transform.Rotate(Vector3.right, pitch, Space.Self);
+        inspectMode = false;
+        inspectPivot.localRotation = Quaternion.identity;
     }
 }

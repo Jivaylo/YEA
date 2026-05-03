@@ -5,6 +5,9 @@ public class SkeletonPuzzleManager : MonoBehaviour
     public PuzzlePiece[] pieces;
     public PlayerModeSwitcher modeSwitcher;
 
+    [Header("Respawn")]
+    public Transform pieceRespawnPoint;
+
     [Header("Scatter")]
     public float scatterForce = 3f;
     public float upwardForce = 1.5f;
@@ -13,6 +16,8 @@ public class SkeletonPuzzleManager : MonoBehaviour
     private PuzzleSlot[] slots;
     private bool started = false;
     private bool completed = false;
+
+    public bool IsCompleted => completed;
 
     void Awake()
     {
@@ -38,14 +43,32 @@ public class SkeletonPuzzleManager : MonoBehaviour
 
     public void StartPuzzle()
     {
-        if (started) return;
-        started = true;
+        Debug.Log("Starting / Restarting puzzle");
 
-        Debug.Log("Puzzle started.");
+        started = true;
+        completed = false;
+
+        foreach (var slot in slots)
+        {
+            if (slot != null)
+                slot.ResetSlot();
+        }
 
         foreach (var piece in pieces)
         {
             if (piece == null) continue;
+
+            piece.PrepareAtStart();
+
+            Vector3 respawnPosition = pieceRespawnPoint != null
+                ? pieceRespawnPoint.position
+                : transform.position + Vector3.up * 1.5f;
+
+            Quaternion respawnRotation = pieceRespawnPoint != null
+                ? pieceRespawnPoint.rotation
+                : Quaternion.identity;
+
+            piece.SetSafePosition(respawnPosition, respawnRotation);
 
             Vector3 randomDir = new Vector3(
                 Random.Range(-1f, 1f),
@@ -68,9 +91,9 @@ public class SkeletonPuzzleManager : MonoBehaviour
     {
         if (!started || completed) return;
 
-        for (int i = 0; i < slots.Length; i++)
+        foreach (var slot in slots)
         {
-            if (slots[i] == null || !slots[i].solved)
+            if (slot == null || !slot.solved)
                 return;
         }
 
@@ -79,7 +102,5 @@ public class SkeletonPuzzleManager : MonoBehaviour
 
         if (modeSwitcher != null)
             modeSwitcher.ExitPuzzleMode();
-        else
-            Debug.LogError("No PlayerModeSwitcher found.");
     }
 }
