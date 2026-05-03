@@ -18,7 +18,6 @@ public class DifficultyStage
 public class NoteSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject notePrefab;
-    [SerializeField] private float spawnRate = 1f;
 
     [SerializeField] private DifficultyStage[] stages;
     [SerializeField] private int currentStage = 0;
