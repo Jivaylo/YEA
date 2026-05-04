@@ -43,8 +43,12 @@ public class PuzzleSlot : MonoBehaviour
 
         if (puzzleManager != null)
             puzzleManager.CheckCompletion();
-        else
-            Debug.LogError(name + " could not find SkeletonPuzzleManager in parent.");
+    }
+
+    public void ResetSlot()
+    {
+        solved = false;
+        SetGhostAlpha(unsolvedAlpha);
     }
 
     void SetGhostAlpha(float a)

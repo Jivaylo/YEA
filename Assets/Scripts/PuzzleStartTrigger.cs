@@ -10,26 +10,23 @@ public class PuzzleStartTrigger : MonoBehaviour
     public float interactDistance = 4f;
     public TextMeshProUGUI interactText;
 
-    private bool started = false;
-
     void Update()
     {
-        if (started || modeSwitcher == null || player == null) return;
+        if (modeSwitcher == null || player == null || puzzleManager == null) return;
 
         float dist = Vector3.Distance(player.position, transform.position);
         bool inRange = dist <= interactDistance;
 
+       
+        bool canStart = !modeSwitcher.inPuzzleMode;
+
         if (interactText != null)
-            interactText.gameObject.SetActive(inRange);
+            interactText.gameObject.SetActive(inRange && canStart);
 
-        if (inRange && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        if (inRange && canStart && Keyboard.current.eKey.wasPressedThisFrame)
         {
-            started = true;
-
             modeSwitcher.EnterPuzzleMode();
-
-            if (puzzleManager != null)
-                puzzleManager.StartPuzzle();
+            puzzleManager.StartPuzzle();
 
             if (interactText != null)
                 interactText.gameObject.SetActive(false);
