@@ -23,6 +23,12 @@ public class MemoryGameManager : MonoBehaviour
     [Header("Runtime Data")]
     [SerializeField] private List<GeneratedStageData> generatedStages = new List<GeneratedStageData>();
 
+    [Header("3D Mode")]
+    [SerializeField] private bool use3DRooms = false;
+    [SerializeField] private StudyRoom studyRoom;
+    [SerializeField] private QuestionRoom questionRoom;
+    [SerializeField] private Transform playerTransform;
+
     // --- runtime UI (built in code, swap for real UI later) ---
     private GameObject studyPanel, questionPanel, resultPanel;
     private Text roundCountText, imageNameText, soundRevealText, questionBodyText, resultBodyText;
@@ -46,7 +52,10 @@ public class MemoryGameManager : MonoBehaviour
         audioSource = gameObject.AddComponent<AudioSource>();
         uiFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         if (uiFont == null) uiFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
-        BuildUI();
+        BuildUI(); // always built — result/wrong panels are used in both modes
+
+        if (use3DRooms && studyRoom)    studyRoom.gameObject.SetActive(false);
+        if (use3DRooms && questionRoom) questionRoom.gameObject.SetActive(false);
     }
 
     void Start()
@@ -74,7 +83,6 @@ public class MemoryGameManager : MonoBehaviour
         GeneratedStageData data = generatedStages[index];
         data.rounds    = GenerateRounds(data.stage.numberOfRounds);
         data.questions = GenerateQuestions(data.stage);
-        ApplyMatchingConstraints(data.rounds, data.questions);
 
         StartCoroutine(RunStage(data));
     }
@@ -85,10 +93,16 @@ public class MemoryGameManager : MonoBehaviour
 
         for (int i = 0; i < data.rounds.Count; i++)
         {
-            yield return StartCoroutine(ShowStudyRound(data.rounds[i], globalRoundOffset + i, globalTotalRounds));
+            if (use3DRooms)
+                yield return StartCoroutine(Show3DStudyRound(data.rounds[i], globalRoundOffset + i + 1, globalTotalRounds));
+            else
+                yield return StartCoroutine(ShowStudyRound(data.rounds[i], globalRoundOffset + i, globalTotalRounds));
 
             bool correct = false;
-            yield return StartCoroutine(ShowQuestion(data.rounds, i, data.questions[i], result => correct = result));
+            if (use3DRooms)
+                yield return StartCoroutine(Show3DQuestion(data.rounds, i, data.questions[i], result => correct = result));
+            else
+                yield return StartCoroutine(ShowQuestion(data.rounds, i, data.questions[i], result => correct = result));
 
             if (!correct)
             {
@@ -118,6 +132,67 @@ public class MemoryGameManager : MonoBehaviour
 
         GenerateAllStages();
         StartStage(0);
+    }
+
+
+    // =========================
+    // 3D STUDY PHASE
+    // =========================
+    IEnumerator Show3DStudyRound(MemoryRound round, int globalRound, int total)
+    {
+        studyRoom.gameObject.SetActive(true);
+        studyRoom.Setup(round, globalRound, total);
+        TeleportPlayer(studyRoom.playerSpawn);
+
+        yield return new WaitUntil(() => studyRoom.IsExitTriggered);
+
+        studyRoom.gameObject.SetActive(false);
+    }
+
+
+    // =========================
+    // 3D QUESTION PHASE
+    // =========================
+    IEnumerator Show3DQuestion(List<MemoryRound> rounds, int currentIndex, QuestionConfig config, System.Action<bool> onResult)
+    {
+        int lookback = Mathf.Min(config.roundsBack, currentIndex);
+        MemoryRound target = rounds[currentIndex - lookback];
+        int targetGlobalRound = globalRoundOffset + (currentIndex - lookback) + 1;
+        string roundTag = lookback == 0 ? "" : $" (round {targetGlobalRound})";
+        string back = lookback == 0 ? "you just saw"
+                    : lookback == 1 ? $"1 round ago{roundTag}"
+                    : $"{lookback} rounds ago{roundTag}";
+
+        int currentGlobal = globalRoundOffset + currentIndex + 1;
+
+        questionRoom.gameObject.SetActive(true);
+
+        MemoryItem correctItem = config.questionType == MemoryQuestion.QuestionType.Image
+            ? target.image : target.sound;
+        List<MemoryItem> choices = BuildChoices(correctItem);
+        int correctIndex = choices.IndexOf(correctItem);
+
+        questionRoom.Setup(config, choices, back, currentGlobal, globalTotalRounds);
+        TeleportPlayer(questionRoom.playerSpawn);
+
+        yield return new WaitUntil(() => questionRoom.ChosenAnswer >= 0);
+        bool correct = questionRoom.ChosenAnswer == correctIndex;
+
+        totalQuestions++;
+        if (correct) score++;
+        onResult(correct);
+
+        questionRoom.gameObject.SetActive(false);
+    }
+
+    void TeleportPlayer(Transform spawn)
+    {
+        if (playerTransform == null) return;
+        CharacterController cc = playerTransform.GetComponent<CharacterController>();
+        if (cc) cc.enabled = false;
+        playerTransform.position = spawn.position;
+        playerTransform.rotation = spawn.rotation;
+        if (cc) cc.enabled = true;
     }
 
 
@@ -171,63 +246,32 @@ public class MemoryGameManager : MonoBehaviour
                     : lookback == 1 ? $"1 round ago{roundTag}"
                     : $"{lookback} rounds ago{roundTag}";
 
+        MemoryItem correctItem = config.questionType == MemoryQuestion.QuestionType.Image
+            ? target.image : target.sound;
+        string typeWord = config.questionType == MemoryQuestion.QuestionType.Image ? "image" : "sound";
+
+        questionBodyText.text = lookback == 0
+            ? $"What was the {typeWord} in this round?"
+            : $"What was the {typeWord} from {back}?";
+
+        List<MemoryItem> choices = BuildChoices(correctItem);
+        int correctIndex = choices.IndexOf(correctItem);
+
         int? playerChoice = null;
-        bool correct = false;
 
-        if (config.questionType == MemoryQuestion.QuestionType.Matching)
+        for (int i = 0; i < choiceButtons.Length; i++)
         {
-            questionBodyText.text = lookback == 0
-                ? "Are the image and sound in this round the SAME?"
-                : $"In the round from {back},\nwere the image and sound the SAME?";
-
-            string[] labels = { "Yes", "No" };
-            bool isMatch = target.IsMatching();
-
-            for (int i = 0; i < choiceButtons.Length; i++)
-            {
-                bool visible = i < 2;
-                choiceButtons[i].gameObject.SetActive(visible);
-                if (!visible) continue;
-                choiceLabels[i].text = labels[i];
-                int captured = i;
-                choiceButtons[i].onClick.RemoveAllListeners();
-                choiceButtons[i].onClick.AddListener(() => playerChoice = captured);
-            }
-
-            yield return new WaitUntil(() => playerChoice.HasValue);
-
-            totalQuestions++;
-            bool answeredYes = playerChoice.Value == 0;
-            correct = answeredYes == isMatch;
-        }
-        else
-        {
-            MemoryItem correctItem = config.questionType == MemoryQuestion.QuestionType.Image
-                ? target.image : target.sound;
-            string typeWord = config.questionType == MemoryQuestion.QuestionType.Image ? "image" : "sound";
-
-            questionBodyText.text = lookback == 0
-                ? $"What was the {typeWord} in this round?"
-                : $"What was the {typeWord} from {back}?";
-
-            List<MemoryItem> choices = BuildChoices(correctItem);
-            int correctIndex = choices.IndexOf(correctItem);
-
-            for (int i = 0; i < choiceButtons.Length; i++)
-            {
-                choiceButtons[i].gameObject.SetActive(true);
-                choiceLabels[i].text = $"{(char)('A' + i)})  {choices[i].itemName}";
-                int captured = i;
-                choiceButtons[i].onClick.RemoveAllListeners();
-                choiceButtons[i].onClick.AddListener(() => playerChoice = captured);
-            }
-
-            yield return new WaitUntil(() => playerChoice.HasValue);
-
-            totalQuestions++;
-            correct = playerChoice.Value == correctIndex;
+            choiceButtons[i].gameObject.SetActive(true);
+            choiceLabels[i].text = $"{(char)('A' + i)})  {choices[i].itemName}";
+            int captured = i;
+            choiceButtons[i].onClick.RemoveAllListeners();
+            choiceButtons[i].onClick.AddListener(() => playerChoice = captured);
         }
 
+        yield return new WaitUntil(() => playerChoice.HasValue);
+
+        totalQuestions++;
+        bool correct = playerChoice.Value == correctIndex;
         if (correct) score++;
         onResult(correct);
     }
@@ -276,6 +320,8 @@ public class MemoryGameManager : MonoBehaviour
         studyPanel.SetActive(false);
         questionPanel.SetActive(false);
         resultPanel.SetActive(false);
+        if (studyRoom)    studyRoom.gameObject.SetActive(false);
+        if (questionRoom) questionRoom.gameObject.SetActive(false);
     }
 
 
@@ -328,25 +374,6 @@ public class MemoryGameManager : MonoBehaviour
         return pool[0];
     }
 
-    void EnsureMatchAround(List<MemoryRound> rounds, int targetIndex)
-    {
-        int choice = Random.Range(0, 4);
-        int idx = choice < 2 ? targetIndex : choice == 2 ? targetIndex - 1 : targetIndex + 1;
-        if (idx < 0 || idx >= rounds.Count) idx = targetIndex;
-        rounds[idx].sound = rounds[idx].image;
-    }
-
-    void ApplyMatchingConstraints(List<MemoryRound> rounds, List<QuestionConfig> questions)
-    {
-        for (int i = 0; i < questions.Count; i++)
-        {
-            if (questions[i].questionType == MemoryQuestion.QuestionType.Matching)
-            {
-                int t = rounds.Count - 1 - questions[i].roundsBack;
-                if (t >= 0 && t < rounds.Count) EnsureMatchAround(rounds, t);
-            }
-        }
-    }
 
     public void GenerateAllStages()
     {
@@ -356,8 +383,7 @@ public class MemoryGameManager : MonoBehaviour
             var data = new GeneratedStageData { stage = stage };
             data.rounds    = GenerateRounds(stage.numberOfRounds);
             data.questions = GenerateQuestions(stage);
-            ApplyMatchingConstraints(data.rounds, data.questions);
-            generatedStages.Add(data);
+                generatedStages.Add(data);
         }
         Debug.Log($"Generated {generatedStages.Count} stages.");
     }
@@ -386,7 +412,7 @@ public class MemoryGameManager : MonoBehaviour
 
         canvasGO.AddComponent<GraphicRaycaster>();
 
-        if (FindObjectOfType<EventSystem>() == null)
+        if (FindAnyObjectByType<EventSystem>() == null)
         {
             GameObject es = new GameObject("EventSystem");
             es.AddComponent<EventSystem>();
@@ -396,6 +422,10 @@ public class MemoryGameManager : MonoBehaviour
         studyPanel    = BuildStudyPanel(canvasGO.transform);
         questionPanel = BuildQuestionPanel(canvasGO.transform);
         resultPanel   = BuildResultPanel(canvasGO.transform);
+
+        studyPanel.SetActive(false);
+        questionPanel.SetActive(false);
+        resultPanel.SetActive(false);
     }
 
     GameObject BuildStudyPanel(Transform parent)

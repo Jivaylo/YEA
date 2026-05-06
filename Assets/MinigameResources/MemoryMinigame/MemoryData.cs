@@ -5,11 +5,6 @@ public class MemoryRound
 {
     public MemoryItem image;
     public MemoryItem sound;
-
-    public bool IsMatching()
-    {
-        return image == sound;
-    }
 }
 
 [System.Serializable]
@@ -18,8 +13,7 @@ public class MemoryQuestion
     public enum QuestionType
     {
         Image,
-        Sound,
-        Matching
+        Sound
     }
 
     public QuestionType questionType;
