@@ -159,7 +159,8 @@ public class MemoryGameManager : MonoBehaviour
         MemoryRound target = rounds[currentIndex - lookback];
         int targetGlobalRound = globalRoundOffset + (currentIndex - lookback) + 1;
         string roundTag = lookback == 0 ? "" : $" (round {targetGlobalRound})";
-        string back = lookback == 0 ? "you just saw"
+        bool isImageQ = config.questionType == MemoryQuestion.QuestionType.Image;
+        string back = lookback == 0 ? (isImageQ ? "you just saw" : "you just heard")
                     : lookback == 1 ? $"1 round ago{roundTag}"
                     : $"{lookback} rounds ago{roundTag}";
 
@@ -242,13 +243,13 @@ public class MemoryGameManager : MonoBehaviour
         MemoryRound target = rounds[currentIndex - lookback];
         int targetGlobalRound = globalRoundOffset + (currentIndex - lookback) + 1;
         string roundTag = lookback == 0 ? "" : $" (round {targetGlobalRound})";
-        string back = lookback == 0 ? "you just saw"
+        bool isImageQ = config.questionType == MemoryQuestion.QuestionType.Image;
+        string back = lookback == 0 ? (isImageQ ? "you just saw" : "you just heard")
                     : lookback == 1 ? $"1 round ago{roundTag}"
                     : $"{lookback} rounds ago{roundTag}";
 
-        MemoryItem correctItem = config.questionType == MemoryQuestion.QuestionType.Image
-            ? target.image : target.sound;
-        string typeWord = config.questionType == MemoryQuestion.QuestionType.Image ? "image" : "sound";
+        MemoryItem correctItem = isImageQ ? target.image : target.sound;
+        string typeWord = isImageQ ? "image" : "sound";
 
         questionBodyText.text = lookback == 0
             ? $"What was the {typeWord} in this round?"
