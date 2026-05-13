@@ -1240,6 +1240,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 431041295172650236}
     m_Modifications:
+    - target: {fileID: 1512779128712380076, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.b
+      value: 0.56888616
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512779128712380076, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.g
+      value: 0.96981126
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512779128712380076, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.r
+      value: 0.51052326
+      objectReference: {fileID: 0}
     - target: {fileID: 4868475131907529924, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1317,6 +1329,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 431041295172650236}
     m_Modifications:
+    - target: {fileID: 1512779128712380076, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.b
+      value: 0.42075467
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512779128712380076, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.g
+      value: 0.42075467
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512779128712380076, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4868475131907529924, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6
@@ -1390,6 +1414,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 431041295172650236}
     m_Modifications:
+    - target: {fileID: 1512779128712380076, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.b
+      value: 0.93207544
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512779128712380076, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.g
+      value: 0.5463087
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512779128712380076, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.r
+      value: 0.44845134
+      objectReference: {fileID: 0}
     - target: {fileID: 4868475131907529924, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6
