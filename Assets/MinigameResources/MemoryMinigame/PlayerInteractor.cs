@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
 public class PlayerInteractor : MonoBehaviour
 {
@@ -31,6 +32,16 @@ public class PlayerInteractor : MonoBehaviour
         rt.anchoredPosition = Vector2.zero;
     }
 
+    ButtonControl GetInteractKey()
+    {
+        string keyName = UnityEngine.InputSystem.Keyboard.current != null
+            ? PlayerPrefs.GetString("InteractKey", "E")
+            : "E";
+        return System.Enum.TryParse(keyName, out UnityEngine.InputSystem.Key k)
+            ? Keyboard.current[k]
+            : Keyboard.current[UnityEngine.InputSystem.Key.E];
+    }
+
     void Update()
     {
         Interactable[] all = FindObjectsByType<Interactable>(FindObjectsSortMode.None);
@@ -49,7 +60,7 @@ public class PlayerInteractor : MonoBehaviour
 
         promptText.text = nearest != null ? nearest.prompt : "";
 
-        if (nearest != null && Keyboard.current.eKey.wasPressedThisFrame)
+        if (nearest != null && GetInteractKey().wasPressedThisFrame)
             nearest.Interact();
     }
 }
