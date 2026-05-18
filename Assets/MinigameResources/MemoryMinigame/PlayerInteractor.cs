@@ -14,7 +14,10 @@ public class PlayerInteractor : MonoBehaviour
         Canvas canvas = canvasGO.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 5;
-        canvasGO.AddComponent<CanvasScaler>();
+        CanvasScaler scaler = canvasGO.AddComponent<CanvasScaler>();
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2(1920, 1080);
+        scaler.matchWidthOrHeight = 0.5f;
 
         GameObject textGO = new GameObject("PromptText");
         textGO.transform.SetParent(canvasGO.transform, false);

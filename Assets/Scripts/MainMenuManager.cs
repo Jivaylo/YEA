@@ -22,6 +22,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Button rebindDownBtn;
     [SerializeField] private Button rebindLeftBtn;
     [SerializeField] private Button rebindRightBtn;
+    [SerializeField] private Button rebindRunBtn;
     [SerializeField] private Button rebindInteractBtn;
     [SerializeField] private Button rebindInspectBtn;
     [SerializeField] private Button rebindDropBtn;
@@ -84,22 +85,23 @@ public class MainMenuManager : MonoBehaviour
     // Move composite binding indices within the Move action:
     //   0 = 2D Vector composite, 1 = up, 2 = down, 3 = left, 4 = right
 
-    public void RebindMoveUp()    => StartCoroutine(WaitForMoveKey(1, rebindUpBtn));
-    public void RebindMoveDown()  => StartCoroutine(WaitForMoveKey(2, rebindDownBtn));
-    public void RebindMoveLeft()  => StartCoroutine(WaitForMoveKey(3, rebindLeftBtn));
-    public void RebindMoveRight() => StartCoroutine(WaitForMoveKey(4, rebindRightBtn));
+    public void RebindMoveUp()    => StartCoroutine(WaitForActionKey("Move", 1, rebindUpBtn));
+    public void RebindMoveDown()  => StartCoroutine(WaitForActionKey("Move", 2, rebindDownBtn));
+    public void RebindMoveLeft()  => StartCoroutine(WaitForActionKey("Move", 3, rebindLeftBtn));
+    public void RebindMoveRight() => StartCoroutine(WaitForActionKey("Move", 4, rebindRightBtn));
+    public void RebindRun()       => StartCoroutine(WaitForActionKey("Run",  0, rebindRunBtn));
 
     public void RebindInteract() => StartCoroutine(WaitForPrefsKey("InteractKey", rebindInteractBtn));
     public void RebindInspect()  => StartCoroutine(WaitForPrefsKey("InspectKey",  rebindInspectBtn));
     public void RebindDrop()     => StartCoroutine(WaitForPrefsKey("DropKey",     rebindDropBtn));
 
-    // Rebinds a Move composite part by applying a binding override on the action.
-    IEnumerator WaitForMoveKey(int bindingIndex, Button btn)
+    // Rebinds any InputAction binding by index.
+    IEnumerator WaitForActionKey(string actionName, int bindingIndex, Button btn)
     {
         SetBtnLabel(btn, "< press key >");
         yield return null;
 
-        var action = inputActions?.FindAction("Move");
+        var action = inputActions?.FindAction(actionName);
         if (action == null) yield break;
 
         Key pressed = Key.None;
@@ -212,6 +214,10 @@ public class MainMenuManager : MonoBehaviour
             SetBtnLabel(rebindLeftBtn,  BindingLabel(move, 3));
             SetBtnLabel(rebindRightBtn, BindingLabel(move, 4));
         }
+
+        var run = inputActions?.FindAction("Run");
+        if (run != null)
+            SetBtnLabel(rebindRunBtn, BindingLabel(run, 0));
 
         SetBtnLabel(rebindInteractBtn, PlayerPrefs.GetString("InteractKey", "E"));
         SetBtnLabel(rebindInspectBtn,  PlayerPrefs.GetString("InspectKey",  "F"));

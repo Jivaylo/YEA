@@ -37,6 +37,13 @@ public class ThirdPersonController_NewInput : MonoBehaviour
         runAction = map.FindAction("Run", true);
     }
 
+    void Start()
+    {
+        string saved = PlayerPrefs.GetString("InputBindingOverrides", "");
+        if (!string.IsNullOrEmpty(saved))
+            actions.LoadBindingOverridesFromJson(saved);
+    }
+
     void OnEnable()
     {
         moveAction.Enable();
