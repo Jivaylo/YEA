@@ -28,22 +28,26 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Button rebindDropBtn;
 
     [Header("Colorblind")]
-    [SerializeField] private Toggle colorblindToggle;
+    [SerializeField] private TMP_Dropdown colorblindDropdown;
 
-    // Other scenes read this static flag on Start
-    public static bool ColorblindMode { get; private set; }
+    // 0=Off, 1=Deuteranopia, 2=Protanopia, 3=Tritanopia
+    public static int ColorblindMode { get; private set; }
 
     void Start()
     {
         ShowMainMenu();
 
-        bool cb = PlayerPrefs.GetInt("ColorblindMode", 0) == 1;
+        int cb = PlayerPrefs.GetInt("ColorblindMode", 0);
         ColorblindMode = cb;
-        if (colorblindToggle != null)
+        if (colorblindDropdown != null)
         {
-            colorblindToggle.SetIsOnWithoutNotify(cb);
-            colorblindToggle.onValueChanged.AddListener(OnColorblindChanged);
+            colorblindDropdown.ClearOptions();
+            colorblindDropdown.AddOptions(new System.Collections.Generic.List<string>
+                { "Off", "Deuteranopia", "Protanopia", "Tritanopia" });
+            colorblindDropdown.SetValueWithoutNotify(cb);
+            colorblindDropdown.onValueChanged.AddListener(OnColorblindChanged);
         }
+        ColorblindFilter.Apply(cb);
 
         LoadInputOverrides();
         RefreshRebindLabels();
@@ -75,10 +79,11 @@ public class MainMenuManager : MonoBehaviour
 
     // ── Colorblind ──────────────────────────────────────────────────────────────
 
-    void OnColorblindChanged(bool on)
+    void OnColorblindChanged(int value)
     {
-        ColorblindMode = on;
-        PlayerPrefs.SetInt("ColorblindMode", on ? 1 : 0);
+        ColorblindMode = value;
+        PlayerPrefs.SetInt("ColorblindMode", value);
+        ColorblindFilter.Apply(value);
     }
 
     // ── Keybind rebinding ──────────────────────────────────────────────────────
