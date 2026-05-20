@@ -6,6 +6,7 @@ public class StudyRoom : MonoBehaviour
     [Header("Display")]
     [SerializeField] private TextMeshPro roundCountDisplay;
     [SerializeField] private TextMeshPro imageNameDisplay;
+    [SerializeField] private SpriteRenderer imageSpriteDisplay;
     [SerializeField] private TextMeshPro soundRevealDisplay;
 
     [Header("Interaction")]
@@ -27,9 +28,27 @@ public class StudyRoom : MonoBehaviour
     {
         exitTriggered = false;
 
-        if (roundCountDisplay)  roundCountDisplay.text  = $"Round {globalRound} / {totalRounds}";
-        if (imageNameDisplay)   imageNameDisplay.text   = round.image != null ? round.image.itemName : "???";
-        if (soundRevealDisplay) soundRevealDisplay.text = "[ press E on the button to hear the sound ]";
+        if (roundCountDisplay) roundCountDisplay.text = $"Round {globalRound} / {totalRounds}";
+
+        // Show sprite if available, otherwise show the item name
+        bool hasSprite = round.image?.image != null;
+        if (imageSpriteDisplay)
+        {
+            imageSpriteDisplay.gameObject.SetActive(hasSprite);
+            if (hasSprite) imageSpriteDisplay.sprite = round.image.image;
+        }
+        if (imageNameDisplay)
+        {
+            imageNameDisplay.gameObject.SetActive(!hasSprite);
+            if (!hasSprite) imageNameDisplay.text = round.image != null ? round.image.itemName : "???";
+        }
+
+        bool hasClip = round.sound?.sound != null;
+        if (soundRevealDisplay)
+            soundRevealDisplay.text = hasClip
+                ? "[ press E on the button to hear the sound ]"
+                : (round.sound != null ? $"Sound: {round.sound.itemName}" : "");
+        if (soundButton) soundButton.gameObject.SetActive(hasClip);
 
         if (soundButton != null)
         {

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Dog
   m_EditorClassIdentifier: Assembly-CSharp::MemoryItem
   itemName: Cat
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: c5d5c25a0b9171d40a8c90c13a033fbd, type: 3}
   sound: {fileID: 0}

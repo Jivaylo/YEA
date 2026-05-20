@@ -9,9 +9,10 @@ public class Door : MonoBehaviour
     public int answerIndex;
 
     [Header("Display")]
-    [SerializeField] private TextMeshPro labelDisplay;    // shown for all question types
-    [SerializeField] private TextMeshPro imageNameDisplay; // shown above door for image questions
-    [SerializeField] private Interactable soundButton;     // shown in front for sound questions
+    [SerializeField] private TextMeshPro labelDisplay;       // shown for all question types
+    [SerializeField] private TextMeshPro imageNameDisplay;   // shown above door for image questions (text fallback)
+    [SerializeField] private SpriteRenderer imageSpriteDisplay; // shown above door for image questions (sprite)
+    [SerializeField] private Interactable soundButton;        // shown in front for sound questions
 
     private AudioSource audioSource;
 
@@ -27,10 +28,18 @@ public class Door : MonoBehaviour
         bool isImage = questionType == MemoryQuestion.QuestionType.Image;
         bool isSound = questionType == MemoryQuestion.QuestionType.Sound;
 
+        bool hasSprite = isImage && item?.image != null;
+
+        if (imageSpriteDisplay)
+        {
+            imageSpriteDisplay.gameObject.SetActive(hasSprite);
+            if (hasSprite) imageSpriteDisplay.sprite = item.image;
+        }
         if (imageNameDisplay)
         {
-            imageNameDisplay.gameObject.SetActive(isImage);
-            if (isImage) imageNameDisplay.text = item != null ? item.itemName : "";
+            // Show text only if this is an image question AND there's no sprite to display
+            imageNameDisplay.gameObject.SetActive(isImage && !hasSprite);
+            if (isImage && !hasSprite) imageNameDisplay.text = item != null ? item.itemName : "";
         }
 
         if (soundButton != null)
