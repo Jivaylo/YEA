@@ -31,7 +31,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private TMP_Dropdown colorblindDropdown;
 
     // 0=Off, 1=Deuteranopia, 2=Protanopia, 3=Tritanopia
-    public static int ColorblindMode { get; private set; }
+    public static int ColorblindMode { get; set; }
 
     void Start()
     {
@@ -103,7 +103,7 @@ public class MainMenuManager : MonoBehaviour
     // Rebinds any InputAction binding by index.
     IEnumerator WaitForActionKey(string actionName, int bindingIndex, Button btn)
     {
-        SetBtnLabel(btn, "< press key >");
+        SetBtnLabel(btn, "press key");
         yield return null;
 
         var action = inputActions?.FindAction(actionName);
@@ -128,7 +128,7 @@ public class MainMenuManager : MonoBehaviour
     // Rebinds a PlayerPrefs-stored key (Interact / Inspect / Drop).
     IEnumerator WaitForPrefsKey(string prefsKey, Button btn)
     {
-        SetBtnLabel(btn, "< press key >");
+        SetBtnLabel(btn, "press key");
         yield return null;
 
         Key pressed = Key.None;

@@ -68,7 +68,9 @@ public class ThirdPersonCamera_NewInput : MonoBehaviour
         if (target == null || pivot == null || cam == null)
             return;
 
-      
+        if (Time.timeScale == 0f)
+            return;
+
         Vector3 desiredPos = target.position + followOffset;
         transform.position = Vector3.Lerp(transform.position, desiredPos, followSmooth * Time.deltaTime);
 
@@ -89,10 +91,6 @@ public class ThirdPersonCamera_NewInput : MonoBehaviour
             cam.localPosition = new Vector3(0, 0, -currentDistance);
         }
 
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+        // Cursor release is handled by PauseMenuManager
     }
 }

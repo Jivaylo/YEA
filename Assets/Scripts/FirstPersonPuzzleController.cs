@@ -46,6 +46,7 @@ public class FirstPersonPuzzleController : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0f) return;
         Look();
         Move();
         ApplyGravity();
