@@ -2855,7 +2855,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1314500448}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD:Assets/yeajasper14-4.unity
 --- !u!1001 &537632892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3060,7 +3059,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec2e32804f55e94f93087f13498e9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
-=======
 --- !u!1 &530168560
 GameObject:
   m_ObjectHideFlags: 0
@@ -3173,7 +3171,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 50, z: 0}
->>>>>>> 1bc0151d70303bbb7b9602e7f517c79070c8122e:Assets/Scenes/yeajasper14-4.unity
 --- !u!1 &585723029
 GameObject:
   m_ObjectHideFlags: 0
@@ -4466,7 +4463,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD:Assets/yeajasper14-4.unity
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -4541,7 +4537,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec2e32804f55e94f93087f13498e9ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PuzzlePiece
-=======
   serializedVersion: 6
   m_Component:
   - component: {fileID: 842557392}
@@ -4680,7 +4675,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
->>>>>>> 1bc0151d70303bbb7b9602e7f517c79070c8122e:Assets/Scenes/yeajasper14-4.unity
 --- !u!1 &914292072
 GameObject:
   m_ObjectHideFlags: 0
@@ -5280,8 +5274,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -8678823145569952518, guid: 62657cf05df5259478f73c47cae0f75d, type: 3}
-<<<<<<< HEAD:Assets/yeajasper14-4.unity
-=======
 --- !u!1 &975026282
 GameObject:
   m_ObjectHideFlags: 0
@@ -5507,7 +5499,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -30, z: 0}
->>>>>>> 1bc0151d70303bbb7b9602e7f517c79070c8122e:Assets/Scenes/yeajasper14-4.unity
 --- !u!1 &1024833972
 GameObject:
   m_ObjectHideFlags: 0
@@ -14465,8 +14456,5 @@ SceneRoots:
   - {fileID: 652510318}
   - {fileID: 1975468101}
   - {fileID: 216929260}
-<<<<<<< HEAD:Assets/yeajasper14-4.unity
   - {fileID: 938531604}
-=======
   - {fileID: 1053563956}
->>>>>>> 1bc0151d70303bbb7b9602e7f517c79070c8122e:Assets/Scenes/yeajasper14-4.unity
