@@ -37,6 +37,7 @@ public class MemoryGameManager : MonoBehaviour
     private Text[]   choiceLabels  = new Text[3];
     private Text resultHeaderText, questionRoundText;
 
+    private Image imageDisplay;
     private AudioSource audioSource;
     private Font uiFont;
     private int currentStageIndex;
@@ -205,20 +206,31 @@ public class MemoryGameManager : MonoBehaviour
         HideAll();
         studyPanel.SetActive(true);
 
-        roundCountText.text  = $"Round {index + 1} / {total}";
-        imageNameText.text   = round.image != null ? round.image.itemName : "???";
-        soundRevealText.text = "[ click Play Sound ]";
+        roundCountText.text = $"Round {index + 1} / {total}";
+
+        // Show sprite if available, otherwise fall back to text name
+        bool hasSprite = round.image?.image != null;
+        imageDisplay.gameObject.SetActive(hasSprite);
+        imageNameText.gameObject.SetActive(!hasSprite);
+        if (hasSprite)
+            imageDisplay.sprite = round.image.image;
+        else
+            imageNameText.text = round.image != null ? round.image.itemName : "???";
+
+        // Show play button if there is a clip, otherwise just reveal the name immediately
+        bool hasClip = round.sound?.sound != null;
+        playSoundButton.gameObject.SetActive(hasClip);
+        soundRevealText.text = hasClip
+            ? "[ click Play Sound ]"
+            : (round.sound != null ? $"Sound: {round.sound.itemName}" : "");
 
         bool advanced = false;
 
         playSoundButton.onClick.RemoveAllListeners();
         playSoundButton.onClick.AddListener(() =>
         {
-            string sName = round.sound != null ? round.sound.itemName : "???";
-            soundRevealText.text = $"Sound: {sName}";
-
-            if (round.sound?.sound != null)
-                audioSource.PlayOneShot(round.sound.sound);
+            soundRevealText.text = $"Sound: {round.sound.itemName}";
+            audioSource.PlayOneShot(round.sound.sound);
         });
 
         nextRoundButton.onClick.RemoveAllListeners();
@@ -441,6 +453,16 @@ public class MemoryGameManager : MonoBehaviour
             new Vector2(0, 80), new Vector2(380, 280));
         imageNameText = MakeText("ImageName", card.transform, "???", 48, new Color(0.9f, 0.9f, 1f),
             Vector2.zero, new Vector2(360, 260), TextAnchor.MiddleCenter);
+
+        // Sprite display — shown when a sprite is available, hidden otherwise
+        GameObject imgGO = new GameObject("ImageDisplay");
+        imgGO.transform.SetParent(card.transform, false);
+        imageDisplay = imgGO.AddComponent<Image>();
+        imageDisplay.preserveAspect = true;
+        RectTransform imgRt = imgGO.GetComponent<RectTransform>();
+        imgRt.anchorMin = imgRt.anchorMax = new Vector2(0.5f, 0.5f);
+        imgRt.anchoredPosition = Vector2.zero;
+        imgRt.sizeDelta = new Vector2(340, 240);
 
         Text imageLabel = MakeText("ImageLabel", panel.transform, "IMAGE", 22, new Color(0.6f, 0.6f, 0.8f),
             new Vector2(0, 240), new Vector2(300, 36), TextAnchor.MiddleCenter);

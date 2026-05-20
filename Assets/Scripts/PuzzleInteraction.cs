@@ -89,14 +89,16 @@ public class PuzzleInteraction : MonoBehaviour
                 heldPiece = piece;
 
                 inspectMode = false;
-                inspectYaw = 0f;
-                inspectPitch = 0f;
+                inspectYaw = Random.Range(-140f, 140f);
+                inspectPitch = Random.Range(-70f, 70f);
                 currentDistance = holdDistance;
 
                 UpdateInspectPivotPosition();
                 inspectPivot.localRotation = Quaternion.identity;
 
                 heldPiece.PickUp(inspectPivot);
+                inspectPivot.localRotation =
+    Quaternion.Euler(inspectPitch, inspectYaw, 0f);
 
                 Debug.Log("Picked up: " + piece.name);
             }
@@ -125,17 +127,26 @@ public class PuzzleInteraction : MonoBehaviour
             }
         }
 
-        if (bestSlot != null)
-        {
-            bestSlot.PlacePiece(heldPiece);
-            heldPiece = null;
-            inspectMode = false;
-            inspectPivot.localRotation = Quaternion.identity;
-        }
-        else
+        if (bestSlot == null)
         {
             Debug.Log("No valid slot nearby.");
+            return;
         }
+
+        Quaternion targetRotation = bestSlot.GetTargetRotation();
+
+        if (!heldPiece.IsRotationCorrect(targetRotation))
+        {
+            Debug.Log("Rotate the bone correctly first.");
+            return;
+        }
+
+        bestSlot.PlacePiece(heldPiece);
+        Debug.Log("Placed: " + heldPiece.name + " into " + bestSlot.name);
+
+        heldPiece = null;
+        inspectMode = false;
+        inspectPivot.localRotation = Quaternion.identity;
     }
 
     void InspectHeldPiece()
@@ -152,8 +163,7 @@ public class PuzzleInteraction : MonoBehaviour
         currentDistance -= scroll * zoomSpeed;
         currentDistance = Mathf.Clamp(currentDistance, minInspectDistance, maxInspectDistance);
 
-        inspectPivot.localRotation =
-            Quaternion.Euler(inspectPitch, inspectYaw, 0f);
+        inspectPivot.localRotation = Quaternion.Euler(inspectPitch, inspectYaw, 0f);
     }
 
     void ResetInspect()
@@ -174,7 +184,7 @@ public class PuzzleInteraction : MonoBehaviour
         Vector3 dropPos = puzzleCamera.transform.position
                         + puzzleCamera.transform.forward * dropForwardDistance
                         + Vector3.up * dropUpOffset;
-
+            
         Quaternion dropRot = heldPiece.transform.rotation;
 
         heldPiece.DropAt(dropPos, dropRot);

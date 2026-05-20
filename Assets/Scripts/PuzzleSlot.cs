@@ -28,7 +28,17 @@ public class PuzzleSlot : MonoBehaviour
     {
         if (piece == null) return false;
         if (solved) return false;
-        return piece.pieceId == requiredPieceId;
+        if (piece.pieceId != requiredPieceId) return false;
+
+        return true;
+    }
+
+    public Quaternion GetTargetRotation()
+    {
+        if (ghostVisual != null)
+            return ghostVisual.transform.rotation;
+
+        return transform.rotation;
     }
 
     public void PlacePiece(PuzzlePiece piece)

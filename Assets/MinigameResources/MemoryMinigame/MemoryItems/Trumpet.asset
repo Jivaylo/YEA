@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Trumpet
   m_EditorClassIdentifier: Assembly-CSharp::MemoryItem
   itemName: Trumpet
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: e74fc6999dac3f14f8589e749c577a4a, type: 3}
   sound: {fileID: 0}

@@ -481,11 +481,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43bb3d9b841689945a633efc8b07c42b, type: 2}
   - {fileID: 11400000, guid: f3dd3c6997065a74aba3a1e912aa10f2, type: 2}
   availableItems:
-  - {fileID: 11400000, guid: 98cceddd19ebcaa4f8151f05b75f5246, type: 2}
-  - {fileID: 11400000, guid: e78e8d77eeb835644a654272d436320c, type: 2}
   - {fileID: 11400000, guid: 8ad35da15b58e6f45b9423aff1152af5, type: 2}
   - {fileID: 11400000, guid: 1d5280eb861a1bc4c834188bf4d2e3fe, type: 2}
-  - {fileID: 11400000, guid: b4fca311a22ff6049a46d14a5e83c746, type: 2}
+  - {fileID: 11400000, guid: 0e85bd3eaa9b10a4d856ee05b27a0bfe, type: 2}
   - {fileID: 11400000, guid: 4faff57bd82e3024e8065c137ba948c6, type: 2}
   - {fileID: 11400000, guid: 0a283523ff52d7d4e9f1919c70f21406, type: 2}
   - {fileID: 11400000, guid: 0266ec74ffa48c04987f7ab00f27f611, type: 2}
