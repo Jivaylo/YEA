@@ -11,6 +11,10 @@ public class PuzzlePiece : MonoBehaviour
     public Vector3 holdLocalRotation = Vector3.zero;
     public float holdTargetSize = 0.75f;
 
+    [Header("Correct Rotation")]
+    public Transform correctRotationReference;
+    public float allowedRotationAngle = 60f;
+
     [Header("Fall Safety")]
     public float fallYLimit = -5f;
 
@@ -36,9 +40,18 @@ public class PuzzlePiece : MonoBehaviour
     void Update()
     {
         if (!isPlaced && gameObject.activeSelf && transform.position.y < fallYLimit)
-        {
             RespawnToSafePosition();
-        }
+    }
+
+    public bool IsRotationCorrect(Quaternion targetWorldRotation)
+    {
+        Quaternion currentWorldRotation = transform.rotation;
+
+        float angle = Quaternion.Angle(currentWorldRotation, targetWorldRotation);
+
+        Debug.Log(name + " placement rotation angle: " + angle.ToString("F1") + " / allowed: " + allowedRotationAngle);
+
+        return angle <= allowedRotationAngle;
     }
 
     public void PrepareAtStart()
@@ -88,7 +101,6 @@ public class PuzzlePiece : MonoBehaviour
         col.enabled = false;
 
         transform.SetParent(inspectPivot, false);
-
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(holdLocalRotation);
 
@@ -143,8 +155,6 @@ public class PuzzlePiece : MonoBehaviour
         rb.isKinematic = false;
         rb.useGravity = true;
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-
-        Debug.Log(name + " respawned because it fell out of the room.");
     }
 
     float GetMaxRendererSize()

@@ -5,17 +5,17 @@ public class SkeletonPuzzleManager : MonoBehaviour
     public PuzzlePiece[] pieces;
     public PlayerModeSwitcher modeSwitcher;
 
-    [Header("Respawn")]
-    public Transform pieceRespawnPoint;
-
     [Header("Scatter")]
-    public float scatterForce = 3f;
-    public float upwardForce = 1.5f;
-    public float torqueForce = 2f;
+    public float scatterForce = 0.5f;
+    public float upwardForce = 0.2f;
+    public float torqueForce = 1f;
 
     private PuzzleSlot[] slots;
     private bool started = false;
     private bool completed = false;
+
+    private Vector3[] startPositions;
+    private Quaternion[] startRotations;
 
     public bool IsCompleted => completed;
 
@@ -26,19 +26,23 @@ public class SkeletonPuzzleManager : MonoBehaviour
         if (modeSwitcher == null)
             modeSwitcher = FindFirstObjectByType<PlayerModeSwitcher>();
 
+        startPositions = new Vector3[pieces.Length];
+        startRotations = new Quaternion[pieces.Length];
+
+        for (int i = 0; i < pieces.Length; i++)
+        {
+            if (pieces[i] == null) continue;
+
+            startPositions[i] = pieces[i].transform.position;
+            startRotations[i] = pieces[i].transform.rotation;
+        }
+
         Debug.Log("Puzzle manager found slots: " + slots.Length);
     }
 
     void Start()
     {
-        foreach (var piece in pieces)
-        {
-            if (piece != null)
-            {
-                piece.PrepareAtStart();
-                piece.gameObject.SetActive(true);
-            }
-        }
+        ResetPiecesToStartPositions();
     }
 
     public void StartPuzzle()
@@ -54,21 +58,14 @@ public class SkeletonPuzzleManager : MonoBehaviour
                 slot.ResetSlot();
         }
 
-        foreach (var piece in pieces)
+        ResetPiecesToStartPositions();
+
+        for (int i = 0; i < pieces.Length; i++)
         {
+            PuzzlePiece piece = pieces[i];
             if (piece == null) continue;
 
-            piece.PrepareAtStart();
-
-            Vector3 respawnPosition = pieceRespawnPoint != null
-                ? pieceRespawnPoint.position
-                : transform.position + Vector3.up * 1.5f;
-
-            Quaternion respawnRotation = pieceRespawnPoint != null
-                ? pieceRespawnPoint.rotation
-                : Quaternion.identity;
-
-            piece.SetSafePosition(respawnPosition, respawnRotation);
+            piece.SetSafePosition(startPositions[i], startRotations[i]);
 
             Vector3 randomDir = new Vector3(
                 Random.Range(-1f, 1f),
@@ -77,6 +74,7 @@ public class SkeletonPuzzleManager : MonoBehaviour
             ).normalized;
 
             Vector3 force = randomDir * scatterForce + Vector3.up * upwardForce;
+
             Vector3 torque = new Vector3(
                 Random.Range(-torqueForce, torqueForce),
                 Random.Range(-torqueForce, torqueForce),
@@ -84,6 +82,23 @@ public class SkeletonPuzzleManager : MonoBehaviour
             );
 
             piece.Scatter(force, torque);
+        }
+    }
+
+    void ResetPiecesToStartPositions()
+    {
+        for (int i = 0; i < pieces.Length; i++)
+        {
+            PuzzlePiece piece = pieces[i];
+            if (piece == null) continue;
+
+            piece.PrepareAtStart();
+
+            piece.transform.position = startPositions[i];
+            piece.transform.rotation = startRotations[i];
+            piece.transform.localScale = Vector3.one;
+
+            piece.SetSafePosition(startPositions[i], startRotations[i]);
         }
     }
 
