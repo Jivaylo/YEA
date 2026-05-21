@@ -5,72 +5,160 @@ using TMPro;
 public class MemoryTrackingGame : MonoBehaviour
 {
     [Header("References")]
-    public Transform[] dots;
+    public Transform[] balls;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI timerText;
+    public TextMeshProUGUI gameOverText;
 
     [Header("Materials")]
     public Material greyMaterial;
     public Material greenMaterial;
 
-    [Header("Movement")]
-    public float startSpeed = 1.5f;
-    public float speedIncreaseEveryPoint = 0.03f;
-    public float maxSpeed = 8f;
-
-    [Header("Scoring")]
-    public float followDistance = 1.2f;
-    public float pointsPerSecond = 5f;
-
-    [Header("Memory Timing")]
-    public float showGreenTime = 5f;
+    [Header("Game Settings")]
+    public float gameTime = 60f;
+    public float showGreenTime = 4f;
     public float hiddenTrackingTime = 10f;
 
-    private Rigidbody[] dotRigidbodies;
-    private int correctDotIndex;
+    [Header("Scoring")]
+    public float followDistance = 1f;
+    public float pointsPerSecond = 10f;
+    public float losePointsPerSecond = 4f;
 
-    private float timer;
-    private bool showingGreen = true;
+    [Header("Movement")]
+    public float startSpeed = 2f;
+    public float speedIncreaseEveryPoint = 0.02f;
+    public float maxSpeed = 9f;
+
+    [Header("Area Limits")]
+    public float minX = -4.5f;
+    public float maxX = 4.5f;
+    public float minZ = -4.5f;
+    public float maxZ = 4.5f;
+
+    private Rigidbody[] ballRigidbodies;
+    private int correctBallIndex;
 
     private float currentSpeed;
     private float score;
-    private int displayedScore;
+    private float gameTimer;
+    private float memoryTimer;
+
+    private bool showingGreen = true;
+    private bool gameEnded = false;
 
     void Start()
     {
         currentSpeed = startSpeed;
-        dotRigidbodies = new Rigidbody[dots.Length];
+        gameTimer = gameTime;
 
-        for (int i = 0; i < dots.Length; i++)
+        ballRigidbodies = new Rigidbody[balls.Length];
+
+        for (int i = 0; i < balls.Length; i++)
         {
-            dotRigidbodies[i] = dots[i].GetComponent<Rigidbody>();
+            ballRigidbodies[i] = balls[i].GetComponent<Rigidbody>();
 
-            if (dotRigidbodies[i] == null)
-            {
-                dotRigidbodies[i] = dots[i].gameObject.AddComponent<Rigidbody>();
-            }
+            ballRigidbodies[i].useGravity = false;
+            ballRigidbodies[i].linearDamping = 0f;
+            ballRigidbodies[i].angularDamping = 0f;
+            ballRigidbodies[i].constraints = RigidbodyConstraints.FreezePositionY;
 
-            dotRigidbodies[i].useGravity = false;
-            dotRigidbodies[i].linearDamping = 0f;
-            dotRigidbodies[i].angularDamping = 0f;
-            dotRigidbodies[i].constraints = RigidbodyConstraints.FreezePositionY;
-
-            SetDotMaterial(i, greyMaterial);
+            SetBallMaterial(i, greyMaterial);
             GiveRandomVelocity(i);
         }
 
-        PickNewCorrectDot();
-        UpdateScoreText();
+        PickNewCorrectBall();
+
+        if (gameOverText != null)
+            gameOverText.gameObject.SetActive(false);
+
+        UpdateUI();
     }
 
     void Update()
     {
+        if (gameEnded) return;
+
+        HandleGameTimer();
         HandleMemoryTimer();
         CheckMouseTracking();
+        UpdateUI();
     }
 
     void FixedUpdate()
     {
-        KeepDotSpeeds();
+        if (gameEnded) return;
+
+        KeepBallSpeeds();
+        KeepBallsInsideArea();
+    }
+
+    void HandleGameTimer()
+    {
+        gameTimer -= Time.deltaTime;
+
+        if (gameTimer <= 0f)
+        {
+            gameTimer = 0f;
+            EndGame();
+        }
+    }
+
+    void HandleMemoryTimer()
+    {
+        memoryTimer += Time.deltaTime;
+
+        if (showingGreen && memoryTimer >= showGreenTime)
+        {
+            SetBallMaterial(correctBallIndex, greyMaterial);
+            showingGreen = false;
+            memoryTimer = 0f;
+        }
+        else if (!showingGreen && memoryTimer >= hiddenTrackingTime)
+        {
+            PickNewCorrectBall();
+        }
+    }
+
+    void CheckMouseTracking()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            float distance = Vector3.Distance(
+                hit.point,
+                balls[correctBallIndex].position
+            );
+
+            if (distance <= followDistance)
+            {
+                score += pointsPerSecond * Time.deltaTime;
+                currentSpeed += speedIncreaseEveryPoint * Time.deltaTime;
+            }
+            else
+            {
+                score -= losePointsPerSecond * Time.deltaTime;
+            }
+        }
+        else
+        {
+            score -= losePointsPerSecond * Time.deltaTime;
+        }
+
+        score = Mathf.Max(0f, score);
+        currentSpeed = Mathf.Clamp(currentSpeed, startSpeed, maxSpeed);
+    }
+
+    void PickNewCorrectBall()
+    {
+        for (int i = 0; i < balls.Length; i++)
+            SetBallMaterial(i, greyMaterial);
+
+        correctBallIndex = Random.Range(0, balls.Length);
+        SetBallMaterial(correctBallIndex, greenMaterial);
+
+        showingGreen = true;
+        memoryTimer = 0f;
     }
 
     void GiveRandomVelocity(int index)
@@ -81,100 +169,106 @@ public class MemoryTrackingGame : MonoBehaviour
             Random.Range(-1f, 1f)
         ).normalized;
 
-        dotRigidbodies[index].linearVelocity = direction * currentSpeed;
+        ballRigidbodies[index].linearVelocity = direction * currentSpeed;
     }
 
-    void KeepDotSpeeds()
+    void KeepBallSpeeds()
     {
-        for (int i = 0; i < dotRigidbodies.Length; i++)
+        for (int i = 0; i < ballRigidbodies.Length; i++)
         {
-            Vector3 velocity = dotRigidbodies[i].linearVelocity;
+            Vector3 velocity = ballRigidbodies[i].linearVelocity;
             velocity.y = 0f;
 
             if (velocity.magnitude < 0.1f)
-            {
                 GiveRandomVelocity(i);
-            }
             else
-            {
-                dotRigidbodies[i].linearVelocity = velocity.normalized * currentSpeed;
-            }
+                ballRigidbodies[i].linearVelocity = velocity.normalized * currentSpeed;
         }
     }
 
-    void HandleMemoryTimer()
+    void KeepBallsInsideArea()
     {
-        timer += Time.deltaTime;
-
-        if (showingGreen && timer >= showGreenTime)
-        {
-            SetDotMaterial(correctDotIndex, greyMaterial);
-            showingGreen = false;
-            timer = 0f;
-        }
-        else if (!showingGreen && timer >= hiddenTrackingTime)
-        {
-            PickNewCorrectDot();
-        }
-    }
-
-    void PickNewCorrectDot()
-    {
-        for (int i = 0; i < dots.Length; i++)
-        {
-            SetDotMaterial(i, greyMaterial);
-        }
-
-        correctDotIndex = Random.Range(0, dots.Length);
-        SetDotMaterial(correctDotIndex, greenMaterial);
-
-        showingGreen = true;
-        timer = 0f;
-    }
-
-    void CheckMouseTracking()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(
-            Mouse.current.position.ReadValue()
+        Vector3 center = new Vector3(
+            (minX + maxX) / 2f,
+            balls[0].position.y,
+            (minZ + maxZ) / 2f
         );
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        float padding = 0.8f;
+
+        for (int i = 0; i < balls.Length; i++)
         {
-            Vector3 mouseWorldPos = hit.point;
+            Vector3 pos = balls[i].position;
+            bool hitWall = false;
 
-            float distance = Vector3.Distance(
-                mouseWorldPos,
-                dots[correctDotIndex].position
-            );
-
-            if (distance <= followDistance)
+            if (pos.x <= minX + padding)
             {
-                score += pointsPerSecond * Time.deltaTime;
+                pos.x = minX + padding;
+                hitWall = true;
+            }
+            else if (pos.x >= maxX - padding)
+            {
+                pos.x = maxX - padding;
+                hitWall = true;
+            }
 
-                int newDisplayedScore = Mathf.FloorToInt(score);
+            if (pos.z <= minZ + padding)
+            {
+                pos.z = minZ + padding;
+                hitWall = true;
+            }
+            else if (pos.z >= maxZ - padding)
+            {
+                pos.z = maxZ - padding;
+                hitWall = true;
+            }
 
-                if (newDisplayedScore > displayedScore)
-                {
-                    int pointsGained = newDisplayedScore - displayedScore;
-                    displayedScore = newDisplayedScore;
+            if (hitWall)
+            {
+                balls[i].position = pos;
 
-                    currentSpeed += speedIncreaseEveryPoint * pointsGained;
-                    currentSpeed = Mathf.Clamp(currentSpeed, startSpeed, maxSpeed);
+                Vector3 directionToCenter = center - pos;
+                directionToCenter.y = 0f;
 
-                    UpdateScoreText();
-                }
+                if (directionToCenter.sqrMagnitude < 0.01f)
+                    directionToCenter = Random.insideUnitSphere;
+
+                directionToCenter.y = 0f;
+                directionToCenter.Normalize();
+
+                ballRigidbodies[i].linearVelocity = directionToCenter * currentSpeed;
             }
         }
     }
 
-    void SetDotMaterial(int dotIndex, Material material)
+    void SetBallMaterial(int index, Material material)
     {
-        Renderer renderer = dots[dotIndex].GetComponent<Renderer>();
-        renderer.material = material;
+        balls[index].GetComponent<Renderer>().material = material;
     }
 
-    void UpdateScoreText()
+    void UpdateUI()
     {
-        scoreText.text = "Score: " + displayedScore;
+        if (scoreText != null)
+            scoreText.text = "Score: " + Mathf.FloorToInt(score);
+
+        if (timerText != null)
+            timerText.text = "Time: " + Mathf.CeilToInt(gameTimer);
+    }
+
+    void EndGame()
+    {
+        gameEnded = true;
+
+        for (int i = 0; i < ballRigidbodies.Length; i++)
+        {
+            ballRigidbodies[i].linearVelocity = Vector3.zero;
+        }
+
+        if (gameOverText != null)
+        {
+            gameOverText.gameObject.SetActive(true);
+            gameOverText.transform.SetAsLastSibling();
+            gameOverText.text = "GAME OVER\nFinal Score: " + Mathf.FloorToInt(score);
+        }
     }
 }
