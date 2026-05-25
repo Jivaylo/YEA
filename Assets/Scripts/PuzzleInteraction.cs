@@ -176,7 +176,16 @@ public class PuzzleInteraction : MonoBehaviour
 
     void UpdateInspectPivotPosition()
     {
-        inspectPivot.localPosition = new Vector3(0f, -0.03f, currentDistance);
+        inspectPivot.localPosition = new Vector3(0f, 0.15f, currentDistance);
+
+        float minimumY = transform.position.y + 0.6f;
+
+        if (inspectPivot.position.y < minimumY)
+        {
+            Vector3 fixedWorldPos = inspectPivot.position;
+            fixedWorldPos.y = minimumY;
+            inspectPivot.position = fixedWorldPos;
+        }
     }
 
     void DropHeldPiece()

@@ -26,6 +26,8 @@ public class PuzzlePiece : MonoBehaviour
     private Vector3 safePosition;
     private Quaternion safeRotation;
 
+    private int originalLayer;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -35,6 +37,8 @@ public class PuzzlePiece : MonoBehaviour
 
         safePosition = transform.position;
         safeRotation = transform.rotation;
+
+        originalLayer = gameObject.layer;
     }
 
     void Update()
@@ -59,6 +63,8 @@ public class PuzzlePiece : MonoBehaviour
         transform.SetParent(null, true);
         transform.localScale = originalLocalScale;
 
+        SetLayerRecursive(gameObject, originalLayer);
+
         rb.isKinematic = true;
         rb.useGravity = false;
         rb.linearVelocity = Vector3.zero;
@@ -80,6 +86,8 @@ public class PuzzlePiece : MonoBehaviour
         transform.SetParent(null, true);
         transform.localScale = originalLocalScale;
 
+        SetLayerRecursive(gameObject, originalLayer);
+
         rb.isKinematic = false;
         rb.useGravity = true;
         rb.linearVelocity = Vector3.zero;
@@ -99,6 +107,8 @@ public class PuzzlePiece : MonoBehaviour
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         col.enabled = false;
+
+        SetLayerRecursive(gameObject, LayerMask.NameToLayer("Ignore Raycast"));
 
         transform.SetParent(inspectPivot, false);
         transform.localPosition = Vector3.zero;
@@ -120,6 +130,8 @@ public class PuzzlePiece : MonoBehaviour
         transform.rotation = worldRotation;
         transform.localScale = originalLocalScale;
 
+        SetLayerRecursive(gameObject, originalLayer);
+
         rb.isKinematic = false;
         rb.useGravity = true;
         rb.linearVelocity = Vector3.zero;
@@ -135,6 +147,9 @@ public class PuzzlePiece : MonoBehaviour
     {
         isPlaced = true;
         transform.localScale = originalLocalScale;
+
+        SetLayerRecursive(gameObject, originalLayer);
+
         gameObject.SetActive(false);
     }
 
@@ -144,6 +159,8 @@ public class PuzzlePiece : MonoBehaviour
         transform.position = safePosition;
         transform.rotation = safeRotation;
         transform.localScale = originalLocalScale;
+
+        SetLayerRecursive(gameObject, originalLayer);
 
         rb.isKinematic = true;
         rb.useGravity = false;
@@ -155,6 +172,14 @@ public class PuzzlePiece : MonoBehaviour
         rb.isKinematic = false;
         rb.useGravity = true;
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+    }
+
+    void SetLayerRecursive(GameObject obj, int layer)
+    {
+        obj.layer = layer;
+
+        foreach (Transform child in obj.transform)
+            SetLayerRecursive(child.gameObject, layer);
     }
 
     float GetMaxRendererSize()

@@ -13,30 +13,32 @@ public class MemoryTrackingGame : MonoBehaviour
     [Header("Materials")]
     public Material greyMaterial;
     public Material greenMaterial;
+    public Material[] decoyMaterials;
 
     [Header("Game Settings")]
     public float gameTime = 60f;
-    public float showGreenTime = 4f;
-    public float hiddenTrackingTime = 10f;
+    public float showGreenTime = 3f;
+    public float hiddenTrackingTime = 8f;
 
     [Header("Scoring")]
-    public float followDistance = 1f;
-    public float pointsPerSecond = 10f;
-    public float losePointsPerSecond = 4f;
+    public float followDistance = 1.2f;
+    public float pointsPerSecond = 7f;
+    public float losePointsPerSecond = 5f;
 
     [Header("Movement")]
-    public float startSpeed = 2f;
-    public float speedIncreaseEveryPoint = 0.02f;
-    public float maxSpeed = 9f;
+    public float startSpeed = 3f;
+    public float speedIncreaseEveryPoint = 0.06f;
+    public float maxSpeed = 11f;
 
     [Header("Area Limits")]
-    public float minX = -4.5f;
-    public float maxX = 4.5f;
-    public float minZ = -4.5f;
-    public float maxZ = 4.5f;
+    public float minX = -9f;
+    public float maxX = 9f;
+    public float minZ = -9f;
+    public float maxZ = 9f;
 
     private Rigidbody[] ballRigidbodies;
-    private int correctBallIndex;
+    private int correctBallIndex = -1;
+    private int previousCorrectBallIndex = -1;
 
     private float currentSpeed;
     private float score;
@@ -62,7 +64,7 @@ public class MemoryTrackingGame : MonoBehaviour
             ballRigidbodies[i].angularDamping = 0f;
             ballRigidbodies[i].constraints = RigidbodyConstraints.FreezePositionY;
 
-            SetBallMaterial(i, greyMaterial);
+            SetRandomNormalMaterial(i);
             GiveRandomVelocity(i);
         }
 
@@ -109,7 +111,7 @@ public class MemoryTrackingGame : MonoBehaviour
 
         if (showingGreen && memoryTimer >= showGreenTime)
         {
-            SetBallMaterial(correctBallIndex, greyMaterial);
+            SetRandomNormalMaterial(correctBallIndex);
             showingGreen = false;
             memoryTimer = 0f;
         }
@@ -125,10 +127,7 @@ public class MemoryTrackingGame : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            float distance = Vector3.Distance(
-                hit.point,
-                balls[correctBallIndex].position
-            );
+            float distance = Vector3.Distance(hit.point, balls[correctBallIndex].position);
 
             if (distance <= followDistance)
             {
@@ -152,13 +151,36 @@ public class MemoryTrackingGame : MonoBehaviour
     void PickNewCorrectBall()
     {
         for (int i = 0; i < balls.Length; i++)
-            SetBallMaterial(i, greyMaterial);
+            SetRandomNormalMaterial(i);
 
-        correctBallIndex = Random.Range(0, balls.Length);
+        int newIndex;
+
+        do
+        {
+            newIndex = Random.Range(0, balls.Length);
+        }
+        while (balls.Length > 1 && newIndex == previousCorrectBallIndex);
+
+        correctBallIndex = newIndex;
+        previousCorrectBallIndex = correctBallIndex;
+
         SetBallMaterial(correctBallIndex, greenMaterial);
 
         showingGreen = true;
         memoryTimer = 0f;
+    }
+
+    void SetRandomNormalMaterial(int index)
+    {
+        if (decoyMaterials != null && decoyMaterials.Length > 0)
+        {
+            Material randomMat = decoyMaterials[Random.Range(0, decoyMaterials.Length)];
+            SetBallMaterial(index, randomMat);
+        }
+        else
+        {
+            SetBallMaterial(index, greyMaterial);
+        }
     }
 
     void GiveRandomVelocity(int index)
@@ -229,11 +251,6 @@ public class MemoryTrackingGame : MonoBehaviour
 
                 Vector3 directionToCenter = center - pos;
                 directionToCenter.y = 0f;
-
-                if (directionToCenter.sqrMagnitude < 0.01f)
-                    directionToCenter = Random.insideUnitSphere;
-
-                directionToCenter.y = 0f;
                 directionToCenter.Normalize();
 
                 ballRigidbodies[i].linearVelocity = directionToCenter * currentSpeed;
@@ -260,9 +277,7 @@ public class MemoryTrackingGame : MonoBehaviour
         gameEnded = true;
 
         for (int i = 0; i < ballRigidbodies.Length; i++)
-        {
             ballRigidbodies[i].linearVelocity = Vector3.zero;
-        }
 
         if (gameOverText != null)
         {

@@ -9053,6 +9053,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb7336114c7e9247b3f485a058fdc35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SkeletonPuzzleManager
+  pieces: []
+  modeSwitcher: {fileID: 0}
+  scatterForce: 0.5
+  upwardForce: 0.2
+  torqueForce: 1
 --- !u!4 &1553242091
 Transform:
   m_ObjectHideFlags: 0
@@ -12448,7 +12453,7 @@ MonoBehaviour:
   pieceId: legL
   isPlaced: 0
   holdLocalRotation: {x: 0, y: 0, z: 0}
-  holdTargetSize: 0.75
+  holdTargetSize: 1
   correctRotationReference: {fileID: 2010666413}
   allowedRotationAngle: 60
   fallYLimit: -5
@@ -12475,7 +12480,7 @@ MonoBehaviour:
   pieceId: handR
   isPlaced: 0
   holdLocalRotation: {x: 0, y: 0, z: 0}
-  holdTargetSize: 0.75
+  holdTargetSize: 1.2
   correctRotationReference: {fileID: 842557392}
   allowedRotationAngle: 60
   fallYLimit: -5
@@ -12571,7 +12576,7 @@ MonoBehaviour:
   pieceId: legR
   isPlaced: 0
   holdLocalRotation: {x: 0, y: 0, z: 0}
-  holdTargetSize: 0.75
+  holdTargetSize: 1
   correctRotationReference: {fileID: 1929986106}
   allowedRotationAngle: 60
   fallYLimit: -5
@@ -13491,11 +13496,11 @@ MonoBehaviour:
   holdPoint: {fileID: 7401858354726986450}
   pickupDistance: 6
   pickupRadius: 0.35
-  placeSearchRadius: 2.5
+  placeSearchRadius: 1.5
   rotateSpeed: 0.03
   holdDistance: 1.6
-  zoomSpeed: 0.08
-  minInspectDistance: 0.75
+  zoomSpeed: 0.15
+  minInspectDistance: 0.5
   maxInspectDistance: 2.2
   dropForwardDistance: 1
   dropUpOffset: 0.3
@@ -13696,7 +13701,7 @@ MonoBehaviour:
   pieceId: hip
   isPlaced: 0
   holdLocalRotation: {x: 0, y: 0, z: 0}
-  holdTargetSize: 0.75
+  holdTargetSize: 1
   correctRotationReference: {fileID: 1326249799}
   allowedRotationAngle: 60
   fallYLimit: -5
@@ -13849,7 +13854,7 @@ MonoBehaviour:
   pieceId: armR
   isPlaced: 0
   holdLocalRotation: {x: 0, y: 0, z: 0}
-  holdTargetSize: 0.75
+  holdTargetSize: 1
   correctRotationReference: {fileID: 588743114}
   allowedRotationAngle: 60
   fallYLimit: -5
@@ -14081,7 +14086,7 @@ MonoBehaviour:
   pieceId: armL
   isPlaced: 0
   holdLocalRotation: {x: 0, y: 0, z: 0}
-  holdTargetSize: 0.75
+  holdTargetSize: 1
   correctRotationReference: {fileID: 193585466}
   allowedRotationAngle: 60
   fallYLimit: -5
@@ -14100,7 +14105,7 @@ MonoBehaviour:
   pieceId: ribs
   isPlaced: 0
   holdLocalRotation: {x: 0, y: 0, z: 0}
-  holdTargetSize: 0.75
+  holdTargetSize: 1
   correctRotationReference: {fileID: 1695854462}
   allowedRotationAngle: 60
   fallYLimit: -5
@@ -14190,7 +14195,7 @@ MonoBehaviour:
   pieceId: footR
   isPlaced: 0
   holdLocalRotation: {x: 0, y: 0, z: 0}
-  holdTargetSize: 0.75
+  holdTargetSize: 1.2
   correctRotationReference: {fileID: 1364405756}
   allowedRotationAngle: 60
   fallYLimit: -5
@@ -14209,7 +14214,7 @@ MonoBehaviour:
   pieceId: skull
   isPlaced: 0
   holdLocalRotation: {x: 0, y: 0, z: 0}
-  holdTargetSize: 0.75
+  holdTargetSize: 1
   correctRotationReference: {fileID: 407435622}
   allowedRotationAngle: 60
   fallYLimit: -5
@@ -14250,7 +14255,7 @@ MonoBehaviour:
   pieceId: footL
   isPlaced: 0
   holdLocalRotation: {x: 0, y: 0, z: 0}
-  holdTargetSize: 0.75
+  holdTargetSize: 1.2
   correctRotationReference: {fileID: 2008637455}
   allowedRotationAngle: 60
   fallYLimit: -5
@@ -14761,7 +14766,7 @@ MonoBehaviour:
   pieceId: handL
   isPlaced: 0
   holdLocalRotation: {x: 0, y: 0, z: 0}
-  holdTargetSize: 0.75
+  holdTargetSize: 1.2
   correctRotationReference: {fileID: 133707690}
   allowedRotationAngle: 60
   fallYLimit: -5
