@@ -10,6 +10,8 @@ public class PuzzleStartTrigger : MonoBehaviour
     public float interactDistance = 4f;
     public TextMeshProUGUI interactText;
 
+    public float restartDelayAfterFinish = 1.0f;
+
     void Update()
     {
         if (modeSwitcher == null || player == null || puzzleManager == null) return;
@@ -17,13 +19,19 @@ public class PuzzleStartTrigger : MonoBehaviour
         float dist = Vector3.Distance(player.position, transform.position);
         bool inRange = dist <= interactDistance;
 
-       
-        bool canStart = !modeSwitcher.inPuzzleMode;
+        bool finishedLongEnough =
+            Time.time - puzzleManager.lastCompletedTime >= restartDelayAfterFinish;
+
+        bool canRestart =
+            inRange &&
+            !modeSwitcher.inPuzzleMode &&
+            puzzleManager.IsCompleted &&
+            finishedLongEnough;
 
         if (interactText != null)
-            interactText.gameObject.SetActive(inRange && canStart);
+            interactText.gameObject.SetActive(canRestart);
 
-        if (inRange && canStart && Keyboard.current.eKey.wasPressedThisFrame)
+        if (canRestart && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             modeSwitcher.EnterPuzzleMode();
             puzzleManager.StartPuzzle();

@@ -1,11 +1,16 @@
 using UnityEngine;
-
+using TMPro;
 public class PlayerModeSwitcher : MonoBehaviour
 {
     [Header("Third Person")]
     public MonoBehaviour thirdPersonController;
     public MonoBehaviour thirdPersonCameraScript;
     public Camera thirdPersonCamera;
+
+    [Header("UI")]
+    public GameObject puzzleControlsUI;
+    [Header("Puzzle Lock")]
+    public GameObject puzzleExitBlocker;
 
     [Header("First Person Puzzle")]
     public MonoBehaviour firstPersonController;
@@ -26,6 +31,10 @@ public class PlayerModeSwitcher : MonoBehaviour
         if (thirdPersonCamera != null) thirdPersonCamera.enabled = false;
 
         if (lowPolyMan != null) lowPolyMan.SetActive(false);
+        if (puzzleControlsUI != null)
+            puzzleControlsUI.SetActive(true);
+        if (puzzleExitBlocker != null)
+            puzzleExitBlocker.SetActive(true);
 
         if (firstPersonController != null) firstPersonController.enabled = true;
         if (puzzleInteraction != null) puzzleInteraction.enabled = true;
@@ -44,6 +53,10 @@ public class PlayerModeSwitcher : MonoBehaviour
         if (puzzleCamera != null) puzzleCamera.enabled = false;
 
         if (lowPolyMan != null) lowPolyMan.SetActive(true);
+        if (puzzleControlsUI != null)
+            puzzleControlsUI.SetActive(false);
+        if (puzzleExitBlocker != null)
+            puzzleExitBlocker.SetActive(false);
 
         if (thirdPersonController != null) thirdPersonController.enabled = true;
         if (thirdPersonCameraScript != null) thirdPersonCameraScript.enabled = true;

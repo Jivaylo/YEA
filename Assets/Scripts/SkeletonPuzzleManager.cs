@@ -102,6 +102,8 @@ public class SkeletonPuzzleManager : MonoBehaviour
         }
     }
 
+    public float lastCompletedTime = -999f;
+
     public void CheckCompletion()
     {
         if (!started || completed) return;
@@ -113,6 +115,9 @@ public class SkeletonPuzzleManager : MonoBehaviour
         }
 
         completed = true;
+        started = false;
+        lastCompletedTime = Time.time;
+
         Debug.Log("Puzzle complete! Switching back to 3rd person.");
 
         if (modeSwitcher != null)
