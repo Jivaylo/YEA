@@ -437,7 +437,7 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 9acb3f2fa7eed7d40b230023bc7261eb, type: 3}
   mainMenuSceneName: MainMenu
   inMinigame: 1
-  overworldSceneName: yeajasper14-4
+  overworldSceneName: SampleScene
   overworldSpawnPosition: {x: 0, y: 0, z: 0}
 --- !u!4 &136510242
 Transform:
