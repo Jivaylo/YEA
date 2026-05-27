@@ -965,7 +965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuManager
   mainMenuCanvas: {fileID: 321802368}
   settingsCanvas: {fileID: 258324938}
-  gameSceneName: yeajasper14-4
+  gameSceneName: SampleScene
   inputActions: {fileID: -944628639613478452, guid: 9acb3f2fa7eed7d40b230023bc7261eb, type: 3}
   rebindUpBtn: {fileID: 1299527125}
   rebindDownBtn: {fileID: 692478505}
