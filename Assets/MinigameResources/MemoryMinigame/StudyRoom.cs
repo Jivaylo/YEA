@@ -58,7 +58,6 @@ public class StudyRoom : MonoBehaviour
             {
                 string sName = round.sound != null ? round.sound.itemName : "???";
                 if (soundRevealDisplay) soundRevealDisplay.text = $"Sound: {sName}";
-                Debug.Log($"[Sound] Playing: {sName}");
                 if (round.sound?.sound != null) audioSource.PlayOneShot(round.sound.sound);
             });
         }

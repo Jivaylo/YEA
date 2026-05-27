@@ -51,7 +51,6 @@ public class Door : MonoBehaviour
                 soundButton.onInteract.RemoveAllListeners();
                 soundButton.onInteract.AddListener(() =>
                 {
-                    Debug.Log($"[Sound] Playing: {item.itemName}");
                     if (item.sound != null && audioSource != null)
                         audioSource.PlayOneShot(item.sound);
                 });

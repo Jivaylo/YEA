@@ -45,6 +45,8 @@ public class Note : MonoBehaviour
         baseRotation = arrowVisual.localRotation;
     }
 
+    public Color CurrentColor => arrowVisual.GetComponent<Renderer>().material.color;
+
     public void SetColor(NoteMod mod)
     {
         var renderer = arrowVisual.GetComponent<Renderer>();
