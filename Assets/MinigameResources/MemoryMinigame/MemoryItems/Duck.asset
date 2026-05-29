@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MemoryItem
   itemName: Duck
   image: {fileID: 21300000, guid: ffe419c88d896b046a7260d10477a8aa, type: 3}
-  sound: {fileID: 0}
+  sound: {fileID: 8300000, guid: af64ff39b2aa9654ea1b542eda2a51f3, type: 3}

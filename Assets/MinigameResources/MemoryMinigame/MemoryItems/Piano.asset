@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MemoryItem
   itemName: Piano
   image: {fileID: 21300000, guid: 970c35e98828acf4f8579af18da40c01, type: 3}
-  sound: {fileID: 0}
+  sound: {fileID: 8300000, guid: c119f0853656d214f804a00b4c5959b6, type: 3}
