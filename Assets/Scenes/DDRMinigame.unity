@@ -160,7 +160,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 1, z: 2}
+  m_Size: {x: 2, y: 1, z: 2.75}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &113708901
 MeshRenderer:
@@ -5648,8 +5648,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf83b2abb98d944b8a921b6b2a2171c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestroyZone
-  notePrefab: {fileID: 0}
-  spawner: {fileID: 0}
+  notePrefab: {fileID: 1331042715719818618, guid: d6ee176a824fea440a51126450b5558b, type: 3}
+  spawner: {fileID: 2022407332}
 --- !u!65 &818882093
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5756,7 +5756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TraumaInducer
   Delay: 0
-  MaximumStress: 0.4
+  MaximumStress: 0.15
   Range: 45
 --- !u!1 &977867257
 GameObject:
@@ -6273,7 +6273,7 @@ MonoBehaviour:
     pauseTime: 0.3
   - spawnRate: 1.3
     noteSpeed: 5
-    scoreForNextStage: 700
+    scoreForNextStage: 800
     pause: 0
     pauseTime: 0
   - spawnRate: 0
@@ -6283,7 +6283,7 @@ MonoBehaviour:
     pauseTime: 0.5
   - spawnRate: 1
     noteSpeed: 7
-    scoreForNextStage: 1000
+    scoreForNextStage: 1300
     pause: 0
     pauseTime: 0
   - spawnRate: 0
@@ -6293,7 +6293,17 @@ MonoBehaviour:
     pauseTime: 0.6
   - spawnRate: 0.8
     noteSpeed: 11
-    scoreForNextStage: 1400
+    scoreForNextStage: 1500
+    pause: 0
+    pauseTime: 0
+  - spawnRate: 0
+    noteSpeed: 0
+    scoreForNextStage: 0
+    pause: 1
+    pauseTime: 0.5
+  - spawnRate: 0.7
+    noteSpeed: 12
+    scoreForNextStage: 1900
     pause: 0
     pauseTime: 0
   - spawnRate: 0
@@ -6303,7 +6313,7 @@ MonoBehaviour:
     pauseTime: 0.5
   - spawnRate: 0.6
     noteSpeed: 13
-    scoreForNextStage: 1700
+    scoreForNextStage: 2300
     pause: 0
     pauseTime: 0
   - spawnRate: 0
@@ -6313,7 +6323,7 @@ MonoBehaviour:
     pauseTime: 0.5
   - spawnRate: 0.5
     noteSpeed: 14
-    scoreForNextStage: 2400
+    scoreForNextStage: 2500
     pause: 0
     pauseTime: 0
   - spawnRate: 0
@@ -6323,7 +6333,7 @@ MonoBehaviour:
     pauseTime: 0.5
   - spawnRate: 0.4
     noteSpeed: 15
-    scoreForNextStage: 2000
+    scoreForNextStage: 2500
     pause: 0
     pauseTime: 0
   currentStage: 0
@@ -6355,10 +6365,10 @@ SceneRoots:
   - {fileID: 136510242}
   - {fileID: 977867260}
   - {fileID: 119798120}
+  - {fileID: 2022407333}
   - {fileID: 113708903}
   - {fileID: 141549083}
   - {fileID: 818882096}
-  - {fileID: 2022407333}
   - {fileID: 514377021}
   - {fileID: 1420975029}
   - {fileID: 1681266446}
