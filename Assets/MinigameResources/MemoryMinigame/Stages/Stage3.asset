@@ -10,13 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a7680bfc90cf6a4fb7f14c449092b18, type: 3}
-  m_Name: Stage2
+  m_Name: Stage3
   m_EditorClassIdentifier: Assembly-CSharp::MemoryStage
-  numberOfRounds: 4
+  numberOfRounds: 6
   questionPool:
   - questionType: 0
+    roundsBack: 1
+    weight: 3
+  - questionType: 1
+    roundsBack: 1
+    weight: 3
+  - questionType: 0
     roundsBack: 2
-    weight: 2
+    weight: 4
   - questionType: 1
     roundsBack: 2
-    weight: 2
+    weight: 4
+  - questionType: 0
+    roundsBack: 3
+    weight: 3
+  - questionType: 1
+    roundsBack: 3
+    weight: 3
