@@ -274,7 +274,7 @@ public class PauseMenuManager : MonoBehaviour
         return backdrop;
     }
 
-    void GoToMuseum()
+    public void GoToMuseum()
     {
         Time.timeScale = 1f;
         SceneManager.sceneLoaded += OnMuseumSceneLoaded;

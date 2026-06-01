@@ -37,6 +37,7 @@ public class NoteSpawner : MonoBehaviour
 
     // UI built in code
     private GameObject winPanel, losePanel;
+    private TextMeshProUGUI winSubtitleText;
 
     private int score = 0;
     private int misses = 0;
@@ -51,6 +52,8 @@ public class NoteSpawner : MonoBehaviour
     {
         winPanel.SetActive(false);
         losePanel.SetActive(false);
+        if (winSubtitleText != null)
+            winSubtitleText.text = $"Returning to Museum in {restartDelay:0.#} seconds...";
         UpdateMissesUI();
         StartCoroutine(SpawnLoop());
     }
@@ -136,16 +139,24 @@ public class NoteSpawner : MonoBehaviour
     {
         gameOver = true;
         winPanel.SetActive(true);
-
-        StartCoroutine(RestartAfterDelay());
+        StartCoroutine(GoToMuseumAfterDelay());
     }
 
     private void Lose()
     {
         gameOver = true;
         losePanel.SetActive(true);
-
         StartCoroutine(RestartAfterDelay());
+    }
+
+    IEnumerator GoToMuseumAfterDelay()
+    {
+        yield return new WaitForSeconds(restartDelay);
+        var pm = FindAnyObjectByType<PauseMenuManager>();
+        if (pm != null)
+            pm.GoToMuseum();
+        else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     IEnumerator RestartAfterDelay()
@@ -191,11 +202,11 @@ public class NoteSpawner : MonoBehaviour
             es.AddComponent<InputSystemUIInputModule>();
         }
 
-        winPanel  = BuildResultPanel(canvasGO.transform, "WinPanel",  "YOU WIN!", new Color(0.05f, 0.25f, 0.05f, 0.95f), new Color(0.6f, 1f, 0.6f));
-        losePanel = BuildResultPanel(canvasGO.transform, "LosePanel", "GAME OVER", new Color(0.25f, 0.05f, 0.05f, 0.95f), new Color(1f, 0.5f, 0.5f));
+        winPanel  = BuildResultPanel(canvasGO.transform, "WinPanel",  "YOU WIN!", new Color(0.05f, 0.25f, 0.05f, 0.95f), new Color(0.6f, 1f, 0.6f), out winSubtitleText);
+        losePanel = BuildResultPanel(canvasGO.transform, "LosePanel", "GAME OVER", new Color(0.25f, 0.05f, 0.05f, 0.95f), new Color(1f, 0.5f, 0.5f), out _);
     }
 
-    GameObject BuildResultPanel(Transform parent, string name, string title, Color bgColor, Color titleColor)
+    GameObject BuildResultPanel(Transform parent, string name, string title, Color bgColor, Color titleColor, out TextMeshProUGUI subtitleOut)
     {
         GameObject panel = new GameObject(name);
         panel.transform.SetParent(parent, false);
@@ -220,7 +231,7 @@ public class NoteSpawner : MonoBehaviour
         trt.anchoredPosition = new Vector2(0, 60);
         trt.sizeDelta = new Vector2(1200, 200);
 
-        // Subtitle (restart notice)
+        // Subtitle
         GameObject subGO = new GameObject("Subtitle");
         subGO.transform.SetParent(panel.transform, false);
         TextMeshProUGUI subText = subGO.AddComponent<TextMeshProUGUI>();
@@ -233,6 +244,7 @@ public class NoteSpawner : MonoBehaviour
         srt.anchoredPosition = new Vector2(0, -80);
         srt.sizeDelta = new Vector2(900, 60);
 
+        subtitleOut = subText;
         return panel;
     }
 }

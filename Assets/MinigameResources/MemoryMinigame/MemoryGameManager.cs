@@ -326,6 +326,12 @@ public class MemoryGameManager : MonoBehaviour
         resultBodyText.text   = $"{score} / {totalQuestions} correct";
         nextStageButton.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(true);
+
+        var label = restartButton.GetComponentInChildren<Text>();
+        if (label != null) label.text = "Back to Museum";
+        restartButton.onClick.RemoveAllListeners();
+        var pm = FindAnyObjectByType<PauseMenuManager>();
+        restartButton.onClick.AddListener(() => pm?.GoToMuseum());
     }
 
     void HideAll()
