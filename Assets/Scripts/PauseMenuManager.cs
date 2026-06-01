@@ -231,14 +231,14 @@ public class PauseMenuManager : MonoBehaviour
     {
         GameObject backdrop = MakeFullscreenPanel("PauseBackdrop", canvasRoot, new Color(0, 0, 0, 0.6f));
 
-        float cardHeight = inMinigame ? 560f : 480f;
+        float cardHeight = inMinigame ? 660f : 480f;
         GameObject card = MakeBox("PauseCard", backdrop.transform, new Color(0.1f, 0.1f, 0.15f, 0.97f),
             Vector2.zero, new Vector2(520, cardHeight));
 
-        float titleY  = inMinigame ? 210f  : 160f;
-        float resumeY = inMinigame ?  95f  :  50f;
-        float settingsY = inMinigame ? -5f : -40f;
-        float quitY   = inMinigame ? -195f : -150f;
+        float titleY  = inMinigame ? 250f  : 160f;
+        float resumeY = inMinigame ? 140f  :  50f;
+        float settingsY = inMinigame ? 55f : -40f;
+        float quitY   = inMinigame ? -200f : -150f;
 
         MakeLabel("PausedTitle", card.transform, "PAUSED", 56, Color.white, new Vector2(0, titleY), new Vector2(460, 70));
 
@@ -253,8 +253,12 @@ public class PauseMenuManager : MonoBehaviour
 
         if (inMinigame)
         {
+            Button restartBtn = MakeButton("RestartBtn", card.transform, "Restart Minigame",
+                new Vector2(0, -30f), new Vector2(340, 70), new Color(0.55f, 0.35f, 0.05f, 1f));
+            restartBtn.onClick.AddListener(() => { Time.timeScale = 1f; SceneManager.LoadScene(SceneManager.GetActiveScene().name); });
+
             Button museumBtn = MakeButton("MuseumBtn", card.transform, "Back to Museum",
-                new Vector2(0, -100f), new Vector2(340, 70), new Color(0.1f, 0.45f, 0.2f, 1f));
+                new Vector2(0, -115f), new Vector2(340, 70), new Color(0.1f, 0.45f, 0.2f, 1f));
             museumBtn.onClick.AddListener(GoToMuseum);
         }
 
