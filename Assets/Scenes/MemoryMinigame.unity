@@ -167,8 +167,9 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 9acb3f2fa7eed7d40b230023bc7261eb, type: 3}
   mainMenuSceneName: MainMenu
   inMinigame: 1
+  keepCursorVisibleOnResume: 0
   overworldSceneName: yeajasper14-4
-  overworldSpawnPosition: {x: 0, y: 0, z: 0}
+  overworldSpawnPosition: {x: -31.71, y: -2.9171786, z: 23.77496}
 --- !u!4 &556547275
 Transform:
   m_ObjectHideFlags: 0
@@ -529,6 +530,9 @@ MonoBehaviour:
   stages:
   - {fileID: 11400000, guid: 43bb3d9b841689945a633efc8b07c42b, type: 2}
   - {fileID: 11400000, guid: f3dd3c6997065a74aba3a1e912aa10f2, type: 2}
+  - {fileID: 11400000, guid: 537fcfef992c35245a9b2d01b169423e, type: 2}
+  - {fileID: 11400000, guid: 43bb3d9b841689945a633efc8b07c42b, type: 2}
+  - {fileID: 11400000, guid: d79de98c0e322b04288041ea04bfb6ac, type: 2}
   availableItems:
   - {fileID: 11400000, guid: 8ad35da15b58e6f45b9423aff1152af5, type: 2}
   - {fileID: 11400000, guid: 1d5280eb861a1bc4c834188bf4d2e3fe, type: 2}

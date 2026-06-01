@@ -1778,7 +1778,7 @@ MonoBehaviour:
   inMinigame: 1
   keepCursorVisibleOnResume: 1
   overworldSceneName: yeajasper14-4
-  overworldSpawnPosition: {x: 0, y: 0, z: 0}
+  overworldSpawnPosition: {x: -26, y: 8.600968, z: 32.937386}
 --- !u!4 &798780653
 Transform:
   m_ObjectHideFlags: 0
