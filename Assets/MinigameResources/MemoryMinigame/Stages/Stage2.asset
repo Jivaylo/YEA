@@ -15,12 +15,6 @@ MonoBehaviour:
   numberOfRounds: 4
   questionPool:
   - questionType: 0
-    roundsBack: 1
-    weight: 1
-  - questionType: 1
-    roundsBack: 1
-    weight: 1
-  - questionType: 0
     roundsBack: 2
     weight: 2
   - questionType: 1

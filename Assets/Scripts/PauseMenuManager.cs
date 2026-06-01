@@ -15,6 +15,7 @@ public class PauseMenuManager : MonoBehaviour
 
     [Header("Minigame Return")]
     [SerializeField] private bool inMinigame = false;
+    [SerializeField] private bool keepCursorVisibleOnResume = false;
     [SerializeField] private string overworldSceneName = "SampleScene";
     [SerializeField] private Vector3 overworldSpawnPosition;
 
@@ -83,8 +84,16 @@ public class PauseMenuManager : MonoBehaviour
         Time.timeScale = 1f;
         pausePanel.SetActive(false);
         settingsPanel.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (keepCursorVisibleOnResume)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     void ShowPause()
