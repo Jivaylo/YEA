@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 6896711910782597651}
   - component: {fileID: 161966560577533203}
   - component: {fileID: 7149825007947911136}
+  - component: {fileID: 7362188365152478929}
   m_Layer: 2
   m_Name: Player 1
   m_TagString: Player
@@ -338,11 +339,25 @@ MonoBehaviour:
   thirdPersonController: {fileID: 161966560577533203}
   thirdPersonCameraScript: {fileID: 0}
   thirdPersonCamera: {fileID: 0}
+  puzzleControlsUI: {fileID: 0}
+  puzzleExitBlocker: {fileID: 0}
   firstPersonController: {fileID: 6896711910782597651}
   puzzleInteraction: {fileID: 4129373896426649638}
   puzzleCamera: {fileID: 2721769186998009450}
   lowPolyMan: {fileID: 2493130330955284122}
   inPuzzleMode: 0
+--- !u!114 &7362188365152478929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4746532001148069932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c69460bd314b1641b2aa805594631a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
 --- !u!1001 &3339429029221123019
 PrefabInstance:
   m_ObjectHideFlags: 0

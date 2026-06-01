@@ -44,10 +44,7 @@ public class StudyRoom : MonoBehaviour
         }
 
         bool hasClip = round.sound?.sound != null;
-        if (soundRevealDisplay)
-            soundRevealDisplay.text = hasClip
-                ? "[ press E on the button to hear the sound ]"
-                : (round.sound != null ? $"Sound: {round.sound.itemName}" : "");
+        if (soundRevealDisplay) soundRevealDisplay.text = "";
         if (soundButton) soundButton.gameObject.SetActive(hasClip);
 
         if (soundButton != null)
@@ -56,9 +53,6 @@ public class StudyRoom : MonoBehaviour
             soundButton.onInteract.RemoveAllListeners();
             soundButton.onInteract.AddListener(() =>
             {
-                string sName = round.sound != null ? round.sound.itemName : "???";
-                if (soundRevealDisplay) soundRevealDisplay.text = $"Sound: {sName}";
-                Debug.Log($"[Sound] Playing: {sName}");
                 if (round.sound?.sound != null) audioSource.PlayOneShot(round.sound.sound);
             });
         }

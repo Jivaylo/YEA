@@ -13,6 +13,11 @@ public class PauseMenuManager : MonoBehaviour
     [Header("Scene")]
     [SerializeField] private string mainMenuSceneName = "MainMenu";
 
+    [Header("Minigame Return")]
+    [SerializeField] private bool inMinigame = false;
+    [SerializeField] private string overworldSceneName = "SampleScene";
+    [SerializeField] private Vector3 overworldSpawnPosition;
+
     private GameObject pausePanel;
     private GameObject settingsPanel;
     private bool isPaused = false;
@@ -224,29 +229,51 @@ public class PauseMenuManager : MonoBehaviour
 
     GameObject BuildPausePanel(Transform canvasRoot)
     {
-        // Dark full-screen backdrop
         GameObject backdrop = MakeFullscreenPanel("PauseBackdrop", canvasRoot, new Color(0, 0, 0, 0.6f));
 
-        // Centered card
+        float cardHeight = inMinigame ? 560f : 480f;
         GameObject card = MakeBox("PauseCard", backdrop.transform, new Color(0.1f, 0.1f, 0.15f, 0.97f),
-            Vector2.zero, new Vector2(520, 480));
+            Vector2.zero, new Vector2(520, cardHeight));
 
-        MakeLabel("PausedTitle", card.transform, "PAUSED", 56, Color.white, new Vector2(0, 160), new Vector2(460, 70));
+        float titleY  = inMinigame ? 210f  : 160f;
+        float resumeY = inMinigame ?  95f  :  50f;
+        float settingsY = inMinigame ? -5f : -40f;
+        float quitY   = inMinigame ? -195f : -150f;
 
-        Button resumeBtn = MakeButton("ResumeBtn", card.transform, "Resume",       new Vector2(0,  50), new Vector2(340, 70));
-        Button settingsBtn = MakeButton("SettingsBtn", card.transform, "Settings", new Vector2(0, -40), new Vector2(340, 70));
-        Button quitBtn    = MakeButton("QuitBtn",  card.transform, "Quit to Menu", new Vector2(0,-150), new Vector2(340, 70),
+        MakeLabel("PausedTitle", card.transform, "PAUSED", 56, Color.white, new Vector2(0, titleY), new Vector2(460, 70));
+
+        Button resumeBtn   = MakeButton("ResumeBtn",   card.transform, "Resume",       new Vector2(0, resumeY),  new Vector2(340, 70));
+        Button settingsBtn = MakeButton("SettingsBtn", card.transform, "Settings",     new Vector2(0, settingsY), new Vector2(340, 70));
+        Button quitBtn     = MakeButton("QuitBtn",     card.transform, "Quit to Menu", new Vector2(0, quitY),    new Vector2(340, 70),
             new Color(0.6f, 0.1f, 0.1f, 1f));
 
         resumeBtn.onClick.AddListener(Resume);
         settingsBtn.onClick.AddListener(() => { pausePanel.SetActive(false); settingsPanel.SetActive(true); });
-        quitBtn.onClick.AddListener(() =>
+        quitBtn.onClick.AddListener(() => { Time.timeScale = 1f; SceneManager.LoadScene(mainMenuSceneName); });
+
+        if (inMinigame)
         {
-            Time.timeScale = 1f;
-            SceneManager.LoadScene(mainMenuSceneName);
-        });
+            Button museumBtn = MakeButton("MuseumBtn", card.transform, "Back to Museum",
+                new Vector2(0, -100f), new Vector2(340, 70), new Color(0.1f, 0.45f, 0.2f, 1f));
+            museumBtn.onClick.AddListener(GoToMuseum);
+        }
 
         return backdrop;
+    }
+
+    void GoToMuseum()
+    {
+        Time.timeScale = 1f;
+        SceneManager.sceneLoaded += OnMuseumSceneLoaded;
+        SceneManager.LoadScene(overworldSceneName);
+    }
+
+    void OnMuseumSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= OnMuseumSceneLoaded;
+        var player = GameObject.FindWithTag("Player");
+        if (player != null)
+            player.transform.position = overworldSpawnPosition;
     }
 
     GameObject BuildSettingsPanel(Transform canvasRoot)

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MemoryItem
   itemName: Cat
   image: {fileID: 21300000, guid: c5d5c25a0b9171d40a8c90c13a033fbd, type: 3}
-  sound: {fileID: 0}
+  sound: {fileID: 8300000, guid: a9a70fdf727770443b0567dc118475df, type: 3}

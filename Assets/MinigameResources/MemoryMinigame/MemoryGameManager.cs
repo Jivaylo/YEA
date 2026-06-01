@@ -398,7 +398,6 @@ public class MemoryGameManager : MonoBehaviour
             data.questions = GenerateQuestions(stage);
                 generatedStages.Add(data);
         }
-        Debug.Log($"Generated {generatedStages.Count} stages.");
     }
 
     [ContextMenu("Generate All Stages (Debug)")]

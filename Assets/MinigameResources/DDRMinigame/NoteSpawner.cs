@@ -33,10 +33,10 @@ public class NoteSpawner : MonoBehaviour
     [SerializeField] private int maxMisses = 5;
     [SerializeField] private float restartDelay = 3f;
 
+    [SerializeField] private TMP_Text missesText;
+
     // UI built in code
     private GameObject winPanel, losePanel;
-    private TMP_Text missesText;
-    private Font uiFont;
 
     private int score = 0;
     private int misses = 0;
@@ -44,7 +44,6 @@ public class NoteSpawner : MonoBehaviour
 
     void Awake()
     {
-        uiFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         BuildUI();
     }
 
@@ -61,7 +60,6 @@ public class NoteSpawner : MonoBehaviour
         if (Keyboard.current.eKey.wasPressedThisFrame)
         {
             NextStage();
-            Debug.Log("Switched to stage: " + currentStage);
         }
     }
 
@@ -77,7 +75,7 @@ public class NoteSpawner : MonoBehaviour
             {
                 SpawnNote();
                 yield return new WaitForSeconds(stage.spawnRate);
-                if (score >= stage.scoreForNextStage)
+                if (score >= GetCumulativeThreshold(currentStage))
                 {
                     NextStage();
                 }
@@ -99,6 +97,14 @@ public class NoteSpawner : MonoBehaviour
         note.noteMod = (NoteMod)UnityEngine.Random.Range(0, Enum.GetNames(typeof(NoteMod)).Length);
 
         note.speed = stages[currentStage].noteSpeed;
+    }
+
+    private int GetCumulativeThreshold(int stageIndex)
+    {
+        int total = 0;
+        for (int i = 0; i <= stageIndex; i++)
+            total += stages[i].scoreForNextStage;
+        return total;
     }
 
     public void NextStage()
@@ -130,7 +136,7 @@ public class NoteSpawner : MonoBehaviour
     {
         gameOver = true;
         winPanel.SetActive(true);
-        Debug.Log("DDR: Win! Score = " + score);
+
         StartCoroutine(RestartAfterDelay());
     }
 
@@ -138,7 +144,7 @@ public class NoteSpawner : MonoBehaviour
     {
         gameOver = true;
         losePanel.SetActive(true);
-        Debug.Log("DDR: Lose. Misses = " + misses);
+
         StartCoroutine(RestartAfterDelay());
     }
 
@@ -156,8 +162,9 @@ public class NoteSpawner : MonoBehaviour
 
     private void UpdateMissesUI()
     {
-        if (missesText != null)
-            missesText.text = "Misses: " + misses + " / " + maxMisses;
+        if (missesText == null) return;
+        int remaining = maxMisses - misses;
+        missesText.text = remaining > 0 ? new string('♥', remaining) : "";
     }
 
     public bool IsGameOver => gameOver;
@@ -183,20 +190,6 @@ public class NoteSpawner : MonoBehaviour
             es.AddComponent<EventSystem>();
             es.AddComponent<InputSystemUIInputModule>();
         }
-
-        // Misses counter (top-left of screen)
-        GameObject missesGO = new GameObject("MissesText");
-        missesGO.transform.SetParent(canvasGO.transform, false);
-        missesText = missesGO.AddComponent<TextMeshProUGUI>();
-        missesText.fontSize = 36;
-        missesText.color = new Color(1f, 0.7f, 0.7f);
-        missesText.alignment = TextAlignmentOptions.TopLeft;
-        RectTransform mrt = missesGO.GetComponent<RectTransform>();
-        mrt.anchorMin = new Vector2(0f, 1f);
-        mrt.anchorMax = new Vector2(0f, 1f);
-        mrt.pivot = new Vector2(0f, 1f);
-        mrt.anchoredPosition = new Vector2(40, -40);
-        mrt.sizeDelta = new Vector2(400, 60);
 
         winPanel  = BuildResultPanel(canvasGO.transform, "WinPanel",  "YOU WIN!", new Color(0.05f, 0.25f, 0.05f, 0.95f), new Color(0.6f, 1f, 0.6f));
         losePanel = BuildResultPanel(canvasGO.transform, "LosePanel", "GAME OVER", new Color(0.25f, 0.05f, 0.05f, 0.95f), new Color(1f, 0.5f, 0.5f));
