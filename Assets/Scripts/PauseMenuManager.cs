@@ -313,7 +313,7 @@ public class PauseMenuManager : MonoBehaviour
 
         // Back button
         Button backBtn = MakeButton("BackBtn", card.transform, "Back",
-            new Vector2(0, -270), new Vector2(200, 50), new Color(0.25f, 0.25f, 0.3f, 1f));
+            new Vector2(0, -320), new Vector2(200, 50), new Color(0.25f, 0.25f, 0.3f, 1f));
         backBtn.onClick.AddListener(ShowPause);
 
         return backdrop;
