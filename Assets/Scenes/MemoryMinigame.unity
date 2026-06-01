@@ -531,8 +531,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 43bb3d9b841689945a633efc8b07c42b, type: 2}
   - {fileID: 11400000, guid: f3dd3c6997065a74aba3a1e912aa10f2, type: 2}
   - {fileID: 11400000, guid: 537fcfef992c35245a9b2d01b169423e, type: 2}
-  - {fileID: 11400000, guid: 43bb3d9b841689945a633efc8b07c42b, type: 2}
-  - {fileID: 11400000, guid: d79de98c0e322b04288041ea04bfb6ac, type: 2}
   availableItems:
   - {fileID: 11400000, guid: 8ad35da15b58e6f45b9423aff1152af5, type: 2}
   - {fileID: 11400000, guid: 1d5280eb861a1bc4c834188bf4d2e3fe, type: 2}
