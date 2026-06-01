@@ -50,6 +50,9 @@ public class MemoryTrackingGame : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         currentSpeed = startSpeed;
         gameTimer = gameTime;
 
