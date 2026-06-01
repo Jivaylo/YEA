@@ -22,15 +22,21 @@ public class ThirdPersonCamera_NewInput : MonoBehaviour
 
     [Header("Zoom")]
     public float zoomSpeed = 0.8f;
-    public float minDistance = 2f;
+    public float minDistance = 0.15f;
     public float maxDistance = 7f;
+
+    [Header("Camera Collision")]
+    public LayerMask collisionLayers;
+    public float collisionRadius = 0.45f;
+    public float collisionOffset = 0.25f;
+    public float collisionOriginHeight = 1.4f;
 
     private InputAction lookAction;
     private InputAction zoomAction;
 
     private float yaw;
     private float pitch;
-    private float currentDistance;
+    private float targetDistance;
 
     void Awake()
     {
@@ -59,38 +65,64 @@ public class ThirdPersonCamera_NewInput : MonoBehaviour
         yaw = transform.eulerAngles.y;
         pitch = pivot.localEulerAngles.x;
 
-        currentDistance = Mathf.Clamp(-cam.localPosition.z, minDistance, maxDistance);
-        cam.localPosition = new Vector3(0, 0, -currentDistance);
+        targetDistance = Mathf.Clamp(-cam.localPosition.z, minDistance, maxDistance);
     }
 
     void LateUpdate()
     {
-        if (target == null || pivot == null || cam == null)
-            return;
+        if (target == null || pivot == null || cam == null) return;
+        if (Time.timeScale == 0f) return;
 
-        if (Time.timeScale == 0f)
-            return;
-
-        Vector3 desiredPos = target.position + followOffset;
-        transform.position = Vector3.Lerp(transform.position, desiredPos, followSmooth * Time.deltaTime);
-
+        transform.position = Vector3.Lerp(
+            transform.position,
+            target.position + followOffset,
+            followSmooth * Time.deltaTime
+        );
 
         Vector2 delta = lookAction.ReadValue<Vector2>();
         yaw += delta.x * sensitivity;
         pitch -= delta.y * sensitivity;
         pitch = Mathf.Clamp(pitch, minPitch, maxPitch);
 
-        transform.rotation = Quaternion.Euler(0, yaw, 0);
-        pivot.localRotation = Quaternion.Euler(pitch, 0, 0);
+        transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+        pivot.localRotation = Quaternion.Euler(pitch, 0f, 0f);
 
-  
         float scroll = zoomAction.ReadValue<float>();
         if (Mathf.Abs(scroll) > 0.01f)
+            targetDistance = Mathf.Clamp(targetDistance - scroll * zoomSpeed, minDistance, maxDistance);
+
+        float safeDistance = CalculateSafeDistance();
+
+        cam.localPosition = new Vector3(0f, 0f, -safeDistance);
+        cam.localRotation = Quaternion.identity;
+    }
+
+    float CalculateSafeDistance()
+    {
+        Vector3 origin = target.position + Vector3.up * collisionOriginHeight;
+        Vector3 direction = -pivot.forward;
+
+        float safeDistance = targetDistance;
+
+        if (Physics.Linecast(origin, origin + direction * targetDistance, out RaycastHit lineHit, collisionLayers, QueryTriggerInteraction.Ignore))
         {
-            currentDistance = Mathf.Clamp(currentDistance - scroll * zoomSpeed, minDistance, maxDistance);
-            cam.localPosition = new Vector3(0, 0, -currentDistance);
+            safeDistance = Mathf.Min(safeDistance, lineHit.distance - collisionOffset);
         }
 
-        // Cursor release is handled by PauseMenuManager
+        if (Physics.SphereCast(origin, collisionRadius, direction, out RaycastHit sphereHit, targetDistance, collisionLayers, QueryTriggerInteraction.Ignore))
+        {
+            safeDistance = Mathf.Min(safeDistance, sphereHit.distance - collisionOffset);
+        }
+
+        safeDistance = Mathf.Clamp(safeDistance, minDistance, targetDistance);
+
+        Vector3 finalCameraPos = origin + direction * safeDistance;
+
+        if (Physics.CheckSphere(finalCameraPos, collisionRadius, collisionLayers, QueryTriggerInteraction.Ignore))
+        {
+            safeDistance = minDistance;
+        }
+
+        return Mathf.Clamp(safeDistance, minDistance, targetDistance);
     }
 }
