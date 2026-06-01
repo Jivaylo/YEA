@@ -2515,6 +2515,26 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 497496870901493362}
+    - target: {fileID: 1775403636113016420, guid: e969ab7786abadd479b72f202125c990, type: 3}
+      propertyPath: minDistance
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775403636113016420, guid: e969ab7786abadd479b72f202125c990, type: 3}
+      propertyPath: collisionOffset
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775403636113016420, guid: e969ab7786abadd479b72f202125c990, type: 3}
+      propertyPath: collisionRadius
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775403636113016420, guid: e969ab7786abadd479b72f202125c990, type: 3}
+      propertyPath: collisionSmooth
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775403636113016420, guid: e969ab7786abadd479b72f202125c990, type: 3}
+      propertyPath: collisionLayers.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3834797154857315678, guid: e969ab7786abadd479b72f202125c990, type: 3}
       propertyPath: m_Name
       value: CameraRig
