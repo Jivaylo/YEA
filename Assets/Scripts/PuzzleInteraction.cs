@@ -53,7 +53,12 @@ public class PuzzleInteraction : MonoBehaviour
     {
         if (Keyboard.current == null || puzzleCamera == null) return;
 
-        if (Keyboard.current.eKey.wasPressedThisFrame)
+        bool interactPressed = Keyboard.current.eKey.wasPressedThisFrame
+            || (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame);
+        bool inspectPressed = Keyboard.current.fKey.wasPressedThisFrame
+            || (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame);
+
+        if (interactPressed)
         {
             if (heldPiece == null)
                 TryPickUp();
@@ -64,7 +69,7 @@ public class PuzzleInteraction : MonoBehaviour
         if (Keyboard.current.qKey.wasPressedThisFrame && heldPiece != null)
             DropHeldPiece();
 
-        if (Keyboard.current.fKey.wasPressedThisFrame && heldPiece != null)
+        if (inspectPressed && heldPiece != null)
             inspectMode = !inspectMode;
 
         if (Keyboard.current.rKey.wasPressedThisFrame && heldPiece != null)

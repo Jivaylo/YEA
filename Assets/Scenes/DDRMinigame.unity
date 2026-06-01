@@ -6303,7 +6303,7 @@ MonoBehaviour:
     pauseTime: 0.5
   - spawnRate: 0.7
     noteSpeed: 12
-    scoreForNextStage: 2300
+    scoreForNextStage: 2200
     pause: 0
     pauseTime: 0
   - spawnRate: 0
@@ -6313,7 +6313,7 @@ MonoBehaviour:
     pauseTime: 0.5
   - spawnRate: 0.6
     noteSpeed: 13
-    scoreForNextStage: 2600
+    scoreForNextStage: 2400
     pause: 0
     pauseTime: 0
   - spawnRate: 0
@@ -6323,7 +6323,7 @@ MonoBehaviour:
     pauseTime: 0.5
   - spawnRate: 0.5
     noteSpeed: 14
-    scoreForNextStage: 3000
+    scoreForNextStage: 2800
     pause: 0
     pauseTime: 0
   - spawnRate: 0
