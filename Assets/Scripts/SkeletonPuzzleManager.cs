@@ -1,9 +1,13 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SkeletonPuzzleManager : MonoBehaviour
 {
     public PuzzlePiece[] pieces;
     public PlayerModeSwitcher modeSwitcher;
+
+    [Header("Reward Scene")]
+    public string brainUnlockSceneName = "BrainUnlockScene";
 
     [Header("Scatter")]
     public float scatterForce = 0.5f;
@@ -18,6 +22,7 @@ public class SkeletonPuzzleManager : MonoBehaviour
     private Quaternion[] startRotations;
 
     public bool IsCompleted => completed;
+    public float lastCompletedTime = -999f;
 
     void Awake()
     {
@@ -96,13 +101,10 @@ public class SkeletonPuzzleManager : MonoBehaviour
 
             piece.transform.position = startPositions[i];
             piece.transform.rotation = startRotations[i];
-            piece.transform.localScale = Vector3.one;
 
             piece.SetSafePosition(startPositions[i], startRotations[i]);
         }
     }
-
-    public float lastCompletedTime = -999f;
 
     public void CheckCompletion()
     {
@@ -118,9 +120,21 @@ public class SkeletonPuzzleManager : MonoBehaviour
         started = false;
         lastCompletedTime = Time.time;
 
-        Debug.Log("Puzzle complete! Switching back to 3rd person.");
+        Debug.Log("Puzzle complete! Loading brain unlock scene.");
 
-        if (modeSwitcher != null)
-            modeSwitcher.ExitPuzzleMode();
+        PlayerPrefs.SetString("UnlockedBrainPart", "Cerebellum");
+        PlayerPrefs.Save();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player != null)
+        {
+            PlayerPrefs.SetFloat("PlayerX", player.transform.position.x);
+            PlayerPrefs.SetFloat("PlayerY", player.transform.position.y);
+            PlayerPrefs.SetFloat("PlayerZ", player.transform.position.z);
+
+            PlayerPrefs.SetFloat("PlayerRotY", player.transform.eulerAngles.y);
+        }
+
+        SceneManager.LoadScene(brainUnlockSceneName);
     }
 }
