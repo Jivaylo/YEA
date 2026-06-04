@@ -281,6 +281,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void GoToMuseum()
     {
+        MinigameLobbyManager.ResetLobby();
         Time.timeScale = 1f;
         SceneManager.sceneLoaded += OnMuseumSceneLoaded;
         SceneManager.LoadScene(overworldSceneName);
