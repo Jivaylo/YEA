@@ -47,9 +47,13 @@ public class MemoryTrackingGame : MonoBehaviour
 
     private bool showingGreen = true;
     private bool gameEnded = false;
+    private bool started = false;
 
-    void Start()
+    // Called by the lobby's On Play event. Nothing runs until this is called.
+    public void StartGame()
     {
+        started = true;
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
@@ -81,7 +85,7 @@ public class MemoryTrackingGame : MonoBehaviour
 
     void Update()
     {
-        if (gameEnded) return;
+        if (!started || gameEnded) return;
 
         HandleGameTimer();
         HandleMemoryTimer();
@@ -91,7 +95,7 @@ public class MemoryTrackingGame : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (gameEnded) return;
+        if (!started || gameEnded) return;
 
         KeepBallSpeeds();
         KeepBallsInsideArea();
