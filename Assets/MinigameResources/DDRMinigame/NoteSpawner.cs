@@ -55,6 +55,10 @@ public class NoteSpawner : MonoBehaviour
         if (winSubtitleText != null)
             winSubtitleText.text = $"Returning to Museum in {restartDelay:0.#} seconds...";
         UpdateMissesUI();
+    }
+
+    public void StartGame()
+    {
         StartCoroutine(SpawnLoop());
     }
 
@@ -138,6 +142,8 @@ public class NoteSpawner : MonoBehaviour
     private void Win()
     {
         gameOver = true;
+        PlayerPrefs.SetInt("DDRCompleted", 1);
+        PlayerPrefs.Save();
         winPanel.SetActive(true);
         StartCoroutine(GoToMuseumAfterDelay());
     }

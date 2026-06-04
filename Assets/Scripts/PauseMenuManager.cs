@@ -51,7 +51,7 @@ public class PauseMenuManager : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (Keyboard.current.escapeKey.wasPressedThisFrame && !MinigameLobbyManager.IsActive)
         {
             if (settingsPanel.activeSelf)
                 ShowPause();
