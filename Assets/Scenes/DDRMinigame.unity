@@ -6344,6 +6344,9 @@ MonoBehaviour:
   maxMisses: 5
   restartDelay: 3
   missesText: {fileID: 1537146201}
+  onWin:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &2022407333
 Transform:
   m_ObjectHideFlags: 0

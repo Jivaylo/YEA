@@ -146,12 +146,22 @@ public class NoteSpawner : MonoBehaviour
     private void Win()
     {
         gameOver = true;
+
         PlayerPrefs.SetInt("DDRCompleted", 1);
-        PlayerPrefs.SetInt("DDRJustWon", 1);   // one-shot flag for museum cutscene
+        PlayerPrefs.SetInt("DDRJustWon", 1);
+
+        PlayerPrefs.SetString("UnlockedBrainPart", "ParietalLobe");
         PlayerPrefs.Save();
+
         winPanel.SetActive(true);
         onWin.Invoke();
-        StartCoroutine(GoToMuseumAfterDelay());
+
+        StartCoroutine(GoToBrainUnlockAfterDelay());
+    }
+    IEnumerator GoToBrainUnlockAfterDelay()
+    {
+        yield return new WaitForSeconds(restartDelay);
+        SceneManager.LoadScene("BrainUnlockScene");
     }
 
     private void Lose()
