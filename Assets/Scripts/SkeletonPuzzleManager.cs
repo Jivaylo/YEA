@@ -9,6 +9,9 @@ public class SkeletonPuzzleManager : MonoBehaviour
     [Header("Reward Scene")]
     public string brainUnlockSceneName = "BrainUnlockScene";
 
+    [Header("Return After Reward")]
+    public Transform returnPointAfterReward;
+
     [Header("Scatter")]
     public float scatterForce = 0.5f;
     public float upwardForce = 0.2f;
@@ -120,20 +123,21 @@ public class SkeletonPuzzleManager : MonoBehaviour
         started = false;
         lastCompletedTime = Time.time;
 
-        Debug.Log("Puzzle complete! Loading brain unlock scene.");
-
+        PlayerPrefs.SetInt("SkeletonPuzzleCompleted", 1);
         PlayerPrefs.SetString("UnlockedBrainPart", "Cerebellum");
-        PlayerPrefs.Save();
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        if (player != null)
+        if (returnPointAfterReward != null)
         {
-            PlayerPrefs.SetFloat("PlayerX", player.transform.position.x);
-            PlayerPrefs.SetFloat("PlayerY", player.transform.position.y);
-            PlayerPrefs.SetFloat("PlayerZ", player.transform.position.z);
-
-            PlayerPrefs.SetFloat("PlayerRotY", player.transform.eulerAngles.y);
+            PlayerPrefs.SetFloat("PlayerX", returnPointAfterReward.position.x);
+            PlayerPrefs.SetFloat("PlayerY", returnPointAfterReward.position.y);
+            PlayerPrefs.SetFloat("PlayerZ", returnPointAfterReward.position.z);
+            PlayerPrefs.SetFloat("PlayerRotY", returnPointAfterReward.eulerAngles.y);
+            PlayerPrefs.SetInt("HasReturnPosition", 1);
         }
+
+        PlayerPrefs.Save();
+
+        Debug.Log("Puzzle complete! Loading brain unlock scene.");
 
         SceneManager.LoadScene(brainUnlockSceneName);
     }

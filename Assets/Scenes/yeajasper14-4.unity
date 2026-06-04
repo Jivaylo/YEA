@@ -746,6 +746,10 @@ PrefabInstance:
       propertyPath: 'pieces.Array.data[10]'
       value: 
       objectReference: {fileID: 5521938366593253860}
+    - target: {fileID: 209308505296856066, guid: 38b7233112991cc47b0703e8f99d0d69, type: 3}
+      propertyPath: returnPointAfterReward
+      value: 
+      objectReference: {fileID: 642514971}
     - target: {fileID: 2087606565468521688, guid: 38b7233112991cc47b0703e8f99d0d69, type: 3}
       propertyPath: m_LocalPosition.x
       value: -24.450998
@@ -13913,6 +13917,37 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -28.4812, y: 12.136, z: 0.060000017}
   m_LocalScale: {x: 3.007395, y: 4.025312, z: 0.1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &642514970
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 642514971}
+  m_Layer: 0
+  m_Name: SkeletonReturnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &642514971
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642514970}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -28.21, y: 7.10212, z: 1.67}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -55153,3 +55188,4 @@ SceneRoots:
   - {fileID: 468930789}
   - {fileID: 1294807919}
   - {fileID: 497012095}
+  - {fileID: 642514971}

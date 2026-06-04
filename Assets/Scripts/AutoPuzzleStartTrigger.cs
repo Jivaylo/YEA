@@ -7,9 +7,16 @@ public class AutoPuzzleStartTrigger : MonoBehaviour
 
     private bool triggered = false;
 
+    void Start()
+    {
+        if (PlayerPrefs.GetInt("SkeletonPuzzleCompleted", 0) == 1)
+            gameObject.SetActive(false);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (triggered) return;
+        if (PlayerPrefs.GetInt("SkeletonPuzzleCompleted", 0) == 1) return;
 
         if (other.CompareTag("Player"))
         {

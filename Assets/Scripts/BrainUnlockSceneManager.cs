@@ -31,45 +31,44 @@ public class BrainUnlockSceneManager : MonoBehaviour
         {
             case "Cerebellum":
                 if (cerebellum != null) cerebellum.SetActive(true);
-
-                titleText.text = "Cerebellum Unlocked";
-                descriptionText.text = "Controls balance and coordination.";
+                SetText("Cerebellum Unlocked", "Controls balance and coordination.");
                 break;
 
             case "TemporalLobe":
                 if (temporalLobe != null) temporalLobe.SetActive(true);
-
-                titleText.text = "Temporal Lobe Unlocked";
-                descriptionText.text = "Important for memory and learning.";
+                SetText("Temporal Lobe Unlocked", "Important for memory and learning.");
                 break;
 
             case "OccipitalLobe":
                 if (occipitalLobe != null) occipitalLobe.SetActive(true);
-
-                titleText.text = "Occipital Lobe Unlocked";
-                descriptionText.text = "Processes visual information.";
+                SetText("Occipital Lobe Unlocked", "Processes visual information.");
                 break;
 
             case "ParietalLobe":
                 if (parietalLobe != null) parietalLobe.SetActive(true);
-
-                titleText.text = "Parietal Lobe Unlocked";
-                descriptionText.text = "Helps with movement and spatial awareness.";
+                SetText("Parietal Lobe Unlocked", "Helps with movement and spatial awareness.");
                 break;
 
             default:
-                titleText.text = "Brain Part Unlocked";
-                descriptionText.text = "";
+                SetText("Brain Part Unlocked", "");
                 break;
         }
     }
 
     void Update()
     {
-        if (Keyboard.current != null &&
-            Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
             SceneManager.LoadScene(museumSceneName);
         }
+    }
+
+    void SetText(string title, string description)
+    {
+        if (titleText != null)
+            titleText.text = title;
+
+        if (descriptionText != null)
+            descriptionText.text = description;
     }
 }

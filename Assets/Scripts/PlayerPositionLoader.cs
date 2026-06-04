@@ -4,19 +4,34 @@ public class PlayerPositionLoader : MonoBehaviour
 {
     void Start()
     {
-        if (PlayerPrefs.HasKey("PlayerX"))
-        {
-            transform.position = new Vector3(
-                PlayerPrefs.GetFloat("PlayerX"),
-                PlayerPrefs.GetFloat("PlayerY"),
-                PlayerPrefs.GetFloat("PlayerZ")
-            );
+        if (PlayerPrefs.GetInt("HasReturnPosition", 0) != 1)
+            return;
 
-            transform.rotation = Quaternion.Euler(
-                0,
-                PlayerPrefs.GetFloat("PlayerRotY"),
-                0
-            );
-        }
+        CharacterController controller = GetComponent<CharacterController>();
+
+        if (controller != null)
+            controller.enabled = false;
+
+        transform.position = new Vector3(
+            PlayerPrefs.GetFloat("PlayerX"),
+            PlayerPrefs.GetFloat("PlayerY"),
+            PlayerPrefs.GetFloat("PlayerZ")
+        );
+
+        transform.rotation = Quaternion.Euler(
+            0f,
+            PlayerPrefs.GetFloat("PlayerRotY"),
+            0f
+        );
+
+        if (controller != null)
+            controller.enabled = true;
+
+        PlayerPrefs.DeleteKey("HasReturnPosition");
+        PlayerPrefs.DeleteKey("PlayerX");
+        PlayerPrefs.DeleteKey("PlayerY");
+        PlayerPrefs.DeleteKey("PlayerZ");
+        PlayerPrefs.DeleteKey("PlayerRotY");
+        PlayerPrefs.Save();
     }
 }
