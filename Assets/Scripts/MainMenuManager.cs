@@ -35,6 +35,8 @@ public class MainMenuManager : MonoBehaviour
 
     void Start()
     {
+        Screen.SetResolution(1920, 1080, Screen.fullScreen);
+
         ShowMainMenu();
 
         int cb = PlayerPrefs.GetInt("ColorblindMode", 0);
