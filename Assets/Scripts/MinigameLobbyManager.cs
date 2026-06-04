@@ -44,6 +44,8 @@ public class MinigameLobbyManager : MonoBehaviour
     {
         IsActive = false;
         skipLobby = true;
+        if (pauseMenu != null)
+            pauseMenu.ApplyGameplayCursor();
         gameObject.SetActive(false);
         onPlay.Invoke();
     }

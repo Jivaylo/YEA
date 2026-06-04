@@ -84,6 +84,11 @@ public class PauseMenuManager : MonoBehaviour
         Time.timeScale = 1f;
         pausePanel.SetActive(false);
         settingsPanel.SetActive(false);
+        ApplyGameplayCursor();
+    }
+
+    public void ApplyGameplayCursor()
+    {
         if (keepCursorVisibleOnResume)
         {
             Cursor.lockState = CursorLockMode.None;
