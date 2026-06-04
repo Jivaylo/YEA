@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
@@ -22,6 +23,9 @@ public class MemoryGameManager : MonoBehaviour
 
     [Header("Runtime Data")]
     [SerializeField] private List<GeneratedStageData> generatedStages = new List<GeneratedStageData>();
+
+    [Header("Events")]
+    public UnityEvent onWin;
 
     [Header("3D Mode")]
     [SerializeField] private bool use3DRooms = false;
@@ -320,6 +324,11 @@ public class MemoryGameManager : MonoBehaviour
     // =========================
     void ShowResult()
     {
+        PlayerPrefs.SetInt("MemoryCompleted", 1);
+        PlayerPrefs.SetInt("MemoryJustWon", 1);   // one-shot flag for museum cutscene
+        PlayerPrefs.Save();
+        onWin.Invoke();
+
         HideAll();
         resultPanel.SetActive(true);
         resultHeaderText.text = "You made it!";
