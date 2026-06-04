@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
@@ -34,6 +35,9 @@ public class NoteSpawner : MonoBehaviour
     [SerializeField] private float restartDelay = 3f;
 
     [SerializeField] private TMP_Text missesText;
+
+    [Header("Events")]
+    public UnityEvent onWin;
 
     // UI built in code
     private GameObject winPanel, losePanel;
@@ -142,10 +146,22 @@ public class NoteSpawner : MonoBehaviour
     private void Win()
     {
         gameOver = true;
+
         PlayerPrefs.SetInt("DDRCompleted", 1);
+        PlayerPrefs.SetInt("DDRJustWon", 1);
+
+        PlayerPrefs.SetString("UnlockedBrainPart", "ParietalLobe");
         PlayerPrefs.Save();
+
         winPanel.SetActive(true);
-        StartCoroutine(GoToMuseumAfterDelay());
+        onWin.Invoke();
+
+        StartCoroutine(GoToBrainUnlockAfterDelay());
+    }
+    IEnumerator GoToBrainUnlockAfterDelay()
+    {
+        yield return new WaitForSeconds(restartDelay);
+        SceneManager.LoadScene("BrainUnlockScene");
     }
 
     private void Lose()

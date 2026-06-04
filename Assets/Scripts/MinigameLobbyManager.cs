@@ -20,6 +20,9 @@ public class MinigameLobbyManager : MonoBehaviour
     public static bool IsActive { get; private set; }
     static bool skipLobby;
 
+    // Call when returning to the museum so the lobby shows again on next entry.
+    public static void ResetLobby() => skipLobby = false;
+
     void Start()
     {
         bool completed = PlayerPrefs.GetInt(completionKey, 0) == 1;

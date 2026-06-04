@@ -908,7 +908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MinigameLobbyManager
   completionKey: 
-  completedBadge: {fileID: 0}
+  completedBadge: {fileID: 7652910393853933767}
   playButton: {fileID: 6257128715474143026}
   backButton: {fileID: 798303967297345825}
   pauseMenu: {fileID: 0}

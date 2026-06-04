@@ -5511,8 +5511,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -317, y: -156}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -426, y: -324}
+  m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &629099450
 MonoBehaviour:
@@ -5538,8 +5538,8 @@ MonoBehaviour:
 
     0'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 38b2e64a464f0a546929e491bea4000c, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 38b2e64a464f0a546929e491bea4000c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5563,8 +5563,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 72
+  m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5960,10 +5960,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -6049,8 +6049,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 299, y: -152}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 486, y: -311}
+  m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1537146201
 MonoBehaviour:
@@ -6074,15 +6074,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 38b2e64a464f0a546929e491bea4000c, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 38b2e64a464f0a546929e491bea4000c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4288577023
+  m_fontColor: {r: 1, g: 0.48867923, b: 0.6214045, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6099,8 +6099,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 72
+  m_fontSizeBase: 72
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6264,7 +6264,7 @@ MonoBehaviour:
   stages:
   - spawnRate: 2
     noteSpeed: 4.3
-    scoreForNextStage: 400
+    scoreForNextStage: 300
     pause: 0
     pauseTime: 0
   - spawnRate: 0
@@ -6274,6 +6274,16 @@ MonoBehaviour:
     pauseTime: 0.3
   - spawnRate: 1.3
     noteSpeed: 5
+    scoreForNextStage: 500
+    pause: 0
+    pauseTime: 0
+  - spawnRate: 0
+    noteSpeed: 0
+    scoreForNextStage: 0
+    pause: 1
+    pauseTime: 0.5
+  - spawnRate: 1.1
+    noteSpeed: 6
     scoreForNextStage: 800
     pause: 0
     pauseTime: 0
@@ -6281,9 +6291,9 @@ MonoBehaviour:
     noteSpeed: 0
     scoreForNextStage: 0
     pause: 1
-    pauseTime: 0.5
-  - spawnRate: 1
-    noteSpeed: 7
+    pauseTime: 0.6
+  - spawnRate: 0.9
+    noteSpeed: 8
     scoreForNextStage: 1300
     pause: 0
     pauseTime: 0
@@ -6291,10 +6301,10 @@ MonoBehaviour:
     noteSpeed: 0
     scoreForNextStage: 0
     pause: 1
-    pauseTime: 0.6
-  - spawnRate: 0.8
-    noteSpeed: 11
-    scoreForNextStage: 1600
+    pauseTime: 0.5
+  - spawnRate: 0.75
+    noteSpeed: 9
+    scoreForNextStage: 2100
     pause: 0
     pauseTime: 0
   - spawnRate: 0
@@ -6302,18 +6312,8 @@ MonoBehaviour:
     scoreForNextStage: 0
     pause: 1
     pauseTime: 0.5
-  - spawnRate: 0.7
-    noteSpeed: 12
-    scoreForNextStage: 2200
-    pause: 0
-    pauseTime: 0
-  - spawnRate: 0
-    noteSpeed: 0
-    scoreForNextStage: 0
-    pause: 1
-    pauseTime: 0.5
-  - spawnRate: 0.6
-    noteSpeed: 13
+  - spawnRate: 0.65
+    noteSpeed: 10
     scoreForNextStage: 2400
     pause: 0
     pauseTime: 0
@@ -6323,7 +6323,7 @@ MonoBehaviour:
     pause: 1
     pauseTime: 0.5
   - spawnRate: 0.5
-    noteSpeed: 14
+    noteSpeed: 11
     scoreForNextStage: 2800
     pause: 0
     pauseTime: 0
@@ -6332,8 +6332,8 @@ MonoBehaviour:
     scoreForNextStage: 0
     pause: 1
     pauseTime: 0.5
-  - spawnRate: 0.4
-    noteSpeed: 15
+  - spawnRate: 0.45
+    noteSpeed: 11.5
     scoreForNextStage: 2500
     pause: 0
     pauseTime: 0
@@ -6344,6 +6344,9 @@ MonoBehaviour:
   maxMisses: 5
   restartDelay: 3
   missesText: {fileID: 1537146201}
+  onWin:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &2022407333
 Transform:
   m_ObjectHideFlags: 0
