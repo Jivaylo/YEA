@@ -11,6 +11,9 @@ public class BrainUnlockSceneManager : MonoBehaviour
     public GameObject occipitalLobe;
     public GameObject parietalLobe;
 
+    [Header("Final Reward")]
+    public GameObject fullBrain;
+
     [Header("UI")]
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI descriptionText;
@@ -24,6 +27,21 @@ public class BrainUnlockSceneManager : MonoBehaviour
         if (temporalLobe != null) temporalLobe.SetActive(false);
         if (occipitalLobe != null) occipitalLobe.SetActive(false);
         if (parietalLobe != null) parietalLobe.SetActive(false);
+        if (fullBrain != null) fullBrain.SetActive(false);
+
+      
+        if (GameSessionState.FullBrainUnlocked())
+        {
+            if (fullBrain != null)
+                fullBrain.SetActive(true);
+
+            SetText(
+                "FULL BRAIN UNLOCKED!",
+                "Congratulations! You beat Thinkthrough,explore the museum at your leisure!"
+            );
+
+            return;
+        }
 
         string part = PlayerPrefs.GetString("UnlockedBrainPart", "");
 
@@ -31,22 +49,34 @@ public class BrainUnlockSceneManager : MonoBehaviour
         {
             case "Cerebellum":
                 if (cerebellum != null) cerebellum.SetActive(true);
-                SetText("Cerebellum Unlocked", "Controls balance and coordination.");
+                SetText(
+                    "Cerebellum Unlocked",
+                    "Controls balance and coordination."
+                );
                 break;
 
             case "TemporalLobe":
                 if (temporalLobe != null) temporalLobe.SetActive(true);
-                SetText("Temporal Lobe Unlocked", "Important for memory and learning.");
+                SetText(
+                    "Temporal Lobe Unlocked",
+                    "Important for memory and learning."
+                );
                 break;
 
             case "OccipitalLobe":
                 if (occipitalLobe != null) occipitalLobe.SetActive(true);
-                SetText("Occipital Lobe Unlocked", "Processes visual information.");
+                SetText(
+                    "Occipital Lobe Unlocked",
+                    "Processes visual information."
+                );
                 break;
 
             case "ParietalLobe":
                 if (parietalLobe != null) parietalLobe.SetActive(true);
-                SetText("Parietal Lobe Unlocked", "Helps with movement and spatial awareness.");
+                SetText(
+                    "Parietal Lobe Unlocked",
+                    "Helps with movement and spatial awareness."
+                );
                 break;
 
             default:
