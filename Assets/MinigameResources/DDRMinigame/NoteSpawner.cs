@@ -150,6 +150,7 @@ public class NoteSpawner : MonoBehaviour
         PlayerPrefs.SetInt("DDRCompleted", 1);
         PlayerPrefs.SetInt("DDRJustWon", 1);
 
+        GameSessionState.rhythmDone = true;
         PlayerPrefs.SetString("UnlockedBrainPart", "ParietalLobe");
         PlayerPrefs.Save();
 

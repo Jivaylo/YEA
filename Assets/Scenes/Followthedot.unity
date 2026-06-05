@@ -1754,8 +1754,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1477974669684650670, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
-      value: "The occipital lobe allows you to track motion \nand thus follow objects.\nGoodluck
-        following these bacteria\n viewed through a microscope! "
+      value: "The Occipital Lobe allows you to track motion \nand thus follow objects.\n\nGoodluck
+        following these bacteria! "
+      objectReference: {fileID: 0}
+    - target: {fileID: 1477974669684650670, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_fontSize
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 1477974669684650670, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 2074433103352172170, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_Name
@@ -1763,18 +1771,46 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3538410104295144296, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
-      value: The occipital lobe
+      value: Optic Flow
       objectReference: {fileID: 0}
     - target: {fileID: 4514036680747640867, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
-      value: "Follow the green bacteria with your Mouse to gain points.\nWATCH OUT!
-        the green bacteria often changes color and position.\nLose points while not
-        following the correct bacteria. \nHave a minimum of 150 points after 60 seconds
-        \nto win the game!"
+      value: "Follow the green bacteria with your Mouse to gain points.\n\nWATCH
+        OUT! the green bacteria often changes color and position.\n\nLose points
+        while not following the correct bacteria. \nHave a minimum of 150 points
+        after 60 seconds \nto win the game!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514036680747640867, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_fontSize
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514036680747640867, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367773561498909450, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_Color.b
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367773561498909450, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367773561498909450, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7847634
       objectReference: {fileID: 0}
     - target: {fileID: 6876664801243057474, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
-      value: Mouse on top of correct bacteria = points
+      value: Mouse on top of correct bacteria => points
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876664801243057474, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876664801243057474, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 8226315905966804738, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_Pivot.x
