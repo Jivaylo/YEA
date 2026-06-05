@@ -64,7 +64,10 @@ public class MemoryGameManager : MonoBehaviour
         if (use3DRooms && questionRoom) questionRoom.gameObject.SetActive(false);
     }
 
-    void Start()
+    // Nothing runs until the lobby presses Play and calls StartGame().
+    // Wire MinigameLobbyManager.onPlay -> MemoryGameManager.StartGame.
+
+    public void StartGame()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
