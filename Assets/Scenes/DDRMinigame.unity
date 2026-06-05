@@ -6340,7 +6340,7 @@ MonoBehaviour:
   currentStage: 0
   scoreText: {fileID: 629099450}
   stageThresholds: 
-  winScore: 1000
+  winScore: 10000
   maxMisses: 5
   restartDelay: 3
   missesText: {fileID: 1537146201}
