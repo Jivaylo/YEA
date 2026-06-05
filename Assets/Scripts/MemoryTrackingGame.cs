@@ -134,7 +134,6 @@ public class MemoryTrackingGame : MonoBehaviour
         StopBalls();
 
         PlayerPrefs.SetInt("MotionTrackingCompleted", 1);
-        GameSessionState.motionDone = true;
         PlayerPrefs.SetString("UnlockedBrainPart", "OccipitalLobe");
         PlayerPrefs.Save();
 

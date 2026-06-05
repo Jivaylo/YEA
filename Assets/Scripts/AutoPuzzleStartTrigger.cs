@@ -9,14 +9,14 @@ public class AutoPuzzleStartTrigger : MonoBehaviour
 
     void Start()
     {
-        if (GameSessionState.skeletonDone)
+        if (GameSessionState.skeletonCompletedThisRun)
             gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (triggered) return;
-        if (GameSessionState.skeletonDone) return;
+        if (GameSessionState.skeletonCompletedThisRun) return;
 
         if (other.CompareTag("Player"))
         {

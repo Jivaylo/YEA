@@ -565,8 +565,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Back to Museum
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 80ce8d3d8ee987d4ebff4da49e3979b4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 80ce8d3d8ee987d4ebff4da49e3979b4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -912,8 +912,6 @@ MonoBehaviour:
   playButton: {fileID: 6257128715474143026}
   backButton: {fileID: 798303967297345825}
   pauseMenu: {fileID: 0}
-  controlsText: {fileID: 6876664801243057474}
-  inputActions: {fileID: 0}
   onPlay:
     m_PersistentCalls:
       m_Calls: []
@@ -1136,8 +1134,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Play
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 80ce8d3d8ee987d4ebff4da49e3979b4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 80ce8d3d8ee987d4ebff4da49e3979b4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

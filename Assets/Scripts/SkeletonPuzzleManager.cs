@@ -123,7 +123,7 @@ public class SkeletonPuzzleManager : MonoBehaviour
         started = false;
         lastCompletedTime = Time.time;
 
-        GameSessionState.skeletonDone = true;
+        GameSessionState.skeletonCompletedThisRun = true;
         PlayerPrefs.SetString("UnlockedBrainPart", "Cerebellum");
 
         if (returnPointAfterReward != null)
