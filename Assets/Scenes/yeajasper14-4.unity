@@ -572,7 +572,7 @@ PrefabInstance:
     - target: {fileID: 209308505296856066, guid: 38b7233112991cc47b0703e8f99d0d69, type: 3}
       propertyPath: modeSwitcher
       value: 
-      objectReference: {fileID: 7149825008992228390}
+      objectReference: {fileID: 557617318}
     - target: {fileID: 209308505296856066, guid: 38b7233112991cc47b0703e8f99d0d69, type: 3}
       propertyPath: scatterForce
       value: 0.5
@@ -9817,7 +9817,7 @@ PrefabInstance:
     - target: {fileID: 4918292960384462878, guid: 29d308b163bb49646bc62dfa13bd1925, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 497496870901493362}
+      objectReference: {fileID: 291219566}
     - target: {fileID: 4918292960384462878, guid: 29d308b163bb49646bc62dfa13bd1925, type: 3}
       propertyPath: interactText
       value: 
@@ -9825,7 +9825,7 @@ PrefabInstance:
     - target: {fileID: 4918292960384462878, guid: 29d308b163bb49646bc62dfa13bd1925, type: 3}
       propertyPath: modeSwitcher
       value: 
-      objectReference: {fileID: 7149825008992228390}
+      objectReference: {fileID: 557617318}
     - target: {fileID: 4918292960384462878, guid: 29d308b163bb49646bc62dfa13bd1925, type: 3}
       propertyPath: puzzleManager
       value: 
@@ -13041,6 +13041,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &557617318 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4729459749816739955, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
+  m_PrefabInstance: {fileID: 1226436061}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8c7c3c63144214b8d8eaaa8645b624, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerModeSwitcher
 --- !u!1 &558492279
 GameObject:
   m_ObjectHideFlags: 0
@@ -17591,7 +17602,7 @@ PrefabInstance:
     - target: {fileID: 4823553555436942515, guid: 466cca14c9bc19044aba65460c561f43, type: 3}
       propertyPath: modeSwitcher
       value: 
-      objectReference: {fileID: 7149825008992228390}
+      objectReference: {fileID: 557617318}
     - target: {fileID: 4823553555436942515, guid: 466cca14c9bc19044aba65460c561f43, type: 3}
       propertyPath: puzzleManager
       value: 
@@ -30359,6 +30370,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4729459749816739955, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
+      propertyPath: puzzleControlsUI
+      value: 
+      objectReference: {fileID: 2100459176}
+    - target: {fileID: 4729459749816739955, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
+      propertyPath: puzzleExitBlocker
+      value: 
+      objectReference: {fileID: 2100459176}
+    - target: {fileID: 4729459749816739955, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
+      propertyPath: thirdPersonCamera
+      value: 
+      objectReference: {fileID: 417983138}
+    - target: {fileID: 4729459749816739955, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
+      propertyPath: thirdPersonCameraScript
+      value: 
+      objectReference: {fileID: 1550675839}
     - target: {fileID: 6752322490577744639, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.55426
@@ -37644,6 +37671,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546750826}
   m_Mesh: {fileID: 2534964839176971238, guid: 57c0361226fe92d45b557d8e0c47b3d0, type: 3}
+--- !u!114 &1550675839 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3178079979626093233, guid: e969ab7786abadd479b72f202125c990, type: 3}
+  m_PrefabInstance: {fileID: 417983135}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1553359313
 GameObject:
   m_ObjectHideFlags: 0
@@ -52936,11 +52974,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977280162870531293}
   m_Mesh: {fileID: -2392659544332691741, guid: e5cd881457b6cdb46b49eaf90a432eb0, type: 3}
---- !u!4 &497496870901493362 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1268719290648378705, guid: 2572720a1751bac4b9b7cd56861a9e5d, type: 3}
-  m_PrefabInstance: {fileID: 5736831312346250765}
-  m_PrefabAsset: {fileID: 0}
 --- !u!33 &524267611321370967
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -57332,17 +57365,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 543450652081970979}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7149825008992228390 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7866055129775875020, guid: 2572720a1751bac4b9b7cd56861a9e5d, type: 3}
-  m_PrefabInstance: {fileID: 5736831312346250765}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2097788041}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d8c7c3c63144214b8d8eaaa8645b624, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerModeSwitcher
 --- !u!114 &7149825008992228396
 MonoBehaviour:
   m_ObjectHideFlags: 0
