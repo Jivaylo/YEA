@@ -135,6 +135,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Temporal Recall
       objectReference: {fileID: 0}
+    - target: {fileID: 5367773561498909450, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_Color.b
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367773561498909450, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8894191
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367773561498909450, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8226315905966804738, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_Pivot.x
       value: 0
