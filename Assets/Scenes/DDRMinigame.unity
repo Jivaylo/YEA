@@ -6373,7 +6373,7 @@ PrefabInstance:
     - target: {fileID: 1477974669684650670, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
       value: "The Parietal Lobe allows you to distinguish \nbetween left, right,
-        up and down as well as \nturning things around in your mind.\nLet\u2019s
+        up and down as well as \nturning things around in your mind.\n\nLet\u2019s
         put that to the test!"
       objectReference: {fileID: 0}
     - target: {fileID: 1477974669684650670, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
