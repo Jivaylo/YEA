@@ -6,6 +6,7 @@ using UnityEngine.InputSystem.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class GeneratedStageData
@@ -325,22 +326,29 @@ public class MemoryGameManager : MonoBehaviour
     void ShowResult()
     {
         PlayerPrefs.SetInt("MemoryCompleted", 1);
-        PlayerPrefs.SetInt("MemoryJustWon", 1);   // one-shot flag for museum cutscene
+        PlayerPrefs.SetInt("MemoryJustWon", 1);
+
+        PlayerPrefs.SetString("UnlockedBrainPart", "TemporalLobe");
         PlayerPrefs.Save();
+
         onWin.Invoke();
 
         HideAll();
         resultPanel.SetActive(true);
         resultHeaderText.text = "You made it!";
-        resultBodyText.text   = $"{score} / {totalQuestions} correct";
+        resultBodyText.text = $"{score} / {totalQuestions} correct";
+
         nextStageButton.gameObject.SetActive(false);
         restartButton.gameObject.SetActive(true);
 
         var label = restartButton.GetComponentInChildren<Text>();
-        if (label != null) label.text = "Back to Museum";
+        if (label != null) label.text = "Continue";
+
         restartButton.onClick.RemoveAllListeners();
-        var pm = FindAnyObjectByType<PauseMenuManager>();
-        restartButton.onClick.AddListener(() => pm?.GoToMuseum());
+        restartButton.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("BrainUnlockScene");
+        });
     }
 
     void HideAll()

@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using TMPro;
-
+using System.Collections;
 public class MemoryTrackingGame : MonoBehaviour
 {
     [Header("References")]
@@ -19,6 +20,11 @@ public class MemoryTrackingGame : MonoBehaviour
     public float gameTime = 60f;
     public float showGreenTime = 3f;
     public float hiddenTrackingTime = 8f;
+
+    [Header("Win Settings")]
+    public float winScore = 150f;
+    public string brainUnlockSceneName = "BrainUnlockScene";
+    public float winDelayBeforeBrainScene = 3f;
 
     [Header("Scoring")]
     public float followDistance = 1.2f;
@@ -49,16 +55,18 @@ public class MemoryTrackingGame : MonoBehaviour
     private bool gameEnded = false;
     private bool started = false;
 
-    // Called by the lobby's On Play event. Nothing runs until this is called.
     public void StartGame()
     {
         started = true;
+        gameEnded = false;
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
         currentSpeed = startSpeed;
+        score = 0f;
         gameTimer = gameTime;
+        memoryTimer = 0f;
 
         ballRigidbodies = new Rigidbody[balls.Length];
 
@@ -108,7 +116,64 @@ public class MemoryTrackingGame : MonoBehaviour
         if (gameTimer <= 0f)
         {
             gameTimer = 0f;
-            EndGame();
+            CheckWinOrLose();
+        }
+    }
+
+    void CheckWinOrLose()
+    {
+        if (score >= winScore)
+            WinGame();
+        else
+            LoseGame();
+    }
+
+    void WinGame()
+    {
+        gameEnded = true;
+        StopBalls();
+
+        PlayerPrefs.SetInt("MotionTrackingCompleted", 1);
+        PlayerPrefs.SetString("UnlockedBrainPart", "OccipitalLobe");
+        PlayerPrefs.Save();
+
+        if (gameOverText != null)
+        {
+            gameOverText.gameObject.SetActive(true);
+            gameOverText.transform.SetAsLastSibling();
+            gameOverText.text = "YOU WIN!\nFinal Score: " + Mathf.FloorToInt(score);
+        }
+
+        StartCoroutine(GoToBrainSceneAfterDelay());
+    }
+    IEnumerator GoToBrainSceneAfterDelay()
+    {
+        yield return new WaitForSeconds(winDelayBeforeBrainScene);
+        SceneManager.LoadScene(brainUnlockSceneName);
+    }
+    void LoseGame()
+    {
+        gameEnded = true;
+        StopBalls();
+
+        if (gameOverText != null)
+        {
+            gameOverText.gameObject.SetActive(true);
+            gameOverText.transform.SetAsLastSibling();
+            gameOverText.text =
+                "GAME OVER\nFinal Score: " + Mathf.FloorToInt(score) +
+                "\nNeed " + Mathf.FloorToInt(winScore) + " to win";
+        }
+    }
+
+    void StopBalls()
+    {
+        if (ballRigidbodies == null) return;
+
+        for (int i = 0; i < ballRigidbodies.Length; i++)
+        {
+            if (ballRigidbodies[i] != null)
+                ballRigidbodies[i].linearVelocity = Vector3.zero;
         }
     }
 
@@ -277,20 +342,5 @@ public class MemoryTrackingGame : MonoBehaviour
 
         if (timerText != null)
             timerText.text = "Time: " + Mathf.CeilToInt(gameTimer);
-    }
-
-    void EndGame()
-    {
-        gameEnded = true;
-
-        for (int i = 0; i < ballRigidbodies.Length; i++)
-            ballRigidbodies[i].linearVelocity = Vector3.zero;
-
-        if (gameOverText != null)
-        {
-            gameOverText.gameObject.SetActive(true);
-            gameOverText.transform.SetAsLastSibling();
-            gameOverText.text = "GAME OVER\nFinal Score: " + Mathf.FloorToInt(score);
-        }
     }
 }

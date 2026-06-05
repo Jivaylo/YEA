@@ -57,9 +57,15 @@ public class BrainUnlockSceneManager : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current != null &&
+            Keyboard.current.eKey.wasPressedThisFrame)
         {
-            SceneManager.LoadScene(museumSceneName);
+            var pauseMenu = FindAnyObjectByType<PauseMenuManager>();
+
+            if (pauseMenu != null)
+                pauseMenu.GoToMuseum();
+            else
+                SceneManager.LoadScene(museumSceneName);
         }
     }
 
