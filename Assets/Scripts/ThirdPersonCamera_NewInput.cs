@@ -68,6 +68,21 @@ public class ThirdPersonCamera_NewInput : MonoBehaviour
         targetDistance = Mathf.Clamp(-cam.localPosition.z, minDistance, maxDistance);
     }
 
+    // Instantly place the rig at the player, skipping the follow lerp.
+    // Used so the camera doesn't get caught mid-glide between rooms (e.g. on a loss freeze).
+    public void SnapToTarget()
+    {
+        if (target == null) return;
+        transform.position = target.position + followOffset;
+    }
+
+    // Instantly place the rig at an arbitrary world point (e.g. a room's door),
+    // so a room transition starts from the doorway instead of gliding across the map.
+    public void SnapTo(Vector3 worldPosition)
+    {
+        transform.position = worldPosition;
+    }
+
     void LateUpdate()
     {
         if (target == null || pivot == null || cam == null) return;
