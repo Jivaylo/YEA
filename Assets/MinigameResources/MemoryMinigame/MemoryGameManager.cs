@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 using System.Collections;
@@ -34,13 +35,18 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField] private QuestionRoom questionRoom;
     [SerializeField] private Transform playerTransform;
 
+    [Header("Win / Lose")]
+    [SerializeField] private float restartDelay = 3f;
+
     // --- runtime UI (built in code, swap for real UI later) ---
-    private GameObject studyPanel, questionPanel, resultPanel;
-    private Text roundCountText, imageNameText, soundRevealText, questionBodyText, resultBodyText;
-    private Button playSoundButton, nextRoundButton, nextStageButton, restartButton;
+    private GameObject studyPanel, questionPanel;
+    private GameObject winPanel, losePanel;            // DDR-style end screens
+    private TextMeshProUGUI winSubtitleText;
+    private Text roundCountText, imageNameText, soundRevealText, questionBodyText;
+    private Button playSoundButton, nextRoundButton;
     private Button[] choiceButtons = new Button[3];
     private Text[]   choiceLabels  = new Text[3];
-    private Text resultHeaderText, questionRoundText;
+    private Text questionRoundText;
 
     private Image imageDisplay;
     private AudioSource audioSource;
@@ -58,7 +64,9 @@ public class MemoryGameManager : MonoBehaviour
         audioSource = gameObject.AddComponent<AudioSource>();
         uiFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         if (uiFont == null) uiFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
-        BuildUI(); // always built — result/wrong panels are used in both modes
+        BuildUI(); // always built — win/lose panels are used in both modes
+        if (winSubtitleText != null)
+            winSubtitleText.text = $"Returning to Museum in {restartDelay:0.#} seconds...";
 
         if (use3DRooms && studyRoom)    studyRoom.gameObject.SetActive(false);
         if (use3DRooms && questionRoom) questionRoom.gameObject.SetActive(false);
@@ -137,16 +145,14 @@ public class MemoryGameManager : MonoBehaviour
     IEnumerator ShowWrong()
     {
         HideAll();
-        resultPanel.SetActive(true);
-        resultHeaderText.text = "WRONG!";
-        resultBodyText.text   = "Starting over...";
-        nextStageButton.gameObject.SetActive(false);
-        restartButton.gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(2f);
-
-        GenerateAllStages();
-        StartStage(0);
+        // Keep the room the player is standing in active so there's a floor/backdrop
+        // (no void) behind the lose panel, then freeze so they can't walk off.
+        if (use3DRooms && questionRoom) questionRoom.gameObject.SetActive(true);
+        losePanel.SetActive(true);
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(restartDelay);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 
@@ -334,11 +340,6 @@ public class MemoryGameManager : MonoBehaviour
     // =========================
     void ShowResult()
     {
-        // Result screen has a clickable Continue button — bring the cursor back
-        // (it's hidden during 3D-room gameplay).
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
         PlayerPrefs.SetInt("MemoryCompleted", 1);
         PlayerPrefs.SetInt("MemoryJustWon", 1);
 
@@ -349,28 +350,27 @@ public class MemoryGameManager : MonoBehaviour
         onWin.Invoke();
 
         HideAll();
-        resultPanel.SetActive(true);
-        resultHeaderText.text = "You made it!";
-        resultBodyText.text = $"{score} / {totalQuestions} correct";
+        // Keep the room the player is standing in active so there's a floor/backdrop
+        // (no void) behind the win panel, then freeze so they can't walk off.
+        if (use3DRooms && questionRoom) questionRoom.gameObject.SetActive(true);
+        winPanel.SetActive(true);
+        Time.timeScale = 0f;
+        StartCoroutine(GoToBrainUnlockAfterDelay());
+    }
 
-        nextStageButton.gameObject.SetActive(false);
-        restartButton.gameObject.SetActive(true);
-
-        var label = restartButton.GetComponentInChildren<Text>();
-        if (label != null) label.text = "Continue";
-
-        restartButton.onClick.RemoveAllListeners();
-        restartButton.onClick.AddListener(() =>
-        {
-            SceneManager.LoadScene("BrainUnlockScene");
-        });
+    IEnumerator GoToBrainUnlockAfterDelay()
+    {
+        yield return new WaitForSecondsRealtime(restartDelay);
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("BrainUnlockScene");
     }
 
     void HideAll()
     {
         studyPanel.SetActive(false);
         questionPanel.SetActive(false);
-        resultPanel.SetActive(false);
+        winPanel.SetActive(false);
+        losePanel.SetActive(false);
         if (studyRoom)    studyRoom.gameObject.SetActive(false);
         if (questionRoom) questionRoom.gameObject.SetActive(false);
     }
@@ -471,11 +471,15 @@ public class MemoryGameManager : MonoBehaviour
 
         studyPanel    = BuildStudyPanel(canvasGO.transform);
         questionPanel = BuildQuestionPanel(canvasGO.transform);
-        resultPanel   = BuildResultPanel(canvasGO.transform);
+
+        // DDR-style win/lose end screens (copied to match the DDR minigame)
+        winPanel  = BuildEndPanel(canvasGO.transform, "WinPanel",  "YOU WIN!",  new Color(0.05f, 0.25f, 0.05f, 0.95f), new Color(0.6f, 1f, 0.6f), out winSubtitleText);
+        losePanel = BuildEndPanel(canvasGO.transform, "LosePanel", "GAME OVER", new Color(0.25f, 0.05f, 0.05f, 0.95f), new Color(1f, 0.5f, 0.5f), out _);
 
         studyPanel.SetActive(false);
         questionPanel.SetActive(false);
-        resultPanel.SetActive(false);
+        winPanel.SetActive(false);
+        losePanel.SetActive(false);
     }
 
     GameObject BuildStudyPanel(Transform parent)
@@ -541,25 +545,46 @@ public class MemoryGameManager : MonoBehaviour
         return panel;
     }
 
-    GameObject BuildResultPanel(Transform parent)
+    // Copied from DDR NoteSpawner.BuildResultPanel — TMP full-screen win/lose card.
+    GameObject BuildEndPanel(Transform parent, string name, string title, Color bgColor, Color titleColor, out TextMeshProUGUI subtitleOut)
     {
-        GameObject panel = MakePanel("ResultPanel", parent, new Color(0.08f, 0.08f, 0.08f, 0.97f));
+        GameObject panel = new GameObject(name);
+        panel.transform.SetParent(parent, false);
+        Image bg = panel.AddComponent<Image>();
+        bg.color = bgColor;
+        RectTransform rt = panel.GetComponent<RectTransform>();
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = rt.offsetMax = Vector2.zero;
 
-        resultHeaderText = MakeText("ResultHeader", panel.transform, "", 44, new Color(1f, 0.85f, 0.2f),
-            new Vector2(0, 200), new Vector2(700, 60), TextAnchor.MiddleCenter);
+        // Title
+        GameObject titleGO = new GameObject("Title");
+        titleGO.transform.SetParent(panel.transform, false);
+        TextMeshProUGUI titleText = titleGO.AddComponent<TextMeshProUGUI>();
+        titleText.text = title;
+        titleText.fontSize = 120;
+        titleText.color = titleColor;
+        titleText.alignment = TextAlignmentOptions.Center;
+        titleText.fontStyle = FontStyles.Bold;
+        RectTransform trt = titleGO.GetComponent<RectTransform>();
+        trt.anchorMin = trt.anchorMax = new Vector2(0.5f, 0.5f);
+        trt.anchoredPosition = new Vector2(0, 60);
+        trt.sizeDelta = new Vector2(1200, 200);
 
-        resultBodyText = MakeText("ResultBody", panel.transform, "", 36, Color.white,
-            new Vector2(0, 40), new Vector2(700, 160), TextAnchor.MiddleCenter);
+        // Subtitle (DDR-style static countdown line)
+        GameObject subGO = new GameObject("Subtitle");
+        subGO.transform.SetParent(panel.transform, false);
+        TextMeshProUGUI subText = subGO.AddComponent<TextMeshProUGUI>();
+        subText.text = $"Restarting in {restartDelay:0.#} seconds...";
+        subText.fontSize = 36;
+        subText.color = Color.white;
+        subText.alignment = TextAlignmentOptions.Center;
+        RectTransform srt = subGO.GetComponent<RectTransform>();
+        srt.anchorMin = srt.anchorMax = new Vector2(0.5f, 0.5f);
+        srt.anchoredPosition = new Vector2(0, -80);
+        srt.sizeDelta = new Vector2(900, 60);
 
-        nextStageButton = MakeButton("NextStageBtn", panel.transform, "Next Stage  -->",
-            new Vector2(-140, -160), new Vector2(260, 70));
-
-        restartButton = MakeButton("RestartBtn", panel.transform, "Restart",
-            new Vector2(160, -160), new Vector2(200, 70));
-
-        nextStageButton.onClick.AddListener(() => StartStage(currentStageIndex + 1));
-        restartButton.onClick.AddListener(() => StartStage(currentStageIndex));
-
+        subtitleOut = subText;
         return panel;
     }
 

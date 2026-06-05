@@ -131,6 +131,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: MinigameLobbyUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3538410104295144296, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: Temporal Recall
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367773561498909450, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_Color.b
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367773561498909450, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8894191
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367773561498909450, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8226315905966804738, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -793,6 +809,7 @@ MonoBehaviour:
   studyRoom: {fileID: 185236961}
   questionRoom: {fileID: 899535835}
   playerTransform: {fileID: 497496870646535471}
+  restartDelay: 3
 --- !u!4 &1588626909
 Transform:
   m_ObjectHideFlags: 0
