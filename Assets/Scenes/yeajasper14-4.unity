@@ -30371,6 +30371,14 @@ PrefabInstance:
       value: Player 1 (1)
       objectReference: {fileID: 0}
     - target: {fileID: 4729459749816739955, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
+      propertyPath: puzzleControlsUI
+      value: 
+      objectReference: {fileID: 2100459176}
+    - target: {fileID: 4729459749816739955, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
+      propertyPath: puzzleExitBlocker
+      value: 
+      objectReference: {fileID: 2100459176}
+    - target: {fileID: 4729459749816739955, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
       propertyPath: thirdPersonCamera
       value: 
       objectReference: {fileID: 417983138}
