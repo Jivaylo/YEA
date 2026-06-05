@@ -15,6 +15,10 @@ public class StudyRoom : MonoBehaviour
     [Header("Spawn")]
     [SerializeField] public Transform playerSpawn;
 
+    [Header("Camera")]
+    [Tooltip("The camera jumps here when this room is entered (assign the room's door).")]
+    [SerializeField] public Transform cameraDoor;
+
     private AudioSource audioSource;
     private bool exitTriggered;
 

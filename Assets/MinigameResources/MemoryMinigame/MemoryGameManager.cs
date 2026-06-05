@@ -33,6 +33,7 @@ public class MemoryGameManager : MonoBehaviour
     [SerializeField] private StudyRoom studyRoom;
     [SerializeField] private QuestionRoom questionRoom;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private ThirdPersonCamera_NewInput cameraRig;
 
     // --- runtime UI (built in code, swap for real UI later) ---
     private GameObject studyPanel, questionPanel, resultPanel;
@@ -59,6 +60,8 @@ public class MemoryGameManager : MonoBehaviour
         uiFont = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         if (uiFont == null) uiFont = Resources.GetBuiltinResource<Font>("Arial.ttf");
         BuildUI(); // always built — result/wrong panels are used in both modes
+
+        if (cameraRig == null) cameraRig = FindAnyObjectByType<ThirdPersonCamera_NewInput>();
 
         if (use3DRooms && studyRoom)    studyRoom.gameObject.SetActive(false);
         if (use3DRooms && questionRoom) questionRoom.gameObject.SetActive(false);
@@ -159,6 +162,11 @@ public class MemoryGameManager : MonoBehaviour
         studyRoom.Setup(round, globalRound, total);
         TeleportPlayer(studyRoom.playerSpawn);
 
+        // On entering the room, jump the camera to its door so it doesn't glide across
+        // the map from the previous room.
+        if (cameraRig != null && studyRoom.cameraDoor != null)
+            cameraRig.SnapTo(studyRoom.cameraDoor.position);
+
         yield return new WaitUntil(() => studyRoom.IsExitTriggered);
 
         studyRoom.gameObject.SetActive(false);
@@ -190,6 +198,10 @@ public class MemoryGameManager : MonoBehaviour
 
         questionRoom.Setup(config, choices, back, currentGlobal, globalTotalRounds);
         TeleportPlayer(questionRoom.playerSpawn);
+
+        // On entering the answer room, jump the camera to the B (middle) door.
+        if (cameraRig != null && questionRoom.CameraDoor != null)
+            cameraRig.SnapTo(questionRoom.CameraDoor.position);
 
         yield return new WaitUntil(() => questionRoom.ChosenAnswer >= 0);
         bool correct = questionRoom.ChosenAnswer == correctIndex;

@@ -44,4 +44,8 @@ public class QuestionRoom : MonoBehaviour
     public void OnDoorEntered(int index) => chosenAnswer = index;
 
     public int ChosenAnswer => chosenAnswer;
+
+    // The B door (middle) — the camera jumps here when the answer room is entered.
+    public Transform CameraDoor =>
+        (doors != null && doors.Length > 1 && doors[1] != null) ? doors[1].transform : null;
 }
