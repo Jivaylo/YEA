@@ -6370,9 +6370,35 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1477974669684650670, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: "The parietal Lobe allows you to distinguish \nbetween left, right,
+        up and down as well as \nturning things around in your mind.\nLet\u2019s
+        put that to the test!"
+      objectReference: {fileID: 0}
     - target: {fileID: 2074433103352172170, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_Name
       value: MinigameLobbyUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3538410104295144296, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: The rhythm game
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514036680747640867, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: "For green arrows, press the corresponding key \nonce the arrows reach
+        the designated finish. \LFor red arrows, click the opposite key."
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876664801243057474, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: 'W / up arrow = up
+
+        S / down arrow = down
+
+        A / left
+        arrow = left
+
+        D / right arrow = right'
       objectReference: {fileID: 0}
     - target: {fileID: 7652910393853933767, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_IsActive

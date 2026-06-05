@@ -1752,9 +1752,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1477974669684650670, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: "The Occipital Lobe allows you to track motion \nand thus follow objects.\nGoodluck
+        following these bacteria! "
+      objectReference: {fileID: 0}
     - target: {fileID: 2074433103352172170, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_Name
       value: MinigameLobbyUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3538410104295144296, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: The ball tracking game
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514036680747640867, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: "Follow the green bacteria with your Mouse to gain points.\nWATCH OUT!
+        the green bacteria often changes color and position.\nLose points while not
+        following the correct bacteria. \nHave a minimum of 150 points after 60 seconds
+        \nto win the game!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876664801243057474, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: Mouse on top of correct bacteria = points
       objectReference: {fileID: 0}
     - target: {fileID: 8226315905966804738, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_Pivot.x
@@ -3313,6 +3333,9 @@ MonoBehaviour:
   gameTime: 60
   showGreenTime: 3
   hiddenTrackingTime: 8
+  winScore: 150
+  brainUnlockSceneName: BrainUnlockScene
+  winDelayBeforeBrainScene: 3
   followDistance: 1.2
   pointsPerSecond: 5
   losePointsPerSecond: 4
