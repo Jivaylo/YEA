@@ -69,8 +69,14 @@ public class MemoryGameManager : MonoBehaviour
 
     public void StartGame()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        // 2D UI mode needs the cursor for clicking choice buttons.
+        // 3D mode is walk-around exploration — leave the cursor hidden/locked
+        // as the lobby's ApplyGameplayCursor() just set it.
+        if (!use3DRooms)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
         GenerateAllStages();
         StartStage(0);
     }
