@@ -21,7 +21,7 @@ public class PuzzleStartTrigger : MonoBehaviour
         bool canRestart =
             inRange &&
             !modeSwitcher.inPuzzleMode &&
-            GameSessionState.skeletonCompletedThisRun;
+            GameSessionState.skeletonDone;
 
         if (interactText != null)
             interactText.gameObject.SetActive(canRestart);

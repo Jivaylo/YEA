@@ -343,6 +343,7 @@ public class MemoryGameManager : MonoBehaviour
         PlayerPrefs.SetInt("MemoryCompleted", 1);
         PlayerPrefs.SetInt("MemoryJustWon", 1);
 
+        GameSessionState.memoryDone = true;
         PlayerPrefs.SetString("UnlockedBrainPart", "TemporalLobe");
         PlayerPrefs.Save();
 
