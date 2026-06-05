@@ -127,9 +127,27 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1477974669684650670, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: "The temporal lobe is the part of your brain \nthat governs memory,
+        sight, and hearing. \n\nTry to remember each picture shown and sound heard!"
+      objectReference: {fileID: 0}
     - target: {fileID: 2074433103352172170, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_Name
       value: MinigameLobbyUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3538410104295144296, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: The temporal lobe
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514036680747640867, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: "Each round you are shown a picture and sound.\nAfter each round you
+        will be asked to recall \na picture or sound from ANY previous round.\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876664801243057474, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: E = interact with doors / buttons
       objectReference: {fileID: 0}
     - target: {fileID: 8226315905966804738, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_Pivot.x

@@ -1754,8 +1754,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1477974669684650670, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
-      value: "The Occipital Lobe allows you to track motion \nand thus follow objects.\nGoodluck
-        following these bacteria! "
+      value: "The occipital lobe allows you to track motion \nand thus follow objects.\nGoodluck
+        following these bacteria\n viewed through a microscope! "
       objectReference: {fileID: 0}
     - target: {fileID: 2074433103352172170, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_Name
@@ -1763,7 +1763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3538410104295144296, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
-      value: The ball tracking game
+      value: The occipital lobe
       objectReference: {fileID: 0}
     - target: {fileID: 4514036680747640867, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
