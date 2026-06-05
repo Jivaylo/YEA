@@ -809,6 +809,7 @@ MonoBehaviour:
   studyRoom: {fileID: 185236961}
   questionRoom: {fileID: 899535835}
   playerTransform: {fileID: 497496870646535471}
+  restartDelay: 3
 --- !u!4 &1588626909
 Transform:
   m_ObjectHideFlags: 0
