@@ -334,6 +334,11 @@ public class MemoryGameManager : MonoBehaviour
     // =========================
     void ShowResult()
     {
+        // Result screen has a clickable Continue button — bring the cursor back
+        // (it's hidden during 3D-room gameplay).
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         PlayerPrefs.SetInt("MemoryCompleted", 1);
         PlayerPrefs.SetInt("MemoryJustWon", 1);
 
