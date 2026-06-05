@@ -912,6 +912,8 @@ MonoBehaviour:
   playButton: {fileID: 6257128715474143026}
   backButton: {fileID: 798303967297345825}
   pauseMenu: {fileID: 0}
+  controlsText: {fileID: 6876664801243057474}
+  inputActions: {fileID: 0}
   onPlay:
     m_PersistentCalls:
       m_Calls: []

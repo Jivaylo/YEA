@@ -6322,8 +6322,8 @@ MonoBehaviour:
     scoreForNextStage: 0
     pause: 1
     pauseTime: 0.5
-  - spawnRate: 0.5
-    noteSpeed: 11
+  - spawnRate: 0.55
+    noteSpeed: 10.5
     scoreForNextStage: 2800
     pause: 0
     pauseTime: 0
@@ -6332,8 +6332,8 @@ MonoBehaviour:
     scoreForNextStage: 0
     pause: 1
     pauseTime: 0.5
-  - spawnRate: 0.45
-    noteSpeed: 11.5
+  - spawnRate: 0.5
+    noteSpeed: 11
     scoreForNextStage: 2500
     pause: 0
     pauseTime: 0
@@ -6372,9 +6372,17 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1477974669684650670, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
-      value: "The parietal Lobe allows you to distinguish \nbetween left, right,
+      value: "The Parietal Lobe allows you to distinguish \nbetween left, right,
         up and down as well as \nturning things around in your mind.\nLet\u2019s
         put that to the test!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1477974669684650670, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_fontSize
+      value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 1477974669684650670, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 2074433103352172170, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_Name
@@ -6382,23 +6390,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3538410104295144296, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
-      value: The rhythm game
+      value: Sense of Direction
       objectReference: {fileID: 0}
     - target: {fileID: 4514036680747640867, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
-      value: "For green arrows, press the corresponding key \nonce the arrows reach
-        the designated finish. \LFor red arrows, click the opposite key."
+      value: "For green arrows:\nPress the key of the corresponding direction \nonce
+        the arrow reaches the designated finish.\n \LFor red arrows:\nPress the key
+        of the opposite direction."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514036680747640867, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_fontSize
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 4514036680747640867, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 43
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367773561498909450, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_Color.b
+      value: 0.84706
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367773561498909450, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_Color.g
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 5367773561498909450, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6876664801243057474, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
-      value: 'W / up arrow = up
+      value: '[up] / up arrow = up
 
-        S / down arrow = down
+        [down] / down arrow = down
 
-        A / left
-        arrow = left
+        [left]
+        / left arrow = left
 
-        D / right arrow = right'
+        [right] / right arrow = right'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876664801243057474, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_fontSize
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 6876664801243057474, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 37
       objectReference: {fileID: 0}
     - target: {fileID: 7652910393853933767, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_IsActive

@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MinigameLobbyUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3538410104295144296, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: m_text
+      value: Temporal Recall
+      objectReference: {fileID: 0}
     - target: {fileID: 8226315905966804738, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_Pivot.x
       value: 0
