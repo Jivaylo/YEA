@@ -9,6 +9,7 @@ public class PuzzleStartTrigger : MonoBehaviour
     public Transform player;
     public float interactDistance = 4f;
     public TextMeshProUGUI interactText;
+    public PopupMenu popupMenu;
 
     void Update()
     {
@@ -30,6 +31,9 @@ public class PuzzleStartTrigger : MonoBehaviour
         {
             modeSwitcher.EnterPuzzleMode();
             puzzleManager.StartPuzzle();
+
+            if (popupMenu != null)
+                popupMenu.Show();
 
             if (interactText != null)
                 interactText.gameObject.SetActive(false);

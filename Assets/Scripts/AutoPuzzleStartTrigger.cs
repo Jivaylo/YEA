@@ -4,6 +4,7 @@ public class AutoPuzzleStartTrigger : MonoBehaviour
 {
     public PlayerModeSwitcher modeSwitcher;
     public SkeletonPuzzleManager puzzleManager;
+    public PopupMenu popupMenu;
 
     private bool triggered = false;
 
@@ -27,6 +28,9 @@ public class AutoPuzzleStartTrigger : MonoBehaviour
 
             if (puzzleManager != null)
                 puzzleManager.StartPuzzle();
+
+            if (popupMenu != null)
+                popupMenu.Show();
 
             Debug.Log("Auto puzzle started");
 

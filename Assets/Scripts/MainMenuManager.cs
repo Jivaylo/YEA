@@ -71,6 +71,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayGame()
     {
+        GameSessionState.justEnteredFromMainMenu = true;
         SceneManager.LoadScene(gameSceneName);
     }
 
