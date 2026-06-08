@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+
 public class MemoryTrackingGame : MonoBehaviour
 {
     [Header("References")]
@@ -77,7 +78,12 @@ public class MemoryTrackingGame : MonoBehaviour
             ballRigidbodies[i].useGravity = false;
             ballRigidbodies[i].linearDamping = 0f;
             ballRigidbodies[i].angularDamping = 0f;
-            ballRigidbodies[i].constraints = RigidbodyConstraints.FreezePositionY;
+
+            ballRigidbodies[i].constraints =
+                RigidbodyConstraints.FreezePositionY |
+                RigidbodyConstraints.FreezeRotationX |
+                RigidbodyConstraints.FreezeRotationY |
+                RigidbodyConstraints.FreezeRotationZ;
 
             SetRandomNormalMaterial(i);
             GiveRandomVelocity(i);
@@ -147,11 +153,13 @@ public class MemoryTrackingGame : MonoBehaviour
 
         StartCoroutine(GoToBrainSceneAfterDelay());
     }
+
     IEnumerator GoToBrainSceneAfterDelay()
     {
         yield return new WaitForSeconds(winDelayBeforeBrainScene);
         SceneManager.LoadScene(brainUnlockSceneName);
     }
+
     void LoseGame()
     {
         gameEnded = true;
