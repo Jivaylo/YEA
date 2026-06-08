@@ -467,6 +467,34 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 532409575}
+    - target: {fileID: 1775403636113016420, guid: e969ab7786abadd479b72f202125c990, type: 3}
+      propertyPath: maxDistance
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775403636113016420, guid: e969ab7786abadd479b72f202125c990, type: 3}
+      propertyPath: minDistance
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775403636113016420, guid: e969ab7786abadd479b72f202125c990, type: 3}
+      propertyPath: followSmooth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775403636113016420, guid: e969ab7786abadd479b72f202125c990, type: 3}
+      propertyPath: collisionOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775403636113016420, guid: e969ab7786abadd479b72f202125c990, type: 3}
+      propertyPath: collisionRadius
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775403636113016420, guid: e969ab7786abadd479b72f202125c990, type: 3}
+      propertyPath: collisionOriginHeight
+      value: 1.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 1775403636113016420, guid: e969ab7786abadd479b72f202125c990, type: 3}
+      propertyPath: collisionLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3834797154857315678, guid: e969ab7786abadd479b72f202125c990, type: 3}
       propertyPath: m_Name
       value: CameraRig
@@ -476,6 +504,27 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e969ab7786abadd479b72f202125c990, type: 3}
+--- !u!4 &510793127 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4271804505925049619, guid: e969ab7786abadd479b72f202125c990, type: 3}
+  m_PrefabInstance: {fileID: 510793126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &510793128 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3178079979626093233, guid: e969ab7786abadd479b72f202125c990, type: 3}
+  m_PrefabInstance: {fileID: 510793126}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!20 &510793129 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2711404984516880043, guid: e969ab7786abadd479b72f202125c990, type: 3}
+  m_PrefabInstance: {fileID: 510793126}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &532409575 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6752322490577744639, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
@@ -543,6 +592,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4729459749816739955, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
+      propertyPath: thirdPersonCamera
+      value: 
+      objectReference: {fileID: 510793129}
+    - target: {fileID: 4729459749816739955, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
+      propertyPath: thirdPersonCameraScript
+      value: 
+      objectReference: {fileID: 510793128}
     - target: {fileID: 6752322490577744639, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.3393288
@@ -583,6 +640,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7901098195234624205, guid: 3f7fc516404aeb044ad7fbc2eadded5f, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 510793127}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
