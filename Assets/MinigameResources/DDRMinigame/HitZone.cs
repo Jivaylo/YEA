@@ -11,6 +11,9 @@ public class HitZone : MonoBehaviour
 
     [SerializeField] private InputActionAsset inputActionsAsset;
 
+    [Tooltip("How much score a single correctly-hit arrow gives.")]
+    [SerializeField] private int scorePerHit = 100;
+
     private KeyControl upKey, downKey, leftKey, rightKey;
 
     void OnTriggerEnter(Collider other)
@@ -91,7 +94,7 @@ public class HitZone : MonoBehaviour
             var main = particles.main;
             main.startColor = currentNote.CurrentColor;
             Destroy(currentNote.gameObject);
-            spawner.AddScore(100);
+            spawner.AddScore(scorePerHit);
             particles.Play();
             currentNote = null;
         }
