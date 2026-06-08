@@ -35,7 +35,8 @@ public class MainMenuManager : MonoBehaviour
 
     void Start()
     {
-        Screen.SetResolution(1920, 1080, Screen.fullScreen);
+        // Force fullscreen on launch (MainMenu is scene 0, so this runs at startup).
+        Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
 
         ShowMainMenu();
 
