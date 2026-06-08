@@ -12223,6 +12223,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1637486221975382671, guid: 2374aac28045069489d92f29fdc09636, type: 3}
+      propertyPath: doorPivot
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3099752122410429432, guid: 2374aac28045069489d92f29fdc09636, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
@@ -12284,7 +12288,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 526595240529984331, guid: 2374aac28045069489d92f29fdc09636, type: 3}
+    - {fileID: 6542964415709539004, guid: 2374aac28045069489d92f29fdc09636, type: 3}
+    - {fileID: 3099752122410429432, guid: 2374aac28045069489d92f29fdc09636, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2374aac28045069489d92f29fdc09636, type: 3}
@@ -13121,7 +13128,7 @@ Transform:
   m_GameObject: {fileID: 516920073}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.446, y: -3.895, z: 25.146}
+  m_LocalPosition: {x: -23.91, y: -3.895, z: 40.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17711,14 +17718,11 @@ PrefabInstance:
         Groningen University Museum.
 
 
-
         Explore the museum, beat the 4 mini
         games and rebuild your brain!
 
 
-
         Keybindings:
-
 
 
         Movement:
@@ -68489,7 +68493,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1950689725654287415, guid: d93c781833a5785428152a6a48f41387, type: 3}
       propertyPath: radius
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2468572668513089290, guid: d93c781833a5785428152a6a48f41387, type: 3}
       propertyPath: m_Name
@@ -68501,7 +68505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8429982339772009759, guid: d93c781833a5785428152a6a48f41387, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.936
+      value: -23.67
       objectReference: {fileID: 0}
     - target: {fileID: 8429982339772009759, guid: d93c781833a5785428152a6a48f41387, type: 3}
       propertyPath: m_LocalPosition.y
@@ -68509,7 +68513,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8429982339772009759, guid: d93c781833a5785428152a6a48f41387, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 24.697
+      value: 41.53
       objectReference: {fileID: 0}
     - target: {fileID: 8429982339772009759, guid: d93c781833a5785428152a6a48f41387, type: 3}
       propertyPath: m_LocalRotation.w
@@ -75030,15 +75034,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8429982339772009759, guid: d93c781833a5785428152a6a48f41387, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.18
+      value: -19.28
       objectReference: {fileID: 0}
     - target: {fileID: 8429982339772009759, guid: d93c781833a5785428152a6a48f41387, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.600968
+      value: 8.25
       objectReference: {fileID: 0}
     - target: {fileID: 8429982339772009759, guid: d93c781833a5785428152a6a48f41387, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 42.79
+      value: 41.48
       objectReference: {fileID: 0}
     - target: {fileID: 8429982339772009759, guid: d93c781833a5785428152a6a48f41387, type: 3}
       propertyPath: m_LocalRotation.w
