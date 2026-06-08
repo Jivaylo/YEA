@@ -171,8 +171,18 @@ public class MemoryTrackingGame : MonoBehaviour
             gameOverText.transform.SetAsLastSibling();
             gameOverText.text =
                 "GAME OVER\nFinal Score: " + Mathf.FloorToInt(score) +
-                "\nNeed " + Mathf.FloorToInt(winScore) + " to win";
+                "\nNeed " + Mathf.FloorToInt(winScore) + " to win" +
+                "\nRestarting...";
         }
+
+        StartCoroutine(RestartSceneAfterDelay());
+    }
+
+    IEnumerator RestartSceneAfterDelay()
+    {
+        yield return new WaitForSeconds(3f);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void StopBalls()
