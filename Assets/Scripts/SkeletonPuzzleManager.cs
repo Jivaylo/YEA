@@ -134,6 +134,8 @@ public class SkeletonPuzzleManager : MonoBehaviour
             PlayerPrefs.SetFloat("PlayerRotY", returnPointAfterReward.eulerAngles.y);
             PlayerPrefs.SetInt("HasReturnPosition", 1);
         }
+        if (returnPointAfterReward != null)
+            ReturnPositionManager.SaveReturnPoint(returnPointAfterReward);
 
         PlayerPrefs.Save();
 

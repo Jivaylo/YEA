@@ -5,18 +5,20 @@ public class SceneSwitcher : MonoBehaviour
 {
     [SerializeField] private string sceneName;
 
+    [Header("Return Point For This Portal")]
+    [SerializeField] private Transform returnPoint;
+
     public void SwitchScene()
     {
-        GameObject player = GameObject.FindWithTag("Player");
-
-        if (player != null)
+        if (returnPoint != null)
         {
-            PlayerPrefs.SetFloat("PlayerX", player.transform.position.x);
-            PlayerPrefs.SetFloat("PlayerY", player.transform.position.y);
-            PlayerPrefs.SetFloat("PlayerZ", player.transform.position.z);
-            PlayerPrefs.SetFloat("PlayerRotY", player.transform.eulerAngles.y);
-            PlayerPrefs.SetInt("HasReturnPosition", 1);
-            PlayerPrefs.Save();
+            ReturnPositionManager.SaveReturnPoint(returnPoint);
+        }
+        else
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+                ReturnPositionManager.SaveReturnPoint(player.transform);
         }
 
         SceneManager.LoadScene(sceneName);

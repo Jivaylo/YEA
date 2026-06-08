@@ -13,6 +13,11 @@ public class BrainUnlockSceneManager : MonoBehaviour
 
     [Header("Final Reward")]
     public GameObject fullBrain;
+    public bool overrideFullBrainTransform = false;
+    public Vector3 fullBrainPosition = Vector3.zero;
+    public Vector3 fullBrainRotation = Vector3.zero;
+    public Vector3 fullBrainScale = Vector3.one;
+    public float fullBrainRotateSpeed = 20f;
 
     [Header("UI")]
     public TextMeshProUGUI titleText;
@@ -21,23 +26,28 @@ public class BrainUnlockSceneManager : MonoBehaviour
     [Header("Return Scene")]
     public string museumSceneName = "yeajasper14-4";
 
+    private GameObject activeBrain;
+
     void Start()
     {
-        if (cerebellum != null) cerebellum.SetActive(false);
-        if (temporalLobe != null) temporalLobe.SetActive(false);
-        if (occipitalLobe != null) occipitalLobe.SetActive(false);
-        if (parietalLobe != null) parietalLobe.SetActive(false);
-        if (fullBrain != null) fullBrain.SetActive(false);
+        HideAllBrains();
 
-      
         if (GameSessionState.FullBrainUnlocked())
         {
             if (fullBrain != null)
+            {
                 fullBrain.SetActive(true);
+
+                fullBrain.transform.position = fullBrainPosition;
+                fullBrain.transform.rotation = Quaternion.Euler(fullBrainRotation);
+                fullBrain.transform.localScale = fullBrainScale;
+
+                activeBrain = fullBrain;
+            }
 
             SetText(
                 "FULL BRAIN UNLOCKED!",
-                "Congratulations! You beat Thinkthrough,explore the museum at your leisure!"
+                "Congratulations! You beat Thinkthrough. Explore the museum at your leisure!"
             );
 
             return;
@@ -48,35 +58,23 @@ public class BrainUnlockSceneManager : MonoBehaviour
         switch (part)
         {
             case "Cerebellum":
-                if (cerebellum != null) cerebellum.SetActive(true);
-                SetText(
-                    "Cerebellum Unlocked",
-                    "Controls balance and coordination."
-                );
+                ShowPart(cerebellum);
+                SetText("Cerebellum Unlocked", "Controls balance and coordination.");
                 break;
 
             case "TemporalLobe":
-                if (temporalLobe != null) temporalLobe.SetActive(true);
-                SetText(
-                    "Temporal Lobe Unlocked",
-                    "Important for memory and learning."
-                );
+                ShowPart(temporalLobe);
+                SetText("Temporal Lobe Unlocked", "Important for memory and learning.");
                 break;
 
             case "OccipitalLobe":
-                if (occipitalLobe != null) occipitalLobe.SetActive(true);
-                SetText(
-                    "Occipital Lobe Unlocked",
-                    "Processes visual information."
-                );
+                ShowPart(occipitalLobe);
+                SetText("Occipital Lobe Unlocked", "Processes visual information.");
                 break;
 
             case "ParietalLobe":
-                if (parietalLobe != null) parietalLobe.SetActive(true);
-                SetText(
-                    "Parietal Lobe Unlocked",
-                    "Helps with movement and spatial awareness."
-                );
+                ShowPart(parietalLobe);
+                SetText("Parietal Lobe Unlocked", "Helps with movement and spatial awareness.");
                 break;
 
             default:
@@ -87,24 +85,31 @@ public class BrainUnlockSceneManager : MonoBehaviour
 
     void Update()
     {
-        if (Keyboard.current != null &&
-            Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            var pauseMenu = FindAnyObjectByType<PauseMenuManager>();
+        if (activeBrain != null)
+            activeBrain.transform.Rotate(0f, fullBrainRotateSpeed * Time.deltaTime, 0f, Space.World);
 
-            if (pauseMenu != null)
-                pauseMenu.GoToMuseum();
-            else
-                SceneManager.LoadScene(museumSceneName);
-        }
+        if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+            SceneManager.LoadScene(museumSceneName);
+    }
+
+    void HideAllBrains()
+    {
+        if (cerebellum != null) cerebellum.SetActive(false);
+        if (temporalLobe != null) temporalLobe.SetActive(false);
+        if (occipitalLobe != null) occipitalLobe.SetActive(false);
+        if (parietalLobe != null) parietalLobe.SetActive(false);
+        if (fullBrain != null) fullBrain.SetActive(false);
+    }
+
+    void ShowPart(GameObject part)
+    {
+        if (part != null)
+            part.SetActive(true);
     }
 
     void SetText(string title, string description)
     {
-        if (titleText != null)
-            titleText.text = title;
-
-        if (descriptionText != null)
-            descriptionText.text = description;
+        if (titleText != null) titleText.text = title;
+        if (descriptionText != null) descriptionText.text = description;
     }
 }

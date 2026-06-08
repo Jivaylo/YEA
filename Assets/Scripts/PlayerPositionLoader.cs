@@ -1,37 +1,39 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerPositionLoader : MonoBehaviour
 {
-    void Start()
+    [SerializeField] private string museumSceneName = "yeajasper14-4";
+
+    void Awake()
     {
+        if (SceneManager.GetActiveScene().name != museumSceneName)
+            return;
+
         if (PlayerPrefs.GetInt("HasReturnPosition", 0) != 1)
             return;
 
-        CharacterController controller = GetComponent<CharacterController>();
-
-        if (controller != null)
-            controller.enabled = false;
-
-        transform.position = new Vector3(
+        Vector3 pos = new Vector3(
             PlayerPrefs.GetFloat("PlayerX"),
             PlayerPrefs.GetFloat("PlayerY"),
             PlayerPrefs.GetFloat("PlayerZ")
         );
 
-        transform.rotation = Quaternion.Euler(
+        Quaternion rot = Quaternion.Euler(
             0f,
             PlayerPrefs.GetFloat("PlayerRotY"),
             0f
         );
 
-        if (controller != null)
-            controller.enabled = true;
+        CharacterController cc = GetComponent<CharacterController>();
+        if (cc != null) cc.enabled = false;
 
-        PlayerPrefs.DeleteKey("HasReturnPosition");
-        PlayerPrefs.DeleteKey("PlayerX");
-        PlayerPrefs.DeleteKey("PlayerY");
-        PlayerPrefs.DeleteKey("PlayerZ");
-        PlayerPrefs.DeleteKey("PlayerRotY");
-        PlayerPrefs.Save();
+        transform.SetPositionAndRotation(pos, rot);
+
+        if (cc != null) cc.enabled = true;
+
+        Debug.Log("Loaded return position in museum: " + pos);
+
+        ReturnPositionManager.ClearReturnPoint();
     }
 }
