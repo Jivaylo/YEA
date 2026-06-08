@@ -5512,8 +5512,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -426, y: -324}
-  m_SizeDelta: {x: 300, y: 200}
+  m_AnchoredPosition: {x: -426, y: -215}
+  m_SizeDelta: {x: 300, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &629099450
 MonoBehaviour:
@@ -5535,7 +5535,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score:
+  m_text: 'Goal:
+
+    10000
+
+
+    Score:
 
     0'
   m_isRightToLeft: 0

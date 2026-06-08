@@ -191,7 +191,7 @@ public class NoteSpawner : MonoBehaviour
     private void UpdateScoreUI()
     {
         if (scoreText != null)
-            scoreText.text = "Score: " + score;
+            scoreText.text = "Goal:\n" + winScore + "\n\nScore:\n" + score;
     }
 
     private void UpdateMissesUI()
