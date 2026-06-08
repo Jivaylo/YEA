@@ -42,6 +42,8 @@ public class MemoryTrackingGame : MonoBehaviour
     public float maxX = 9f;
     public float minZ = -9f;
     public float maxZ = 9f;
+    public GameObject winPanel;
+    public GameObject gameOverPanel;
 
     private Rigidbody[] ballRigidbodies;
     private int correctBallIndex = -1;
@@ -55,7 +57,7 @@ public class MemoryTrackingGame : MonoBehaviour
     private bool showingGreen = true;
     private bool gameEnded = false;
     private bool started = false;
-
+    
     public void StartGame()
     {
         started = true;
@@ -70,6 +72,12 @@ public class MemoryTrackingGame : MonoBehaviour
         memoryTimer = 0f;
 
         ballRigidbodies = new Rigidbody[balls.Length];
+
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
+
+        if (winPanel != null)
+            winPanel.SetActive(false);
 
         for (int i = 0; i < balls.Length; i++)
         {
@@ -144,16 +152,24 @@ public class MemoryTrackingGame : MonoBehaviour
         PlayerPrefs.SetString("UnlockedBrainPart", "OccipitalLobe");
         PlayerPrefs.Save();
 
+        if (winPanel != null)
+        {
+            winPanel.SetActive(true);
+            winPanel.transform.SetAsLastSibling();
+        }
+
         if (gameOverText != null)
         {
             gameOverText.gameObject.SetActive(true);
             gameOverText.transform.SetAsLastSibling();
-            gameOverText.text = "YOU WIN!\nFinal Score: " + Mathf.FloorToInt(score);
+
+            gameOverText.text =
+                "YOU WIN!\nFinal Score: " + Mathf.FloorToInt(score) +
+                "\nReturning to Brain Scene...";
         }
 
         StartCoroutine(GoToBrainSceneAfterDelay());
     }
-
     IEnumerator GoToBrainSceneAfterDelay()
     {
         yield return new WaitForSeconds(winDelayBeforeBrainScene);
@@ -165,6 +181,12 @@ public class MemoryTrackingGame : MonoBehaviour
         gameEnded = true;
         StopBalls();
 
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+            gameOverPanel.transform.SetAsLastSibling();
+        }
+
         if (gameOverText != null)
         {
             gameOverText.gameObject.SetActive(true);
@@ -172,7 +194,7 @@ public class MemoryTrackingGame : MonoBehaviour
             gameOverText.text =
                 "GAME OVER\nFinal Score: " + Mathf.FloorToInt(score) +
                 "\nNeed " + Mathf.FloorToInt(winScore) + " to win" +
-                "\nRestarting...";
+                "\nRestarting in " + winDelayBeforeBrainScene + " seconds...";
         }
 
         StartCoroutine(RestartSceneAfterDelay());
@@ -180,7 +202,7 @@ public class MemoryTrackingGame : MonoBehaviour
 
     IEnumerator RestartSceneAfterDelay()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(winDelayBeforeBrainScene);
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
