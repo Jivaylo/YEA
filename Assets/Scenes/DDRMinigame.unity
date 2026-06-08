@@ -6485,9 +6485,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4514036680747640867, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
-      value: "For green arrows:\nPress the key of the corresponding direction \nonce
-        the arrow reaches the designated finish.\n \LFor red arrows:\nPress the key
-        of the opposite direction."
+      value: "How to Play:\n\nFor green arrows:\nPress the key of the corresponding
+        direction \nonce the arrow reaches the designated finish.\n \LFor red arrows:\nPress
+        the key of the opposite direction.\n\nReach 10,000 points to win!"
       objectReference: {fileID: 0}
     - target: {fileID: 4514036680747640867, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_fontSize
@@ -6511,22 +6511,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6876664801243057474, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_text
-      value: '[up] / up arrow = up
+      value: 'Controls:
 
-        [down] / down arrow = down
+        [up] / up arrow = up
 
-        [left]
-        / left arrow = left
+        [down] / down arrow
+        = down
 
-        [right] / right arrow = right'
+        [left] / left arrow = left
+
+        [right] / right arrow
+        = right'
       objectReference: {fileID: 0}
     - target: {fileID: 6876664801243057474, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_fontSize
-      value: 37
+      value: 33.1
       objectReference: {fileID: 0}
     - target: {fileID: 6876664801243057474, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_fontSizeBase
-      value: 37
+      value: 33.1
       objectReference: {fileID: 0}
     - target: {fileID: 7652910393853933767, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: m_IsActive
