@@ -249,6 +249,7 @@ MonoBehaviour:
   spawner: {fileID: 2022407332}
   particles: {fileID: 141549085}
   inputActionsAsset: {fileID: -944628639613478452, guid: 9acb3f2fa7eed7d40b230023bc7261eb, type: 3}
+  scorePerHit: 150
 --- !u!114 &113708905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6340,7 +6341,7 @@ MonoBehaviour:
   currentStage: 0
   scoreText: {fileID: 629099450}
   stageThresholds: 
-  winScore: 10000
+  winScore: 1000
   maxMisses: 5
   restartDelay: 3
   missesText: {fileID: 1537146201}
@@ -6522,9 +6523,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8582218970716096220, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: minigame
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582218970716096220, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 136510241}
+    - target: {fileID: 8582218970716096220, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: inputActions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 9acb3f2fa7eed7d40b230023bc7261eb, type: 3}
+    - target: {fileID: 8582218970716096220, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
+      propertyPath: completionKey
+      value: rhythmDone
+      objectReference: {fileID: 0}
     - target: {fileID: 8582218970716096220, guid: 4c6bd260a1b003745a5045c91c64fd26, type: 3}
       propertyPath: onPlay.m_PersistentCalls.m_Calls.Array.size
       value: 1

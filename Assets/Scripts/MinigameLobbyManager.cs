@@ -7,8 +7,11 @@ using TMPro;
 
 public class MinigameLobbyManager : MonoBehaviour
 {
+    public enum Minigame { Skeleton, Memory, Rhythm, Motion }
+
     [Header("Completion")]
-    [SerializeField] string completionKey;
+    [Tooltip("Which minigame this lobby is for — drives the COMPLETED badge, read from GameSessionState.")]
+    [SerializeField] Minigame minigame;
     [SerializeField] GameObject completedBadge;
 
     [Header("Buttons")]
@@ -27,26 +30,65 @@ public class MinigameLobbyManager : MonoBehaviour
 
     public static bool IsActive { get; private set; }
     static bool skipLobby;
+    // Which scene the skip was set for — so a skip only applies to a restart of the SAME
+    // minigame, not to opening a different minigame after a win.
+    static string skipLobbyScene;
 
     // Call when returning to the museum so the lobby shows again on next entry.
-    public static void ResetLobby() => skipLobby = false;
+    public static void ResetLobby()
+    {
+        skipLobby = false;
+        skipLobbyScene = null;
+    }
+
+    // Clear the skip whenever a scene OTHER than the skip's own minigame scene loads.
+    // A restart-from-pause reloads the same scene (skip kept). A win goes through
+    // BrainUnlockScene/museum first (a different scene), so the skip is cleared and the
+    // lobby shows again next time — even if you reopen the same minigame.
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void RegisterSkipReset()
+    {
+        SceneManager.sceneLoaded -= OnAnySceneLoaded;
+        SceneManager.sceneLoaded += OnAnySceneLoaded;
+    }
+
+    static void OnAnySceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (skipLobby && scene.name != skipLobbyScene)
+            ResetLobby();
+    }
+
+    bool IsCompleted()
+    {
+        switch (minigame)
+        {
+            case Minigame.Skeleton: return GameSessionState.skeletonDone;
+            case Minigame.Memory:   return GameSessionState.memoryDone;
+            case Minigame.Rhythm:   return GameSessionState.rhythmDone;
+            case Minigame.Motion:   return GameSessionState.motionDone;
+            default: return false;
+        }
+    }
 
     void Start()
     {
-        bool completed = PlayerPrefs.GetInt(completionKey, 0) == 1;
         if (completedBadge != null)
-            completedBadge.SetActive(completed);
+            completedBadge.SetActive(IsCompleted());
 
         FillControlsText();
 
         playButton.onClick.AddListener(OnPlay);
         backButton.onClick.AddListener(OnBack);
 
-        if (skipLobby)
+        // Only skip the lobby if the skip was set for THIS scene (a restart of the same
+        // minigame). Otherwise show the lobby and clear any stale skip from a prior game.
+        if (skipLobby && skipLobbyScene == SceneManager.GetActiveScene().name)
         {
             OnPlay();
             return;
         }
+        skipLobby = false;
+        skipLobbyScene = null;
 
         IsActive = true;
         Cursor.lockState = CursorLockMode.None;
@@ -103,6 +145,7 @@ public class MinigameLobbyManager : MonoBehaviour
     {
         IsActive = false;
         skipLobby = true;
+        skipLobbyScene = SceneManager.GetActiveScene().name;
         if (pauseMenu != null)
             pauseMenu.ApplyGameplayCursor();
         gameObject.SetActive(false);
@@ -113,6 +156,7 @@ public class MinigameLobbyManager : MonoBehaviour
     {
         IsActive = false;
         skipLobby = false;
+        skipLobbyScene = null;
         if (pauseMenu != null)
             pauseMenu.GoToMuseum();
         else
