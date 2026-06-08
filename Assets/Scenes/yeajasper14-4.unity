@@ -78766,14 +78766,15 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'E  Pick up / Place
+  m_text: 'E / Left Mouse Button  =  Pick up / Place
 
-    Q  Drop
+    F / Right Mouse Button  
+    =  Inspect/Exit inspect
 
-    F  Inspect/Exit inspect
+    Q  =  Drop
 
-    while
-    inspecting  Mouse = Rotate Bone
+    while inspecting  Mouse = Rotate
+    Bone
 
     while inspecting  Scroll = Zoom
 
@@ -78804,8 +78805,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22
-  m_fontSizeBase: 22
+  m_fontSize: 26.56
+  m_fontSizeBase: 26.56
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -78843,7 +78844,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -212.08582, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
