@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+
 public class MemoryTrackingGame : MonoBehaviour
 {
     [Header("References")]
@@ -77,7 +78,12 @@ public class MemoryTrackingGame : MonoBehaviour
             ballRigidbodies[i].useGravity = false;
             ballRigidbodies[i].linearDamping = 0f;
             ballRigidbodies[i].angularDamping = 0f;
-            ballRigidbodies[i].constraints = RigidbodyConstraints.FreezePositionY;
+
+            ballRigidbodies[i].constraints =
+                RigidbodyConstraints.FreezePositionY |
+                RigidbodyConstraints.FreezeRotationX |
+                RigidbodyConstraints.FreezeRotationY |
+                RigidbodyConstraints.FreezeRotationZ;
 
             SetRandomNormalMaterial(i);
             GiveRandomVelocity(i);
@@ -147,11 +153,13 @@ public class MemoryTrackingGame : MonoBehaviour
 
         StartCoroutine(GoToBrainSceneAfterDelay());
     }
+
     IEnumerator GoToBrainSceneAfterDelay()
     {
         yield return new WaitForSeconds(winDelayBeforeBrainScene);
         SceneManager.LoadScene(brainUnlockSceneName);
     }
+
     void LoseGame()
     {
         gameEnded = true;
@@ -163,8 +171,18 @@ public class MemoryTrackingGame : MonoBehaviour
             gameOverText.transform.SetAsLastSibling();
             gameOverText.text =
                 "GAME OVER\nFinal Score: " + Mathf.FloorToInt(score) +
-                "\nNeed " + Mathf.FloorToInt(winScore) + " to win";
+                "\nNeed " + Mathf.FloorToInt(winScore) + " to win" +
+                "\nRestarting...";
         }
+
+        StartCoroutine(RestartSceneAfterDelay());
+    }
+
+    IEnumerator RestartSceneAfterDelay()
+    {
+        yield return new WaitForSeconds(3f);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void StopBalls()
