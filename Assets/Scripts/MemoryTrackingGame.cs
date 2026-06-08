@@ -379,7 +379,7 @@ public class MemoryTrackingGame : MonoBehaviour
     void UpdateUI()
     {
         if (scoreText != null)
-            scoreText.text = "Score: " + Mathf.FloorToInt(score);
+            scoreText.text = "Score: " + Mathf.FloorToInt(score) + "/" + Mathf.FloorToInt(winScore);
 
         if (timerText != null)
             timerText.text = "Time: " + Mathf.CeilToInt(gameTimer);
