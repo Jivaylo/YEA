@@ -9965,7 +9965,7 @@ PrefabInstance:
     - target: {fileID: 4918292960384462878, guid: 29d308b163bb49646bc62dfa13bd1925, type: 3}
       propertyPath: popupMenu
       value: 
-      objectReference: {fileID: 1789992230}
+      objectReference: {fileID: 1100556122}
     - target: {fileID: 4918292960384462878, guid: 29d308b163bb49646bc62dfa13bd1925, type: 3}
       propertyPath: interactText
       value: 
@@ -16720,6 +16720,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 325026270664311272, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1500
+      objectReference: {fileID: 0}
     - target: {fileID: 3375988959733515022, guid: 6b548021169c951468314702dd4fee4b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -16802,7 +16806,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3413263723149789472, guid: 6b548021169c951468314702dd4fee4b, type: 3}
       propertyPath: m_Name
-      value: SkeletonPopUpUI
+      value: StartPopUpUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5498817414432732077, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_text
+      value: Oh no! It seems you lost your brain!
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669828248278133724, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_text
+      value: 'It has been split up into 4 seperate parts and strewn throughout the
+        Groningen University Museum.
+
+        explore the museum, beat the 4 mini
+        games and rebuild your brain!
+
+        
+
+        Keybindings:
+
+        
+
+        Movement:
+        WASD
+
+        Interact: E
+
+        Look around with the mouse. '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669828248278133724, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_fontSize
+      value: 49.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669828248278133724, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 49.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669828248278133724, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8124434651772326099, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: showOnEnterFromMainMenu
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18404,7 +18449,7 @@ PrefabInstance:
     - target: {fileID: 4823553555436942515, guid: 466cca14c9bc19044aba65460c561f43, type: 3}
       propertyPath: popupMenu
       value: 
-      objectReference: {fileID: 1789992230}
+      objectReference: {fileID: 1100556122}
     - target: {fileID: 4823553555436942515, guid: 466cca14c9bc19044aba65460c561f43, type: 3}
       propertyPath: modeSwitcher
       value: 
@@ -30577,17 +30622,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3413263723149789472, guid: 6b548021169c951468314702dd4fee4b, type: 3}
       propertyPath: m_Name
-      value: StartPopUpUI
+      value: SkeletonPopUpUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 3801312576355286972, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_Name
+      value: Text1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824833393957553520, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 5824833393957553520, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -400
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669828248278133724, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_text
+      value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+        sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 8124434651772326099, guid: 6b548021169c951468314702dd4fee4b, type: 3}
       propertyPath: showOnEnterFromMainMenu
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6920751394351293283, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1743794587}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+--- !u!224 &982456673 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6920751394351293283, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+  m_PrefabInstance: {fileID: 982456672}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &984023966
 GameObject:
   m_ObjectHideFlags: 0
@@ -33728,6 +33804,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095327955}
   m_Mesh: {fileID: -7387706064836869012, guid: 57c0361226fe92d45b557d8e0c47b3d0, type: 3}
+--- !u!114 &1100556122 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8124434651772326099, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+  m_PrefabInstance: {fileID: 982456672}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa9827b21bf8d3442bcd3f2526547245, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PopupMenu
 --- !u!1 &1104327913
 GameObject:
   m_ObjectHideFlags: 0
@@ -59273,6 +59360,150 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &1743794586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1743794587}
+  - component: {fileID: 1743794589}
+  - component: {fileID: 1743794588}
+  m_Layer: 5
+  m_Name: Text2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1743794587
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743794586}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 982456673}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 400, y: -55}
+  m_SizeDelta: {x: 350, y: 415.2}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1743794588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743794586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+    eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
+    in culpa qui officia deserunt mollit anim id est laborum.
+
+'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 40
+  m_fontSizeBase: 40
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 8
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: -189.26157, y: -87.726456, z: -189.887, w: -81.53497}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1743794589
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743794586}
+  m_CullTransparentMesh: 1
 --- !u!1001 &1744376566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65913,17 +66144,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1789992230 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8124434651772326099, guid: 6b548021169c951468314702dd4fee4b, type: 3}
-  m_PrefabInstance: {fileID: 675704607}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa9827b21bf8d3442bcd3f2526547245, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PopupMenu
 --- !u!1 &1793451448
 GameObject:
   m_ObjectHideFlags: 0
@@ -79545,6 +79765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc4bbb4268be283448c6c3ad85af0250, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPositionLoader
+  museumSceneName: yeajasper14-4
 --- !u!33 &7166551676580798692
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -81210,8 +81431,8 @@ SceneRoots:
   - {fileID: 37437528}
   - {fileID: 722882006}
   - {fileID: 424024659}
-  - {fileID: 675704607}
   - {fileID: 982456672}
+  - {fileID: 675704607}
   - {fileID: 403160746717396278}
   - {fileID: 1229248518224706429}
   - {fileID: 5016786247364918780}
