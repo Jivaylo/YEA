@@ -29,6 +29,8 @@ public class MainMenuManager : MonoBehaviour
 
     [Header("Colorblind")]
     [SerializeField] private TMP_Dropdown colorblindDropdown;
+    [Tooltip("Camera the menu UI renders through so the colorblind post-process applies to the menu. Defaults to Camera.main if left empty.")]
+    [SerializeField] private Camera uiCamera;
 
     // 0=Off, 1=Deuteranopia, 2=Protanopia, 3=Tritanopia
     public static int ColorblindMode { get; set; }
@@ -39,6 +41,10 @@ public class MainMenuManager : MonoBehaviour
         Screen.SetResolution(1920, 1080, FullScreenMode.FullScreenWindow);
 
         ShowMainMenu();
+
+        // Route the (otherwise Overlay) menu UI through the camera so URP post-processing
+        // — i.e. the colorblind filter — actually affects the menu, like it does in-game.
+        RouteMenuThroughCamera();
 
         int cb = PlayerPrefs.GetInt("ColorblindMode", 0);
         ColorblindMode = cb;
@@ -82,6 +88,30 @@ public class MainMenuManager : MonoBehaviour
     }
 
     // ── Colorblind ──────────────────────────────────────────────────────────────
+
+    // Switch every root Screen-Space-Overlay canvas to Screen-Space-Camera so the menu UI
+    // is rendered THROUGH the camera. URP post-processing (the colorblind Volume) only
+    // touches what the camera renders — Overlay UI is composited afterward and stays
+    // unfiltered, which is why the filter previously only showed up once in-game.
+    void RouteMenuThroughCamera()
+    {
+        Camera cam = uiCamera != null ? uiCamera : Camera.main;
+        if (cam == null)
+        {
+            Debug.LogWarning("MainMenuManager: no camera found — colorblind filter won't affect the menu UI.");
+            return;
+        }
+
+        foreach (var canvas in FindObjectsByType<Canvas>(FindObjectsSortMode.None))
+        {
+            if (!canvas.isRootCanvas) continue;
+            if (canvas.renderMode != RenderMode.ScreenSpaceOverlay) continue;
+
+            canvas.renderMode = RenderMode.ScreenSpaceCamera;
+            canvas.worldCamera = cam;
+            canvas.planeDistance = 1f;
+        }
+    }
 
     void OnColorblindChanged(int value)
     {

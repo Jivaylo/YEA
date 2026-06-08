@@ -10578,39 +10578,39 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 143831808589676457, guid: e969ab7786abadd479b72f202125c990, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.990898
+      value: -3.35
       objectReference: {fileID: 0}
     - target: {fileID: 143831808589676457, guid: e969ab7786abadd479b72f202125c990, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.07
+      value: -6.15
       objectReference: {fileID: 0}
     - target: {fileID: 143831808589676457, guid: e969ab7786abadd479b72f202125c990, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 59.44
+      value: 34.01
       objectReference: {fileID: 0}
     - target: {fileID: 143831808589676457, guid: e969ab7786abadd479b72f202125c990, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.1850077
+      value: -0.37563357
       objectReference: {fileID: 0}
     - target: {fileID: 143831808589676457, guid: e969ab7786abadd479b72f202125c990, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.059158493
       objectReference: {fileID: 0}
     - target: {fileID: 143831808589676457, guid: e969ab7786abadd479b72f202125c990, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.98273706
+      value: -0.9136174
       objectReference: {fileID: 0}
     - target: {fileID: 143831808589676457, guid: e969ab7786abadd479b72f202125c990, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.14388551
       objectReference: {fileID: 0}
     - target: {fileID: 143831808589676457, guid: e969ab7786abadd479b72f202125c990, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -17.9
       objectReference: {fileID: 0}
     - target: {fileID: 143831808589676457, guid: e969ab7786abadd479b72f202125c990, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -201.323
+      value: -224.7
       objectReference: {fileID: 0}
     - target: {fileID: 143831808589676457, guid: e969ab7786abadd479b72f202125c990, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -18200,17 +18200,20 @@ PrefabInstance:
         Movement:
         WASD
 
+        Sprint: Shift
+
         Interact: E
 
-        Look around with the mouse. '
+        Look around with
+        the mouse. '
       objectReference: {fileID: 0}
     - target: {fileID: 7669828248278133724, guid: 6b548021169c951468314702dd4fee4b, type: 3}
       propertyPath: m_fontSize
-      value: 49.3
+      value: 47
       objectReference: {fileID: 0}
     - target: {fileID: 7669828248278133724, guid: 6b548021169c951468314702dd4fee4b, type: 3}
       propertyPath: m_fontSizeBase
-      value: 49.3
+      value: 47
       objectReference: {fileID: 0}
     - target: {fileID: 7669828248278133724, guid: 6b548021169c951468314702dd4fee4b, type: 3}
       propertyPath: m_HorizontalAlignment
