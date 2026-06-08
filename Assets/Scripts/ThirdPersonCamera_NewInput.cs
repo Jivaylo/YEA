@@ -26,9 +26,9 @@ public class ThirdPersonCamera_NewInput : MonoBehaviour
     public float maxDistance = 7f;
 
     [Header("Camera Collision")]
-    public LayerMask collisionLayers;
-    public float collisionRadius = 0.45f;
-    public float collisionOffset = 0.25f;
+    public LayerMask collisionLayers = ~0;
+    public float collisionRadius = 0.55f;
+    public float collisionOffset = 0.35f;
     public float collisionOriginHeight = 1.4f;
 
     private InputAction lookAction;
@@ -64,20 +64,15 @@ public class ThirdPersonCamera_NewInput : MonoBehaviour
     {
         yaw = transform.eulerAngles.y;
         pitch = pivot.localEulerAngles.x;
-
         targetDistance = Mathf.Clamp(-cam.localPosition.z, minDistance, maxDistance);
     }
 
-    // Instantly place the rig at the player, skipping the follow lerp.
-    // Used so the camera doesn't get caught mid-glide between rooms (e.g. on a loss freeze).
     public void SnapToTarget()
     {
         if (target == null) return;
         transform.position = target.position + followOffset;
     }
 
-    // Instantly place the rig at an arbitrary world point (e.g. a room's door),
-    // so a room transition starts from the doorway instead of gliding across the map.
     public void SnapTo(Vector3 worldPosition)
     {
         transform.position = worldPosition;
@@ -117,23 +112,40 @@ public class ThirdPersonCamera_NewInput : MonoBehaviour
         Vector3 origin = target.position + Vector3.up * collisionOriginHeight;
         Vector3 direction = -pivot.forward;
 
+        LayerMask mask = collisionLayers.value == 0 ? ~0 : collisionLayers;
+
         float safeDistance = targetDistance;
 
-        if (Physics.Linecast(origin, origin + direction * targetDistance, out RaycastHit lineHit, collisionLayers, QueryTriggerInteraction.Ignore))
-        {
-            safeDistance = Mathf.Min(safeDistance, lineHit.distance - collisionOffset);
-        }
+        RaycastHit[] hits = Physics.SphereCastAll(
+            origin,
+            collisionRadius,
+            direction,
+            targetDistance,
+            mask,
+            QueryTriggerInteraction.Ignore
+        );
 
-        if (Physics.SphereCast(origin, collisionRadius, direction, out RaycastHit sphereHit, targetDistance, collisionLayers, QueryTriggerInteraction.Ignore))
+        if (hits.Length > 0)
         {
-            safeDistance = Mathf.Min(safeDistance, sphereHit.distance - collisionOffset);
+            float closest = targetDistance;
+
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.collider.transform == target)
+                    continue;
+
+                if (hit.distance < closest)
+                    closest = hit.distance;
+            }
+
+            safeDistance = closest - collisionOffset;
         }
 
         safeDistance = Mathf.Clamp(safeDistance, minDistance, targetDistance);
 
-        Vector3 finalCameraPos = origin + direction * safeDistance;
+        Vector3 finalPos = origin + direction * safeDistance;
 
-        if (Physics.CheckSphere(finalCameraPos, collisionRadius, collisionLayers, QueryTriggerInteraction.Ignore))
+        if (Physics.CheckSphere(finalPos, collisionRadius, mask, QueryTriggerInteraction.Ignore))
         {
             safeDistance = minDistance;
         }
