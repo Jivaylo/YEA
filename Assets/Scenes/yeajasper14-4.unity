@@ -31737,6 +31737,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 325026270664311272, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 3375988959733515022, guid: 6b548021169c951468314702dd4fee4b, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -31825,6 +31829,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Text1
       objectReference: {fileID: 0}
+    - target: {fileID: 5498817414432732077, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_text
+      value: Rebuild The Skeleton
+      objectReference: {fileID: 0}
     - target: {fileID: 5824833393957553520, guid: 6b548021169c951468314702dd4fee4b, type: 3}
       propertyPath: m_SizeDelta.x
       value: 350
@@ -31835,14 +31843,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7669828248278133724, guid: 6b548021169c951468314702dd4fee4b, type: 3}
       propertyPath: m_text
-      value: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-        eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-        sunt in culpa qui officia deserunt mollit anim id est laborum.
+      value: 'The cerebellum is responsible for qualities such as precision and coordination.
 
-'
+        
+
+        This
+        skeleton is rather clumsy and fell apart on its own, please put it back together!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669828248278133724, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_fontSize
+      value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669828248278133724, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 44
+      objectReference: {fileID: 0}
+    - target: {fileID: 7669828248278133724, guid: 6b548021169c951468314702dd4fee4b, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8124434651772326099, guid: 6b548021169c951468314702dd4fee4b, type: 3}
       propertyPath: showOnEnterFromMainMenu
@@ -61629,14 +61647,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-    eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-    in culpa qui officia deserunt mollit anim id est laborum.
+  m_text: 'How to Play:
 
-'
+    
+
+    Pick up the different skeleton pieces, rotate
+    them to directly face you.
+
+    
+
+    Place them back onto the skeleton outline
+    once properly rotated.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -61663,14 +61684,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 44
+  m_fontSizeBase: 44
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 8
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
