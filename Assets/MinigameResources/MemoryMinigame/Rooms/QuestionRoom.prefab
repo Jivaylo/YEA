@@ -1111,6 +1111,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5711670636279641390, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.b
+      value: 0.35106236
+      objectReference: {fileID: 0}
+    - target: {fileID: 5711670636279641390, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.g
+      value: 0.33018857
+      objectReference: {fileID: 0}
+    - target: {fileID: 5711670636279641390, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7247220588038048706, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
       propertyPath: answerIndex
       value: 1
@@ -1118,6 +1130,18 @@ PrefabInstance:
     - target: {fileID: 8394987023828067343, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
       propertyPath: m_Name
       value: Door_B
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897357119378484221, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.b
+      value: 0.48174247
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897357119378484221, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.g
+      value: 0.4660377
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897357119378484221, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1235,7 +1259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4868475131907529924, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6
+      value: -5.5
       objectReference: {fileID: 0}
     - target: {fileID: 4868475131907529924, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1273,9 +1297,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5711670636279641390, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.b
+      value: 0.390566
+      objectReference: {fileID: 0}
+    - target: {fileID: 5711670636279641390, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5711670636279641390, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.r
+      value: 0.4482934
+      objectReference: {fileID: 0}
     - target: {fileID: 8394987023828067343, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
       propertyPath: m_Name
       value: Door_A
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897357119378484221, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.b
+      value: 0.50377357
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897357119378484221, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897357119378484221, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.r
+      value: 0.5488851
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1320,7 +1368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4868475131907529924, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 4868475131907529924, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1358,6 +1406,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5711670636279641390, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5711670636279641390, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.g
+      value: 0.5689377
+      objectReference: {fileID: 0}
+    - target: {fileID: 5711670636279641390, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.r
+      value: 0.34528297
+      objectReference: {fileID: 0}
     - target: {fileID: 7247220588038048706, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
       propertyPath: answerIndex
       value: 2
@@ -1365,6 +1425,18 @@ PrefabInstance:
     - target: {fileID: 8394987023828067343, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
       propertyPath: m_Name
       value: Door_C
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897357119378484221, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897357119378484221, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.g
+      value: 0.66920877
+      objectReference: {fileID: 0}
+    - target: {fileID: 8897357119378484221, guid: cea5f4da3dbed0f49b8e2ecf0107f626, type: 3}
+      propertyPath: color.r
+      value: 0.49622637
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

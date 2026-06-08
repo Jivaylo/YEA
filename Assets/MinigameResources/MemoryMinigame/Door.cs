@@ -12,6 +12,7 @@ public class Door : MonoBehaviour
     [SerializeField] private TextMeshPro labelDisplay;       // shown for all question types
     [SerializeField] private TextMeshPro imageNameDisplay;   // shown above door for image questions (text fallback)
     [SerializeField] private SpriteRenderer imageSpriteDisplay; // shown above door for image questions (sprite)
+    [SerializeField] private GameObject pictureFrame;         // frame around the image — hidden for sound questions
     [SerializeField] private Interactable soundButton;        // shown in front for sound questions
 
     private AudioSource audioSource;
@@ -41,6 +42,9 @@ public class Door : MonoBehaviour
             imageNameDisplay.gameObject.SetActive(isImage && !hasSprite);
             if (isImage && !hasSprite) imageNameDisplay.text = item != null ? item.itemName : "";
         }
+
+        if (pictureFrame != null)
+            pictureFrame.SetActive(isImage); // hide the frame for sound questions
 
         if (soundButton != null)
         {
